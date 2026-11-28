@@ -124,16 +124,36 @@
     return a > 2 ? 3 : a;
   }
 
-  /* 채점 실패 이유 — 서버가 적어 둔 note/reason/error 를 사람이 읽을 수 있게 */
-  function errReason(r) {
-    var s = String((r && (r.note || r.reason || r.error || r.result)) || '').trim();
+  /* 서버가 적어 둔 실패 사유 원문 — 비고(note)·reason·error 순서 */
+  function rawReason(r) {
+    return String((r && (r.note || r.reason || r.error || r.msg || r.memo || r.result)) || '').trim();
+  }
+
+  /* 학원 PC(자동채점 프로그램)에 그 교재가 아직 없어 실패한 건인지 */
+  function isNoBook(r) {
+    return /PC에\s*없는\s*교재|없는\s*교재입니다/.test(rawReason(r));
+  }
+
+  /* 채점 실패 이유 — 서버가 적어 둔 note/reason/error 를 사람이 읽을 수 있게
+     fallbackBook: 그 화면에서 고른 교재 이름(사유에 교재명이 빠졌을 때 채워 준다) */
+  function errReason(r, fallbackBook) {
+    var s = rawReason(r);
     if (!s) return '';
+    /* 2026-11-28 정서윤 학생 사례 — "[사진인식실패] 이 PC에 없는 교재입니다: 수학만 중1-2 기말" */
+    if (isNoBook(r)) {
+      var m = s.match(/없는\s*교재(?:입니다)?\s*[:：]?\s*([^\]\n]*)$/);
+      var book = (m && m[1] ? m[1] : '').replace(/[\]\)\s]+$/, '').trim() || String(fallbackBook || '').trim();
+      return (book ? '「' + book + '」 교재가 ' : '교재가 ') +
+        '학원 PC 자동채점 프로그램에 아직 없어요 — 선생님께 알려 주세요(교재 동기화 필요)';
+    }
     if (/분석본|structure|book\.json|등록되지 않은|교재.*없/.test(s)) return '교재 분석본이 없어요 — 선생님께 알려 주세요(학원 PC 콘솔에서 교재 등록 필요)';
     if (/(쪽|page)/i.test(s) && /(인식|찾지|미확인|못)/.test(s)) return '사진에서 쪽 번호를 찾지 못했어요 — 쪽 번호가 보이게 다시 찍어 주세요';
     if (/timeout|시간 초과|응답/.test(s)) return '채점 서버 응답이 늦었어요 — 잠시 뒤 다시 보내 주세요';
     if (/용량|size|too large|큰/.test(s)) return '사진 용량이 너무 커요 — 조금 작게 찍어 주세요';
     if (/API|연결|network|fetch|offline/i.test(s)) return '채점 서버에 연결하지 못했어요 — 인터넷을 확인해 주세요';
-    return s.slice(0, 120);
+    /* 앞의 [사진인식실패] 꼬리표는 빼고 나머지 설명만 남긴다. 남는 말이 없으면 원인을 단정하지 않는다 */
+    var t = s.replace(/^\[?\s*사진인식실패\s*\]?\s*/, '').trim();
+    return (t || '사진을 읽지 못했어요 — 다시 찍어 보내고, 계속 안 되면 선생님께 알려 주세요').slice(0, 120);
   }
 
   /* 경고 내용 한 줄 — "9번은 풀이 과정이 안 보이고, 3, 5번은 글씨가 흐려 확인이 필요해요." */
@@ -455,12 +475,15 @@
         warn.appendChild(wHead);
         if (isErr) {
           /* 2차(2026-11-28): 왜 실패했는지 서버가 남긴 사유를 같이 보여 준다 */
-          var why = errReason(r);
+          var why = errReason(r, o.bookTitle ? o.bookTitle() : '');
           if (why) warn.appendChild(el('div', 'ph-warn-s', '사유: ' + why));
         }
         warn.appendChild(el('div', 'ph-warn-s',
-          isErr ? '다시 찍어 보내면 같은 차수로 다시 채점해요.' : warnSub(r)));
-        var allow = (r.canRetry !== false) && (isErr || a < 2);
+          isErr ? (isNoBook(r)
+            ? '다시 찍어도 같은 결과예요. 선생님이 그 교재를 학원 PC에 올리면 채점할 수 있어요.'
+            : '다시 찍어 보내면 같은 차수로 다시 채점해요.') : warnSub(r)));
+        /* 학원 PC에 교재가 없는 건은 다시 찍어도 결과가 같으니 다시 찍기 버튼을 감춘다 */
+        var allow = (r.canRetry !== false) && !isNoBook(r) && (isErr || a < 2);
         if (allow) {
           var again = el('button', 'ph-warn-btn', '📸 다시 찍어 보내기');
           again.type = 'button';
