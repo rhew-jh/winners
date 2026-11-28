@@ -712,6 +712,8 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
           S.teacher = { name: r.teacher.name, slot: r.teacher.slot, pin: pin, scope: r.teacher.scope,
                         admin: !!(r.teacher.admin) };
           S.admin = '';
+          /* 2026-11-28 P1: 원장 계정은 admin 자리에 자기 핀을 넣어 두어 모든 요청이 핀으로 인증되게 한다 */
+          if (S.teacher.admin && !S.admin) S.admin = pin;
           store(LS_T, S.teacher);
           bEnter.disabled = false;
           boot();
@@ -1127,7 +1129,8 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       var st = statOf(sid);
       if (st) return Promise.resolve(st);
       if (STAT.loading[sid]) return STAT.loading[sid];
-      var req = S.teacher && S.teacher.admin ? { admin: S.admin } : { pin: pinArg() };
+      /* 2026-11-28 P1: 원장(핀 로그인)도 핀을 함께 보내야 서버가 원장으로 인식한다 */
+      var req = { pin: pinArg(), admin: S.admin || '' };
       req.studentId = sid; req.bookId = '';
       STAT.loading[sid] = srv('w62WbState', req).then(function (r) {
         var pages = (r && r.pages) || {};
@@ -2771,7 +2774,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
     }
 
     function teacherReq() {
-      return S.admin ? { admin: S.admin } : { pin: pinArg() };
+      return { pin: pinArg(), admin: S.admin || '' };
     }
     function ensureRoster() {
       if (S.books && S.books.length) return Promise.resolve(true);
@@ -3532,7 +3535,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       barWho.textContent = S.teacher.admin ? '원장' : (S.teacher.name + ' 선생님');
       barDate.textContent = dayText(S.today);
       setTab(startTab || 'wrong');
-      var req = S.teacher.admin ? { admin: S.admin } : { pin: S.teacher.pin };
+      var req = { pin: S.teacher.pin || '', admin: S.admin || '' };
       return srv('w62WbRoster', req).then(function (r) {
         S.students = r.students || [];
         S.books = r.books || [];
