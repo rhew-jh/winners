@@ -1,0 +1,1438 @@
+{
+ "meta": {
+  "generated": "2026-11-27",
+  "pageBasis": "body_page",
+  "pageBasisNote": "쪽 값은 교재 본문 인쇄 쪽번호입니다(정답지 PDF 쪽이 아님). 단원평가·학업성취도평가는 평가편 자체 쪽번호를 쓰므로 parts 에 따로 두었습니다. 이미지 파일명은 크롭 원본 그대로라 정답지 PDF 쪽을 담고 있습니다(경로는 books 에 있으므로 이름 규칙으로 찾지 않습니다).",
+  "source": "최유성(@choiyuseong5) 개인비서 figure_crops_mapping.json 본문 쪽 매핑본 (2026-11-27, 247건 전부 body_page 확정)",
+  "images": 247,
+  "totalImages": 247,
+  "entries": 247,
+  "parts": {
+   "본문": 218,
+   "단원평가": 15,
+   "학업성취도평가": 14
+  },
+  "partsEntries": 29,
+  "books": {
+   "bb12": {
+    "name": "백발백중 중1-2 2회 해설",
+    "images": 2,
+    "bodyImages": 2,
+    "evalImages": 0,
+    "pages": [
+     "29",
+     "106"
+    ],
+    "pageCount": 2,
+    "bodyPages": [
+     "29",
+     "106"
+    ],
+    "partPages": {
+     "본문": [
+      29,
+      106
+     ]
+    },
+    "answerPdfPages": [
+     1,
+     4
+    ]
+   },
+   "cho42": {
+    "name": "[초4-2] 라이트쎈 답지(1권)",
+    "images": 108,
+    "bodyImages": 93,
+    "evalImages": 15,
+    "pages": [
+     "1",
+     "3",
+     "4",
+     "7",
+     "8",
+     "10",
+     "11",
+     "12",
+     "13",
+     "19",
+     "30",
+     "32",
+     "35",
+     "36",
+     "37",
+     "42",
+     "43",
+     "44",
+     "48",
+     "49",
+     "53",
+     "54",
+     "58",
+     "60",
+     "64",
+     "65",
+     "73",
+     "74",
+     "80",
+     "94",
+     "95",
+     "96",
+     "97",
+     "98",
+     "103",
+     "104",
+     "109",
+     "111",
+     "112",
+     "114",
+     "118",
+     "120",
+     "128",
+     "129",
+     "131",
+     "132",
+     "133",
+     "137",
+     "139",
+     "145",
+     "146",
+     "148",
+     "149",
+     "153",
+     "154",
+     "158",
+     "159",
+     "160"
+    ],
+    "pageCount": 58,
+    "bodyPages": [
+     "10",
+     "12",
+     "13",
+     "19",
+     "30",
+     "32",
+     "35",
+     "36",
+     "37",
+     "42",
+     "43",
+     "44",
+     "48",
+     "49",
+     "53",
+     "54",
+     "58",
+     "60",
+     "64",
+     "65",
+     "73",
+     "74",
+     "80",
+     "94",
+     "95",
+     "96",
+     "97",
+     "98",
+     "103",
+     "104",
+     "109",
+     "111",
+     "112",
+     "114",
+     "118",
+     "120",
+     "128",
+     "129",
+     "131",
+     "132",
+     "133",
+     "137",
+     "139",
+     "145",
+     "146",
+     "148",
+     "149",
+     "153",
+     "154",
+     "158",
+     "159",
+     "160"
+    ],
+    "partPages": {
+     "본문": [
+      10,
+      12,
+      13,
+      19,
+      30,
+      32,
+      35,
+      36,
+      37,
+      42,
+      43,
+      44,
+      48,
+      49,
+      53,
+      54,
+      58,
+      60,
+      64,
+      65,
+      73,
+      74,
+      80,
+      94,
+      95,
+      96,
+      97,
+      98,
+      103,
+      104,
+      109,
+      111,
+      112,
+      114,
+      118,
+      120,
+      128,
+      129,
+      131,
+      132,
+      133,
+      137,
+      139,
+      145,
+      146,
+      148,
+      149,
+      153,
+      154,
+      158,
+      159,
+      160
+     ],
+     "단원평가": [
+      1,
+      3,
+      4,
+      7,
+      8,
+      10,
+      11,
+      12
+     ]
+    },
+    "answerPdfPages": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "lt11": {
+    "name": "중1-1 라이트쎈(2025) 답지",
+    "images": 7,
+    "bodyImages": 7,
+    "evalImages": 0,
+    "pages": [
+     "41",
+     "138",
+     "151",
+     "153"
+    ],
+    "pageCount": 4,
+    "bodyPages": [
+     "41",
+     "138",
+     "151",
+     "153"
+    ],
+    "partPages": {
+     "본문": [
+      41,
+      138,
+      151,
+      153
+     ]
+    },
+    "answerPdfPages": [
+     20,
+     75,
+     82,
+     83
+    ]
+   },
+   "sen11": {
+    "name": "쎈 중1-1 답지",
+    "images": 12,
+    "bodyImages": 12,
+    "evalImages": 0,
+    "pages": [
+     "8",
+     "40",
+     "104",
+     "144",
+     "158"
+    ],
+    "pageCount": 5,
+    "bodyPages": [
+     "8",
+     "40",
+     "104",
+     "144",
+     "158"
+    ],
+    "partPages": {
+     "본문": [
+      8,
+      40,
+      104,
+      144,
+      158
+     ]
+    },
+    "answerPdfPages": [
+     1,
+     2,
+     4,
+     5
+    ]
+   },
+   "sen52": {
+    "name": "쎈 5-2 정답",
+    "images": 117,
+    "bodyImages": 103,
+    "evalImages": 14,
+    "pages": [
+     "1",
+     "3",
+     "5",
+     "6",
+     "7",
+     "10",
+     "12",
+     "14",
+     "17",
+     "19",
+     "20",
+     "25",
+     "27",
+     "29",
+     "38",
+     "40",
+     "47",
+     "58",
+     "61",
+     "68",
+     "74",
+     "77",
+     "78",
+     "86",
+     "88",
+     "89",
+     "90",
+     "91",
+     "92",
+     "94",
+     "100",
+     "102",
+     "114",
+     "120",
+     "126",
+     "132",
+     "138",
+     "141",
+     "142",
+     "143",
+     "144",
+     "146",
+     "147",
+     "148",
+     "149",
+     "150",
+     "152",
+     "156",
+     "158",
+     "159",
+     "162",
+     "163",
+     "166",
+     "168",
+     "172",
+     "173",
+     "178",
+     "182"
+    ],
+    "pageCount": 58,
+    "bodyPages": [
+     "12",
+     "14",
+     "17",
+     "19",
+     "20",
+     "25",
+     "27",
+     "29",
+     "38",
+     "40",
+     "47",
+     "58",
+     "61",
+     "68",
+     "74",
+     "77",
+     "78",
+     "86",
+     "88",
+     "89",
+     "90",
+     "91",
+     "92",
+     "94",
+     "100",
+     "102",
+     "114",
+     "120",
+     "126",
+     "132",
+     "138",
+     "141",
+     "142",
+     "143",
+     "144",
+     "146",
+     "147",
+     "148",
+     "149",
+     "150",
+     "152",
+     "156",
+     "158",
+     "159",
+     "162",
+     "163",
+     "166",
+     "168",
+     "172",
+     "173",
+     "178",
+     "182"
+    ],
+    "partPages": {
+     "본문": [
+      12,
+      14,
+      17,
+      19,
+      20,
+      25,
+      27,
+      29,
+      38,
+      40,
+      47,
+      58,
+      61,
+      68,
+      74,
+      77,
+      78,
+      86,
+      88,
+      89,
+      90,
+      91,
+      92,
+      94,
+      100,
+      102,
+      114,
+      120,
+      126,
+      132,
+      138,
+      141,
+      142,
+      143,
+      144,
+      146,
+      147,
+      148,
+      149,
+      150,
+      152,
+      156,
+      158,
+      159,
+      162,
+      163,
+      166,
+      168,
+      172,
+      173,
+      178,
+      182
+     ],
+     "학업성취도평가": [
+      1,
+      3,
+      5,
+      6,
+      7,
+      10,
+      12
+     ]
+    },
+    "answerPdfPages": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13
+    ]
+   },
+   "tg12": {
+    "name": "(22개정)특급기출 중학수학 1-2 정답 및 해설",
+    "images": 1,
+    "bodyImages": 1,
+    "evalImages": 0,
+    "pages": [
+     "155"
+    ],
+    "pageCount": 1,
+    "bodyPages": [
+     "155"
+    ],
+    "partPages": {
+     "본문": [
+      155
+     ]
+    },
+    "answerPdfPages": [
+     7
+    ]
+   }
+  },
+  "lookupKey": "본문은 books[교재][body_page][문항] · 평가편은 parts[교재][body_page_part][body_page][문항]",
+  "splitNote": "books[] 에는 본문 그림만, parts[] 에는 단원평가·학업성취도평가만 들어 있습니다. books 에 평가편을 두지 않으므로 본문 쪽 조회로 평가편 그림이 잡히지 않습니다.",
+  "legacyAnswerPdfDups": 17
+ },
+ "titles": {
+  "초42라이트쎈답지1권": "cho42",
+  "라이트쎈초421권": "cho42",
+  "라이트쎈초42": "cho42",
+  "초42라이트쎈": "cho42",
+  "라이트쎈수학초42": "cho42",
+  "쎈52정답": "sen52",
+  "쎈52": "sen52",
+  "쎈수학52": "sen52",
+  "초52쎈": "sen52",
+  "쎈중11답지": "sen11",
+  "쎈중11": "sen11",
+  "쎈수학중11": "sen11",
+  "백발백중중122회해설": "bb12",
+  "백발백중중122회": "bb12",
+  "백발백중중학수학중122회": "bb12",
+  "22개정특급기출중학수학12정답및해설": "tg12",
+  "특급기출중학수학12": "tg12",
+  "특급기출중12": "tg12",
+  "특급기출중학수학중12": "tg12",
+  "중11라이트쎈2025답지": "lt11",
+  "라이트쎈중11": "lt11",
+  "라이트쎈중학수학중11": "lt11",
+  "중11라이트쎈": "lt11"
+ },
+ "books": {
+  "bb12": {
+   "29": {
+    "6": "ans_img/bb12/bb12_p01_06.png"
+   },
+   "106": {
+    "3": "ans_img/bb12/bb12_p04_03.png"
+   }
+  },
+  "cho42": {
+   "10": {
+    "1": "ans_img/cho42/cho42_p02_01.png"
+   },
+   "12": {
+    "19": "ans_img/cho42/cho42_p02_19.png"
+   },
+   "13": {
+    "22": "ans_img/cho42/cho42_p02_22.png"
+   },
+   "19": {
+    "18": "ans_img/cho42/cho42_p02_18.png"
+   },
+   "30": {
+    "4": "ans_img/cho42/cho42_p03_04.png"
+   },
+   "32": {
+    "17": "ans_img/cho42/cho42_p03_17.png"
+   },
+   "35": {
+    "3": "ans_img/cho42/cho42_p03_03.png"
+   },
+   "36": {
+    "6": "ans_img/cho42/cho42_p03_06.png"
+   },
+   "37": {
+    "3": "ans_img/cho42/cho42_p03_03-2.png"
+   },
+   "42": {
+    "29": "ans_img/cho42/cho42_p04_29.png",
+    "30": "ans_img/cho42/cho42_p04_30.png",
+    "31": "ans_img/cho42/cho42_p04_31.png"
+   },
+   "43": {
+    "38": "ans_img/cho42/cho42_p04_38.png",
+    "39": "ans_img/cho42/cho42_p04_39.png",
+    "40": "ans_img/cho42/cho42_p04_40.png"
+   },
+   "44": {
+    "3": "ans_img/cho42/cho42_p04_03.png"
+   },
+   "48": {
+    "13": "ans_img/cho42/cho42_p04_13.png",
+    "14": "ans_img/cho42/cho42_p04_14.png",
+    "15": "ans_img/cho42/cho42_p04_15.png"
+   },
+   "49": {
+    "19": "ans_img/cho42/cho42_p04_19.png"
+   },
+   "53": {
+    "8": "ans_img/cho42/cho42_p04_08.png",
+    "11": "ans_img/cho42/cho42_p04_11.png"
+   },
+   "54": {
+    "19": "ans_img/cho42/cho42_p05_19.png"
+   },
+   "58": {
+    "2": "ans_img/cho42/cho42_p05_02.png",
+    "7": "ans_img/cho42/cho42_p05_07.png"
+   },
+   "60": {
+    "16": "ans_img/cho42/cho42_p05_16.png"
+   },
+   "64": {
+    "3": "ans_img/cho42/cho42_p05_03.png",
+    "4": "ans_img/cho42/cho42_p05_04.png"
+   },
+   "65": {
+    "6": "ans_img/cho42/cho42_p05_06.png",
+    "7": "ans_img/cho42/cho42_p05_07-2.png"
+   },
+   "73": {
+    "12": "ans_img/cho42/cho42_p06_12.png"
+   },
+   "74": {
+    "21": "ans_img/cho42/cho42_p06_21.png"
+   },
+   "80": {
+    "16": "ans_img/cho42/cho42_p06_16.png"
+   },
+   "94": {
+    "10": "ans_img/cho42/cho42_p06_10.png",
+    "11": "ans_img/cho42/cho42_p06_11.png"
+   },
+   "95": {
+    "13": "ans_img/cho42/cho42_p06_13.png"
+   },
+   "96": {
+    "22": "ans_img/cho42/cho42_p07_22.png"
+   },
+   "97": {
+    "24": "ans_img/cho42/cho42_p07_24.png",
+    "25": "ans_img/cho42/cho42_p07_25.png",
+    "26": "ans_img/cho42/cho42_p07_26.png"
+   },
+   "98": {
+    "33": "ans_img/cho42/cho42_p07_33.png",
+    "34": "ans_img/cho42/cho42_p07_34.png",
+    "35": "ans_img/cho42/cho42_p07_35.png"
+   },
+   "103": {
+    "7": "ans_img/cho42/cho42_p07_07.png",
+    "8": "ans_img/cho42/cho42_p07_08.png"
+   },
+   "104": {
+    "15": "ans_img/cho42/cho42_p07_15.png",
+    "16": "ans_img/cho42/cho42_p07_16.png",
+    "17": "ans_img/cho42/cho42_p07_17.png"
+   },
+   "109": {
+    "4": "ans_img/cho42/cho42_p07_04.png",
+    "5": "ans_img/cho42/cho42_p07_05.png",
+    "6": "ans_img/cho42/cho42_p07_06.png"
+   },
+   "111": {
+    "14": "ans_img/cho42/cho42_p07_14.png"
+   },
+   "112": {
+    "20": "ans_img/cho42/cho42_p08_20.png"
+   },
+   "114": {
+    "33": "ans_img/cho42/cho42_p08_33.png",
+    "34": "ans_img/cho42/cho42_p08_34.png"
+   },
+   "118": {
+    "3": "ans_img/cho42/cho42_p08_03.png",
+    "6": "ans_img/cho42/cho42_p08_06.png"
+   },
+   "120": {
+    "16": "ans_img/cho42/cho42_p08_16.png"
+   },
+   "128": {
+    "1": "ans_img/cho42/cho42_p08_01.png"
+   },
+   "129": {
+    "3": "ans_img/cho42/cho42_p08_03-2.png"
+   },
+   "131": {
+    "3": "ans_img/cho42/cho42_p09_03.png",
+    "6": "ans_img/cho42/cho42_p09_06.png"
+   },
+   "132": {
+    "7": "ans_img/cho42/cho42_p09_07.png",
+    "8": "ans_img/cho42/cho42_p09_08.png",
+    "9": "ans_img/cho42/cho42_p09_09.png",
+    "10": "ans_img/cho42/cho42_p09_10.png"
+   },
+   "133": {
+    "12": "ans_img/cho42/cho42_p09_12.png",
+    "14": "ans_img/cho42/cho42_p09_14.png"
+   },
+   "137": {
+    "29": "ans_img/cho42/cho42_p09_29.png"
+   },
+   "139": {
+    "10": "ans_img/cho42/cho42_p09_10-2.png",
+    "13": "ans_img/cho42/cho42_p10_13.png"
+   },
+   "145": {
+    "4": "ans_img/cho42/cho42_p10_04.png",
+    "5": "ans_img/cho42/cho42_p10_05.png"
+   },
+   "146": {
+    "9": "ans_img/cho42/cho42_p10_09.png",
+    "10": "ans_img/cho42/cho42_p10_10.png"
+   },
+   "148": {
+    "21": "ans_img/cho42/cho42_p10_21.png",
+    "22": "ans_img/cho42/cho42_p10_22.png",
+    "23": "ans_img/cho42/cho42_p10_23.png"
+   },
+   "149": {
+    "25": "ans_img/cho42/cho42_p10_25.png",
+    "30": "ans_img/cho42/cho42_p10_30.png"
+   },
+   "153": {
+    "1": "ans_img/cho42/cho42_p10_01.png",
+    "2": "ans_img/cho42/cho42_p10_02.png",
+    "4": "ans_img/cho42/cho42_p10_04-2.png",
+    "5": "ans_img/cho42/cho42_p10_05-2.png"
+   },
+   "154": {
+    "6": "ans_img/cho42/cho42_p11_06.png",
+    "9": "ans_img/cho42/cho42_p11_09.png",
+    "10": "ans_img/cho42/cho42_p11_10.png",
+    "11": "ans_img/cho42/cho42_p11_11.png"
+   },
+   "158": {
+    "3": "ans_img/cho42/cho42_p11_03.png"
+   },
+   "159": {
+    "11": "ans_img/cho42/cho42_p11_11-2.png"
+   },
+   "160": {
+    "17": "ans_img/cho42/cho42_p11_17.png",
+    "18": "ans_img/cho42/cho42_p11_18.png",
+    "20": "ans_img/cho42/cho42_p11_20.png"
+   }
+  },
+  "lt11": {
+   "41": {
+    "278": "ans_img/lt11/lt11_p20_278.png"
+   },
+   "138": {
+    "1036": "ans_img/lt11/lt11_p75_1036.png",
+    "1038": "ans_img/lt11/lt11_p75_1038.png"
+   },
+   "151": {
+    "1124": "ans_img/lt11/lt11_p82_1124.png",
+    "1125": "ans_img/lt11/lt11_p82_1125.png"
+   },
+   "153": {
+    "1142": "ans_img/lt11/lt11_p83_1142.png",
+    "1143": "ans_img/lt11/lt11_p83_1143.png"
+   }
+  },
+  "sen11": {
+   "8": {
+    "41": "ans_img/sen11/sen11_p01_41.png",
+    "42": "ans_img/sen11/sen11_p01_42.png"
+   },
+   "40": {
+    "253": "ans_img/sen11/sen11_p02_253.png",
+    "255": "ans_img/sen11/sen11_p02_255.png",
+    "270": "ans_img/sen11/sen11_p02_270.png"
+   },
+   "104": {
+    "759": "ans_img/sen11/sen11_p04_759.png"
+   },
+   "144": {
+    "1011": "ans_img/sen11/sen11_p05_1011.png",
+    "1013": "ans_img/sen11/sen11_p05_1013.png"
+   },
+   "158": {
+    "1097": "ans_img/sen11/sen11_p05_1097.png",
+    "1098": "ans_img/sen11/sen11_p05_1098.png",
+    "1103": "ans_img/sen11/sen11_p05_1103.png",
+    "1104": "ans_img/sen11/sen11_p05_1104.png"
+   }
+  },
+  "sen52": {
+   "12": {
+    "7": "ans_img/sen52/sen52_p02_07.png",
+    "8": "ans_img/sen52/sen52_p02_08.png"
+   },
+   "14": {
+    "24": "ans_img/sen52/sen52_p02_24.png",
+    "25": "ans_img/sen52/sen52_p02_25.png"
+   },
+   "17": {
+    "41": "ans_img/sen52/sen52_p02_41.png",
+    "42": "ans_img/sen52/sen52_p02_42.png",
+    "45": "ans_img/sen52/sen52_p02_45.png"
+   },
+   "19": {
+    "53": "ans_img/sen52/sen52_p02_53.png"
+   },
+   "20": {
+    "5": "ans_img/sen52/sen52_p02_05.png"
+   },
+   "25": {
+    "67": "ans_img/sen52/sen52_p02_67.png"
+   },
+   "27": {
+    "79": "ans_img/sen52/sen52_p02_79.png"
+   },
+   "29": {
+    "95": "ans_img/sen52/sen52_p03_95.png"
+   },
+   "38": {
+    "7": "ans_img/sen52/sen52_p03_07.png"
+   },
+   "40": {
+    "2": "ans_img/sen52/sen52_p03_02.png"
+   },
+   "47": {
+    "10": "ans_img/sen52/sen52_p03_10.png"
+   },
+   "58": {
+    "73": "ans_img/sen52/sen52_p04_73.png",
+    "74": "ans_img/sen52/sen52_p04_74.png"
+   },
+   "61": {
+    "91": "ans_img/sen52/sen52_p04_91.png"
+   },
+   "68": {
+    "2": "ans_img/sen52/sen52_p04_02.png",
+    "3": "ans_img/sen52/sen52_p04_03.png"
+   },
+   "74": {
+    "8": "ans_img/sen52/sen52_p05_08.png",
+    "9": "ans_img/sen52/sen52_p05_09-2.png"
+   },
+   "77": {
+    "9": "ans_img/sen52/sen52_p05_09.png",
+    "10": "ans_img/sen52/sen52_p05_10.png",
+    "11": "ans_img/sen52/sen52_p05_11.png",
+    "12": "ans_img/sen52/sen52_p05_12.png",
+    "13": "ans_img/sen52/sen52_p05_13.png"
+   },
+   "78": {
+    "21": "ans_img/sen52/sen52_p05_21.png"
+   },
+   "86": {
+    "45": "ans_img/sen52/sen52_p05_45.png",
+    "46": "ans_img/sen52/sen52_p05_46.png"
+   },
+   "88": {
+    "55": "ans_img/sen52/sen52_p06_55.png",
+    "56": "ans_img/sen52/sen52_p06_56.png",
+    "60": "ans_img/sen52/sen52_p06_60.png"
+   },
+   "89": {
+    "66": "ans_img/sen52/sen52_p06_66.png",
+    "67": "ans_img/sen52/sen52_p06_67.png"
+   },
+   "90": {
+    "68": "ans_img/sen52/sen52_p06_68.png",
+    "71": "ans_img/sen52/sen52_p06_71.png"
+   },
+   "91": {
+    "77": "ans_img/sen52/sen52_p06_77.png",
+    "78": "ans_img/sen52/sen52_p06_78.png"
+   },
+   "92": {
+    "84": "ans_img/sen52/sen52_p06_84.png",
+    "85": "ans_img/sen52/sen52_p06_85.png"
+   },
+   "94": {
+    "97": "ans_img/sen52/sen52_p06_97.png",
+    "98": "ans_img/sen52/sen52_p06_98.png",
+    "99": "ans_img/sen52/sen52_p06_99.png",
+    "100": "ans_img/sen52/sen52_p06_100.png",
+    "101": "ans_img/sen52/sen52_p06_101.png"
+   },
+   "100": {
+    "2": "ans_img/sen52/sen52_p07_02.png",
+    "4": "ans_img/sen52/sen52_p07_04.png",
+    "16": "ans_img/sen52/sen52_p07_16.png"
+   },
+   "102": {
+    "3": "ans_img/sen52/sen52_p07_03.png",
+    "9": "ans_img/sen52/sen52_p07_09.png",
+    "11": "ans_img/sen52/sen52_p07_11.png",
+    "13": "ans_img/sen52/sen52_p07_13.png"
+   },
+   "114": {
+    "35": "ans_img/sen52/sen52_p07_35.png"
+   },
+   "120": {
+    "80": "ans_img/sen52/sen52_p08_80.png"
+   },
+   "126": {
+    "13": "ans_img/sen52/sen52_p08_13.png"
+   },
+   "132": {
+    "2": "ans_img/sen52/sen52_p08_02.png"
+   },
+   "138": {
+    "21": "ans_img/sen52/sen52_p08_21.png",
+    "22": "ans_img/sen52/sen52_p08_22.png"
+   },
+   "141": {
+    "9": "ans_img/sen52/sen52_p09_09.png",
+    "10": "ans_img/sen52/sen52_p09_10.png",
+    "11": "ans_img/sen52/sen52_p09_11.png"
+   },
+   "142": {
+    "13": "ans_img/sen52/sen52_p09_13.png",
+    "14": "ans_img/sen52/sen52_p09_14.png",
+    "15": "ans_img/sen52/sen52_p09_15.png"
+   },
+   "143": {
+    "38": "ans_img/sen52/sen52_p09_38.png",
+    "39": "ans_img/sen52/sen52_p09_39.png"
+   },
+   "144": {
+    "41": "ans_img/sen52/sen52_p09_41.png",
+    "44": "ans_img/sen52/sen52_p09_44.png"
+   },
+   "146": {
+    "56": "ans_img/sen52/sen52_p09_56.png"
+   },
+   "147": {
+    "57": "ans_img/sen52/sen52_p09_57.png",
+    "61": "ans_img/sen52/sen52_p09_61.png"
+   },
+   "148": {
+    "67": "ans_img/sen52/sen52_p09_67.png",
+    "69": "ans_img/sen52/sen52_p09_69.png"
+   },
+   "149": {
+    "70": "ans_img/sen52/sen52_p09_70.png",
+    "71": "ans_img/sen52/sen52_p09_71.png",
+    "72": "ans_img/sen52/sen52_p09_72.png",
+    "73": "ans_img/sen52/sen52_p10_73.png",
+    "74": "ans_img/sen52/sen52_p10_74.png"
+   },
+   "150": {
+    "76": "ans_img/sen52/sen52_p10_76.png",
+    "77": "ans_img/sen52/sen52_p10_77.png",
+    "78": "ans_img/sen52/sen52_p10_78.png",
+    "79": "ans_img/sen52/sen52_p10_79.png"
+   },
+   "152": {
+    "87": "ans_img/sen52/sen52_p10_87.png"
+   },
+   "156": {
+    "5": "ans_img/sen52/sen52_p10_05.png",
+    "9": "ans_img/sen52/sen52_p10_09.png",
+    "13": "ans_img/sen52/sen52_p10_13.png",
+    "15": "ans_img/sen52/sen52_p10_15.png"
+   },
+   "158": {
+    "5": "ans_img/sen52/sen52_p10_05-2.png",
+    "8": "ans_img/sen52/sen52_p11_08.png"
+   },
+   "159": {
+    "12": "ans_img/sen52/sen52_p11_12.png",
+    "16": "ans_img/sen52/sen52_p11_16.png"
+   },
+   "162": {
+    "1": "ans_img/sen52/sen52_p11_01.png"
+   },
+   "163": {
+    "5": "ans_img/sen52/sen52_p11_05.png"
+   },
+   "166": {
+    "18": "ans_img/sen52/sen52_p11_18.png"
+   },
+   "168": {
+    "10": "ans_img/sen52/sen52_p11_10.png"
+   },
+   "172": {
+    "29": "ans_img/sen52/sen52_p11_29.png"
+   },
+   "173": {
+    "36": "ans_img/sen52/sen52_p11_36.png",
+    "37": "ans_img/sen52/sen52_p11_37.png",
+    "38": "ans_img/sen52/sen52_p11_38.png",
+    "39": "ans_img/sen52/sen52_p11_39.png"
+   },
+   "178": {
+    "5": "ans_img/sen52/sen52_p12_05.png"
+   },
+   "182": {
+    "14": "ans_img/sen52/sen52_p12_14.png"
+   }
+  },
+  "tg12": {
+   "155": {
+    "6": "ans_img/tg12/tg12_p07_06.png"
+   }
+  }
+ },
+ "parts": {
+  "cho42": {
+   "단원평가": {
+    "1": {
+     "5": "ans_img/cho42/cho42_p11_05.png"
+    },
+    "3": {
+     "9": "ans_img/cho42/cho42_p11_09-2.png"
+    },
+    "4": {
+     "13": "ans_img/cho42/cho42_p11_13.png",
+     "17": "ans_img/cho42/cho42_p12_17.png"
+    },
+    "7": {
+     "3": "ans_img/cho42/cho42_p12_03.png"
+    },
+    "8": {
+     "11": "ans_img/cho42/cho42_p12_11.png",
+     "12": "ans_img/cho42/cho42_p12_12.png"
+    },
+    "10": {
+     "13": "ans_img/cho42/cho42_p12_13.png",
+     "15": "ans_img/cho42/cho42_p12_15.png",
+     "17": "ans_img/cho42/cho42_p12_17-2.png"
+    },
+    "11": {
+     "3": "ans_img/cho42/cho42_p12_03-2.png",
+     "4": "ans_img/cho42/cho42_p12_04.png"
+    },
+    "12": {
+     "11": "ans_img/cho42/cho42_p12_11-2.png",
+     "17": "ans_img/cho42/cho42_p12_17-3.png",
+     "20": "ans_img/cho42/cho42_p12_20.png"
+    }
+   }
+  },
+  "sen52": {
+   "학업성취도평가": {
+    "1": {
+     "2": "ans_img/sen52/sen52_p12_02.png"
+    },
+    "3": {
+     "2": "ans_img/sen52/sen52_p12_02-2.png"
+    },
+    "5": {
+     "3": "ans_img/sen52/sen52_p13_03.png"
+    },
+    "6": {
+     "13": "ans_img/sen52/sen52_p13_13.png",
+     "15": "ans_img/sen52/sen52_p13_15.png",
+     "17": "ans_img/sen52/sen52_p13_17.png",
+     "20": "ans_img/sen52/sen52_p13_20.png"
+    },
+    "7": {
+     "2": "ans_img/sen52/sen52_p13_02.png"
+    },
+    "10": {
+     "13": "ans_img/sen52/sen52_p13_13-2.png",
+     "16": "ans_img/sen52/sen52_p13_16.png",
+     "17": "ans_img/sen52/sen52_p13_17-2.png",
+     "20": "ans_img/sen52/sen52_p13_20-2.png"
+    },
+    "12": {
+     "17": "ans_img/sen52/sen52_p13_17-3.png",
+     "20": "ans_img/sen52/sen52_p13_20-3.png"
+    }
+   }
+  }
+ },
+ "legacyAnswerPdfDups": [
+  {
+   "book": "cho42",
+   "answerPdfPage": 3,
+   "no": 3,
+   "files": [
+    {
+     "file": "cho42_p03_03.png",
+     "bodyPage": 35,
+     "part": "본문",
+     "section": "2. 삼각형 A단계(1)"
+    },
+    {
+     "file": "cho42_p03_03-2.png",
+     "bodyPage": 37,
+     "part": "본문",
+     "section": "2. 삼각형 B단계(1)"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 5,
+   "no": 7,
+   "files": [
+    {
+     "file": "cho42_p05_07.png",
+     "bodyPage": 58,
+     "part": "본문",
+     "section": "3. 소수의 덧셈과 뺄셈 B단계(1)"
+    },
+    {
+     "file": "cho42_p05_07-2.png",
+     "bodyPage": 65,
+     "part": "본문",
+     "section": "3. 소수의 덧셈과 뺄셈 B단계(2)"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 8,
+   "no": 3,
+   "files": [
+    {
+     "file": "cho42_p08_03.png",
+     "bodyPage": 118,
+     "part": "본문",
+     "section": "4. 사각형 마무리 GOGO"
+    },
+    {
+     "file": "cho42_p08_03-2.png",
+     "bodyPage": 129,
+     "part": "본문",
+     "section": "5. 꺾은선그래프 A단계(2)"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 9,
+   "no": 10,
+   "files": [
+    {
+     "file": "cho42_p09_10.png",
+     "bodyPage": 132,
+     "part": "본문",
+     "section": "5. 꺾은선그래프 B단계(2)"
+    },
+    {
+     "file": "cho42_p09_10-2.png",
+     "bodyPage": 139,
+     "part": "본문",
+     "section": "5. 꺾은선그래프 마무리 GOGO"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 10,
+   "no": 4,
+   "files": [
+    {
+     "file": "cho42_p10_04.png",
+     "bodyPage": 145,
+     "part": "본문",
+     "section": "6. 다각형 B단계(1)"
+    },
+    {
+     "file": "cho42_p10_04-2.png",
+     "bodyPage": 153,
+     "part": "본문",
+     "section": "6. 다각형 B단계(2)"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 10,
+   "no": 5,
+   "files": [
+    {
+     "file": "cho42_p10_05.png",
+     "bodyPage": 145,
+     "part": "본문",
+     "section": "6. 다각형 B단계(1)"
+    },
+    {
+     "file": "cho42_p10_05-2.png",
+     "bodyPage": 153,
+     "part": "본문",
+     "section": "6. 다각형 B단계(2)"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 11,
+   "no": 9,
+   "files": [
+    {
+     "file": "cho42_p11_09.png",
+     "bodyPage": 154,
+     "part": "본문",
+     "section": "6. 다각형 B단계(2)"
+    },
+    {
+     "file": "cho42_p11_09-2.png",
+     "bodyPage": 3,
+     "part": "단원평가",
+     "section": "단원평가 2. 삼각형"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 11,
+   "no": 11,
+   "files": [
+    {
+     "file": "cho42_p11_11.png",
+     "bodyPage": 154,
+     "part": "본문",
+     "section": "6. 다각형 B단계(2)"
+    },
+    {
+     "file": "cho42_p11_11-2.png",
+     "bodyPage": 159,
+     "part": "본문",
+     "section": "6. 다각형 마무리 GOGO"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 12,
+   "no": 3,
+   "files": [
+    {
+     "file": "cho42_p12_03.png",
+     "bodyPage": 7,
+     "part": "단원평가",
+     "section": "단원평가 4. 사각형"
+    },
+    {
+     "file": "cho42_p12_03-2.png",
+     "bodyPage": 11,
+     "part": "단원평가",
+     "section": "단원평가 6. 다각형"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 12,
+   "no": 11,
+   "files": [
+    {
+     "file": "cho42_p12_11.png",
+     "bodyPage": 8,
+     "part": "단원평가",
+     "section": "단원평가 4. 사각형"
+    },
+    {
+     "file": "cho42_p12_11-2.png",
+     "bodyPage": 12,
+     "part": "단원평가",
+     "section": "단원평가 6. 다각형"
+    }
+   ]
+  },
+  {
+   "book": "cho42",
+   "answerPdfPage": 12,
+   "no": 17,
+   "files": [
+    {
+     "file": "cho42_p12_17.png",
+     "bodyPage": 4,
+     "part": "단원평가",
+     "section": "단원평가 2. 삼각형"
+    },
+    {
+     "file": "cho42_p12_17-2.png",
+     "bodyPage": 10,
+     "part": "단원평가",
+     "section": "단원평가 5. 꺾은선그래프"
+    },
+    {
+     "file": "cho42_p12_17-3.png",
+     "bodyPage": 12,
+     "part": "단원평가",
+     "section": "단원평가 6. 다각형"
+    }
+   ]
+  },
+  {
+   "book": "sen52",
+   "answerPdfPage": 5,
+   "no": 9,
+   "files": [
+    {
+     "file": "sen52_p05_09-2.png",
+     "bodyPage": 74,
+     "part": "본문",
+     "section": "3. 합동과 대칭 A단계(1)"
+    },
+    {
+     "file": "sen52_p05_09.png",
+     "bodyPage": 77,
+     "part": "본문",
+     "section": "3. 합동과 대칭 B단계(1)"
+    }
+   ]
+  },
+  {
+   "book": "sen52",
+   "answerPdfPage": 10,
+   "no": 5,
+   "files": [
+    {
+     "file": "sen52_p10_05.png",
+     "bodyPage": 156,
+     "part": "본문",
+     "section": "5. 직육면체 단원마무리 1회"
+    },
+    {
+     "file": "sen52_p10_05-2.png",
+     "bodyPage": 158,
+     "part": "본문",
+     "section": "5. 직육면체 단원마무리 2회"
+    }
+   ]
+  },
+  {
+   "book": "sen52",
+   "answerPdfPage": 12,
+   "no": 2,
+   "files": [
+    {
+     "file": "sen52_p12_02.png",
+     "bodyPage": 1,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 1. 수의 범위와 어림하기 학업성취도평가"
+    },
+    {
+     "file": "sen52_p12_02-2.png",
+     "bodyPage": 3,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 2. 분수의 곱셈 학업성취도평가"
+    }
+   ]
+  },
+  {
+   "book": "sen52",
+   "answerPdfPage": 13,
+   "no": 13,
+   "files": [
+    {
+     "file": "sen52_p13_13.png",
+     "bodyPage": 6,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 3. 합동과 대칭 학업성취도평가"
+    },
+    {
+     "file": "sen52_p13_13-2.png",
+     "bodyPage": 10,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 5. 직육면체 학업성취도평가"
+    }
+   ]
+  },
+  {
+   "book": "sen52",
+   "answerPdfPage": 13,
+   "no": 17,
+   "files": [
+    {
+     "file": "sen52_p13_17.png",
+     "bodyPage": 6,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 3. 합동과 대칭 학업성취도평가"
+    },
+    {
+     "file": "sen52_p13_17-2.png",
+     "bodyPage": 10,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 5. 직육면체 학업성취도평가"
+    },
+    {
+     "file": "sen52_p13_17-3.png",
+     "bodyPage": 12,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 6. 평균과 가능성 학업성취도평가"
+    }
+   ]
+  },
+  {
+   "book": "sen52",
+   "answerPdfPage": 13,
+   "no": 20,
+   "files": [
+    {
+     "file": "sen52_p13_20.png",
+     "bodyPage": 6,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 3. 합동과 대칭 학업성취도평가"
+    },
+    {
+     "file": "sen52_p13_20-2.png",
+     "bodyPage": 10,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 5. 직육면체 학업성취도평가"
+    },
+    {
+     "file": "sen52_p13_20-3.png",
+     "bodyPage": 12,
+     "part": "학업성취도평가",
+     "section": "학업성취도평가 6. 평균과 가능성 학업성취도평가"
+    }
+   ]
+  }
+ ]
+}

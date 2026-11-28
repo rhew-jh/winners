@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script>window.WINNERS_BRIDGE={mode:"math",exec:"https://script.google.com/macros/s/AKfycbzATgaIbUsl8wOCJVe2Sn4K2HyzX6UGVZIbFBwtyyXpt2A4fvlwBeivcQS1Bzrzc6eK/exec"};</script>
+<script src="bridge.js?v=8"></script>
+<script>window.__BOOTEXAM=(function(){var m=/[?&](?:exam|code)=([^&]*)/.exec(location.search);return m?decodeURIComponent(m[1]):'';})();</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>WINNERS 수학 채점</title>
+<style>
+  :root{ --navy:#16306b; --ink:#1b2440; --muted:#6b7785; --line:#e3e8f1; --red:#c8102e;
+         --green:#1b7a3d; --soft:#eef2fb; --bg:#f2f5fb; }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--ink);padding-bottom:96px;
+       font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif}
+  header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:11px 14px}
+  .hd{display:flex;align-items:center;gap:9px}
+  .hd .tt{font-size:16px;font-weight:800}
+  .hd .st{font-size:11.5px;opacity:.85;margin-top:2px}
+  .hd .who{margin-left:auto;font-size:11px;background:rgba(255,255,255,.17);padding:5px 9px;border-radius:20px}
+  main{padding:13px;max-width:760px;margin:0 auto}
+  .card{background:#fff;border-radius:15px;padding:15px;margin-bottom:11px;box-shadow:0 2px 10px rgba(16,32,64,.06)}
+  .card h2{font-size:13.5px;margin:0 0 9px;color:var(--navy)}
+  .name{font-size:20px;font-weight:800;letter-spacing:-.3px}
+  .meta{font-size:12.5px;color:#4a5568;margin-top:5px;line-height:1.6}
+  .badge{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:20px;background:var(--soft);color:var(--navy)}
+  .badge.hard{background:#fff0ec;color:#b3261e}
+  .score{display:flex;align-items:center;gap:10px;margin-top:11px;border:2px solid var(--navy);border-radius:12px;padding:9px 12px}
+  .score .lb{font-size:11.5px;font-weight:800;color:var(--navy)}
+  .score .vl{font-size:23px;font-weight:900}
+  .score .sub{margin-left:auto;font-size:12px;color:var(--muted)}
+  ul.items{list-style:none;padding:0;margin:0}
+  ul.items li{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid #eef1f6}
+  ul.items li:last-child{border-bottom:0}
+  .no{width:29px;height:29px;flex:0 0 29px;border-radius:9px;background:var(--soft);color:var(--navy);
+      font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .q{flex:1;min-width:0;font-size:13.5px;font-weight:700}
+  .q .tiny{display:block;font-size:10.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .ans{font-size:13.5px;font-weight:800;color:var(--navy);min-width:38px;text-align:right}
+  .tg{width:38px;height:36px;border-radius:9px;border:1.5px solid #b9dcff;background:#f1f8ff;color:var(--navy);
+      font-size:14px;font-weight:900}
+  .tg.x{border-color:#f3b8c0;background:#fff2f4;color:var(--red)}
+  .tg.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .tg.x.on{background:var(--red);border-color:var(--red);color:#fff}
+  .solbtn{flex:0 0 auto;font-size:11px;font-weight:800;padding:7px 8px;border-radius:8px;border:1px solid #cfe0f5;
+          background:#f3f8ff;color:#1f5aa8}
+  li.wrong{background:#fff7f7}
+  input[type=text],input[type=password]{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:11px;font-size:15px}
+  button{font-family:inherit;font-size:14px;padding:13px 14px;border-radius:12px;border:1px solid var(--line);
+         background:#fff;color:var(--ink);font-weight:800}
+  button.primary{background:var(--navy);border-color:var(--navy);color:#fff;width:100%}
+  button.ghost{background:#e8edf7;color:var(--navy)}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:#fffffff2;backdrop-filter:blur(8px);border-top:1px solid var(--line);
+       padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;max-width:760px;margin:0 auto}
+  .note{font-size:12.5px;line-height:1.6;border-radius:11px;padding:10px 11px;margin-top:10px;background:#f1f4f9}
+  .note.ok{background:#eaf7ee;color:#125c33}
+  .note.err{background:#fdecec;color:#8c1d18}
+  .hide{display:none!important}
+  .modal{position:fixed;inset:0;background:#0b1220dd;z-index:50;display:flex;align-items:center;justify-content:center;padding:14px}
+  .modal .inner{background:#fff;border-radius:14px;max-height:92vh;overflow:auto;max-width:760px;width:100%}
+  .modal img{width:100%;display:block;border-radius:0 0 14px 14px}
+  .modal .mh{display:flex;align-items:center;gap:8px;padding:11px 13px;font-weight:800;color:var(--navy);font-size:14px}
+  .modal .mh button{margin-left:auto;padding:7px 11px;font-size:12.5px}
+  .row2{display:flex;gap:8px}.row2>*{flex:1}
+  .linkbtn{display:inline-block;padding:12px 14px;border-radius:11px;background:#e8edf7;color:var(--navy);
+           font-weight:800;font-size:14px;text-decoration:none}
+  .linkbtn.primary{background:var(--navy);color:#fff}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid #fff6;border-top-color:#fff;border-radius:50%;
+        animation:sp .8s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <div>
+      <div class="tt">수학 채점 QR</div>
+      <div class="st" id="sub">시험지 QR 코드로 접속하거나 시험 코드를 입력하세요</div>
+    </div>
+    <div class="who hide" id="who"></div>
+  </div>
+</header>
+
+<main>
+  
+  <div class="card hide" id="noCodeCard">
+    <h2>시험지 코드가 없습니다</h2>
+    <div class="meta">시험지에 인쇄된 <b>QR 코드</b>로 다시 접속하거나, 주소 끝에 <b>?exam=시험코드</b>를 붙여 주세요.<br>
+      QR을 다시 찍어도 이 화면이 나오면 담당 선생님께 그 시험지 링크를 받아 주세요.</div>
+    <div style="margin-top:12px" class="row2">
+      <a class="linkbtn primary" href="index.html">← 화면 목록으로</a>
+      <a class="linkbtn" href="math-teacher.html">수학 선생님 화면</a>
+    </div>
+  </div>
+
+  <div class="card hide" id="loginCard">
+    <h2>선생님 확인 (처음 한 번만)</h2>
+    <div class="meta">이름과 핀을 넣으면 이 폰에 저장되어 다음부터는 바로 열립니다.<br>
+      핀이 바뀌면 다시 넣어야 합니다.</div>
+    <div style="margin-top:11px"><input type="text" id="name" placeholder="이름 (예: 김수학)" autocomplete="off"></div>
+    <div style="margin-top:8px"><input type="password" id="pin" inputmode="numeric" placeholder="핀 (4자리)" autocomplete="off"></div>
+    <div style="margin-top:11px"><button class="primary" id="loginBtn">들어가기</button></div>
+    <div class="note hide" id="loginMsg"></div>
+  </div>
+
+  
+  <div class="card hide" id="examCard">
+    <div class="name" id="examTitle"></div>
+    <div class="meta" id="examMeta"></div>
+    <div class="score"><span class="lb">점수</span><span class="vl" id="score">–</span>
+      <span class="sub" id="scoreSub"></span></div>
+  </div>
+
+  <div class="card hide" id="studentCard">
+    <h2>학생</h2>
+    <input type="text" id="student" placeholder="학생 이름" autocomplete="off">
+  </div>
+
+  <div class="card hide" id="listCard">
+    <h2>문항 채점 <span class="badge" id="listHint"></span></h2>
+    <ul class="items" id="items"></ul>
+    <div class="note hide" id="saveMsg"></div>
+  </div>
+
+  <div class="card hide" id="doneCard">
+    <h2>저장 완료</h2>
+    <div class="meta" id="doneMsg"></div>
+    <div style="margin-top:10px" class="row2">
+      <button class="ghost" id="againBtn">계속 채점</button>
+      <button class="ghost" id="logoutBtn2">선생님 바꾸기</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>숙제 틀린 문항 (학생용)</h2>
+    <div class="meta">고등 학생은 교재를 보고 <b>틀린 문제 번호</b>를 직접 찍어 올릴 수 있습니다.
+      올린 문항은 수학 선생님 화면에 바로 뜨고, 선생님이 그 문항만 다시 내 줍니다.</div>
+    <div style="margin-top:10px" class="row2">
+      <a class="linkbtn primary" href="math-wrong.html?mode=student">🎒 틀린 문항 입력하기</a>
+      <a class="linkbtn" href="math-wrong.html">수학 선생님 화면</a>
+    </div>
+  </div>
+</main>
+
+<div class="bar hide" id="bar">
+  <button class="primary" id="saveBtn">점수 저장</button>
+</div>
+
+<script>
+const BOOT = {"EXAM": (window.__BOOTEXAM||"")};
+const $ = s => document.querySelector(s);
+const el = (t,c)=>{const e=document.createElement(t); if(c)e.className=c; return e;};
+const LS = 'wmath_t_v1';
+let TEACHER=null, EXAM=null, MARKS={}, QR_TOKEN='';
+
+function saved(){ try{ return JSON.parse(localStorage.getItem(LS)||'null'); }catch(e){ return null; } }
+function saveT(t){ try{ localStorage.setItem(LS, JSON.stringify(t)); }catch(e){} }
+function clearT(){ try{ localStorage.removeItem(LS); }catch(e){} }
+
+function gs(payload){
+  return new Promise((res, rej) => {
+    if (!window.google || !google.script || !google.script.run) { res({ok:false, code:'NORUN', error:'앱 연결을 확인해 주세요.'}); return; }
+    google.script.run.withSuccessHandler(res).withFailureHandler(rej).apiCall(payload);
+  });
+}
+function authP(){ return {name: TEACHER ? TEACHER.name : '', pin: TEACHER ? TEACHER.pin : ''}; }
+
+function msg(id, text, cls){
+  const e=$(id); e.textContent=text; e.className='note'+(cls?(' '+cls):''); e.classList.remove('hide');
+}
+
+function showLogin(text){
+  if(!BOOT.EXAM){
+    $('#noCodeCard').classList.remove('hide');
+    $('#loginCard').classList.add('hide');
+    $('#examCard').classList.add('hide'); $('#listCard').classList.add('hide');
+    $('#studentCard').classList.add('hide'); $('#bar').classList.add('hide');
+    $('#who').classList.add('hide');
+    return;
+  }
+  $('#noCodeCard').classList.add('hide');
+  $('#loginCard').classList.remove('hide');
+  $('#examCard').classList.add('hide'); $('#listCard').classList.add('hide');
+  $('#studentCard').classList.add('hide'); $('#bar').classList.add('hide');
+  $('#who').classList.add('hide');
+  if(text) msg('#loginMsg', text, 'err');
+}
+
+async function doLogin(){
+  const name=$('#name').value.trim(), pin=$('#pin').value.trim();
+  if(!name||!pin){ msg('#loginMsg','이름과 핀을 넣어 주세요.','err'); return; }
+  $('#loginBtn').disabled=true; $('#loginBtn').innerHTML='<span class="spin"></span>확인 중';
+  try{
+    const d = await gs({api:'login', name, pin});
+    if(!d.ok){ msg('#loginMsg', d.error||'로그인 실패','err'); return; }
+    TEACHER={name:d.teacher.name, pin};
+    saveT(TEACHER);
+    $('#loginCard').classList.add('hide');
+    await loadExam();
+  }catch(e){ msg('#loginMsg','연결 오류: '+e.message,'err'); }
+  finally{ $('#loginBtn').disabled=false; $('#loginBtn').textContent='들어가기'; }
+}
+
+async function loadExam(){
+  if(!TEACHER) return;
+  const code = BOOT.EXAM || '';
+  if(!code){ showLogin(''); return; }
+  const d = await gs(Object.assign({api:'exam', code}, authP()));
+  if(!d.ok){
+    if(d.code==='AUTH'){ clearT(); TEACHER=null; showLogin('저장된 인증이 만료되었습니다. 이름과 핀을 다시 넣어 주세요.'); return; }
+    showLogin(d.error||'시험지를 열 수 없습니다.'); return;
+  }
+  EXAM=d; MARKS={};
+  $('#who').textContent=d.teacher.name+' 선생님'; $('#who').classList.remove('hide');
+  $('#sub').textContent='시험지 QR을 읽었습니다 · '+d.exam.code;
+  $('#examTitle').textContent=d.exam.title;
+  const hard = d.items.filter(x=>x.hasSol).length;
+  $('#examMeta').innerHTML = `${d.exam.book}<br>${d.exam.corners||''} · <b>${d.items.length}문항</b>` +
+     (hard?` · <span class="badge hard">해설 ${hard}문항</span>`:'');
+  $('#examCard').classList.remove('hide');
+  $('#studentCard').classList.remove('hide');
+  $('#listCard').classList.remove('hide');
+  $('#bar').classList.remove('hide');
+  $('#doneCard').classList.add('hide');
+  const savedStu = localStorage.getItem('wmath_student_'+d.exam.code);
+  if(savedStu) $('#student').value=savedStu;
+  paintItems(); updateScore();
+}
+
+function paintItems(){
+  const ul=$('#items'); ul.innerHTML='';
+  EXAM.items.forEach(it=>{
+    const li=el('li'); li.dataset.no=it.no;
+    li.innerHTML = `<div class="no">${String(it.no).padStart(2,'0')}</div>
+      <div class="q">${it.label}${it.hard?'<span class="tiny">고난도 · 해설 있음</span>':''}</div>
+      <div class="ans">${it.answer||'—'}</div>`;
+    const o=el('button','tg'); o.textContent='O';
+    const x=el('button','tg x'); x.textContent='X';
+    o.onclick=()=>setMark(it.no,'O'); x.onclick=()=>setMark(it.no,'X');
+    if(it.hasSol){
+      const b=el('button','solbtn'); b.textContent='해설';
+      b.onclick=()=>openSol(it);
+      li.appendChild(b);
+    }
+    li.appendChild(o); li.appendChild(x); ul.appendChild(li);
+  });
+}
+
+function setMark(no, v){
+  MARKS[no] = (MARKS[no]===v) ? null : v;
+  const li=[...document.querySelectorAll('#items li')].find(x=>Number(x.dataset.no)===no);
+  li.classList.toggle('wrong', MARKS[no]==='X');
+  li.querySelectorAll('.tg').forEach(b=>b.classList.remove('on'));
+  if(MARKS[no]==='O') li.querySelectorAll('.tg')[0].classList.add('on');
+  if(MARKS[no]==='X') li.querySelectorAll('.tg')[1].classList.add('on');
+  updateScore();
+}
+
+function updateScore(){
+  const total=EXAM?EXAM.items.length:0;
+  const right=Object.values(MARKS).filter(v=>v==='O').length;
+  const wrong=Object.values(MARKS).filter(v=>v==='X').length;
+  $('#score').textContent = total? Math.round(right/Math.max(1,total)*100) : '–';
+  $('#scoreSub').textContent = `${right} / ${total} · 틀림 ${wrong}`;
+  $('#listHint').textContent = `${Object.values(MARKS).filter(Boolean).length} / ${total} 채점`;
+}
+
+async function openSol(it){
+  const m=el('div','modal');
+  m.innerHTML=`<div class="inner"><div class="mh">p.${it.label} 해설
+     <button class="ghost">닫기</button></div><div style="padding:14px;color:#6b7785;font-size:13px">불러오는 중…</div></div>`;
+  document.body.appendChild(m);
+  m.querySelector('.mh button').onclick=()=>m.remove();
+  m.onclick=(e)=>{ if(e.target===m) m.remove(); };
+  try{
+    const d=await gs(Object.assign({api:'sol', code:EXAM.exam.code, no:it.no}, authP()));
+    const body=m.querySelector('.inner');
+    if(!d.ok){ body.innerHTML=`<div class="mh">해설 <button class="ghost">닫기</button></div>
+      <div class="note err" style="margin:12px">${d.error||'해설을 불러오지 못했습니다.'}</div>`;
+      body.querySelector('button').onclick=()=>m.remove(); return; }
+    body.innerHTML=`<div class="mh">${it.label} 해설 · 정답 ${it.answer||''}
+      <button class="ghost">닫기</button></div><img src="${d.img}" alt="해설">`;
+    body.querySelector('button').onclick=()=>m.remove();
+  }catch(e){
+    m.querySelector('.inner').innerHTML=`<div class="mh">해설 <button class="ghost">닫기</button></div>
+      <div class="note err" style="margin:12px">연결 오류: ${e.message}</div>`;
+    m.querySelector('button').onclick=()=>m.remove();
+  }
+}
+
+async function saveGrade(){
+  if(!TEACHER||!EXAM) return;
+  const student=$('#student').value.trim();
+  if(!student){ msg('#saveMsg','학생 이름을 먼저 넣어 주세요.','err'); return; }
+  const marked=Object.values(MARKS).filter(Boolean).length;
+  if(!marked){ msg('#saveMsg','O/X를 하나도 고르지 않았습니다.','err'); return; }
+  if(!confirm(`${student} · ${EXAM.exam.title}\n${marked}문항 채점한 그대로 저장할까요?`)) return;
+  $('#saveBtn').disabled=true; $('#saveBtn').innerHTML='<span class="spin"></span>저장 중';
+  try{
+    const d=await gs(Object.assign({api:'save', code:EXAM.exam.code, student, marks:MARKS,
+        total:EXAM.items.length}, authP()));
+    if(!d.ok){
+      if(d.code==='AUTH'){ clearT(); TEACHER=null; showLogin('인증이 만료되었습니다. 다시 로그인해 주세요.'); return; }
+      msg('#saveMsg', d.error||'저장 실패','err'); return;
+    }
+    localStorage.setItem('wmath_student_'+EXAM.exam.code, student);
+    $('#doneMsg').innerHTML = `<b>${student}</b> · ${d.score}점 (${d.right}/${d.total})` +
+      (d.wrong && d.wrong.length? `<br>틀린 번호: ${d.wrong.join(', ')}`:'<br>틀린 문항 없음');
+    $('#doneCard').classList.remove('hide');
+    $('#doneCard').scrollIntoView({behavior:'smooth', block:'center'});
+  }catch(e){ msg('#saveMsg','연결 오류: '+e.message,'err'); }
+  finally{ $('#saveBtn').disabled=false; $('#saveBtn').textContent='점수 저장'; }
+}
+
+function logout(){
+  clearT(); TEACHER=null; MARKS={}; $('#who').classList.add('hide');
+  $('#password'); $('#pin').value='';
+  showLogin('다른 선생님으로 바꿉니다. 이름과 핀을 넣어 주세요.');
+}
+
+$('#loginBtn').onclick=doLogin;
+$('#pin').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+$('#saveBtn').onclick=saveGrade;
+$('#againBtn').onclick=()=>{ MARKS={}; $('#student').value=''; $('#doneCard').classList.add('hide');
+  paintItems(); updateScore(); window.scrollTo({top:0,behavior:'smooth'}); };
+$('#logoutBtn2').onclick=logout;
+
+(async function boot(){
+  const t=saved();
+  if(t && t.name && t.pin){
+    TEACHER=t;
+    const d=await gs(Object.assign({api:'exam', code:BOOT.EXAM||''}, authP()));
+    if(d.ok){ await loadExam(); return; }
+    if(d.code==='AUTH'){ clearT(); TEACHER=null; showLogin('핀이 바뀌었거나 인증이 만료되었습니다. 이름과 핀을 다시 넣어 주세요.'); return; }
+    showLogin(d.error||'');
+    return;
+  }
+  showLogin('');
+})();
+</script>
+</body>
+</html>

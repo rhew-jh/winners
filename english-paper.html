@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script>window.WINNERS_BRIDGE={mode:"english",exec:"https://script.google.com/macros/s/AKfycbwQDZu4RIj8S8whycUx3f2lR6NSQaAW1XLHfIHp3Od6GIXEC7MLvP7jn5zS03Tq1Q-UaQ/exec"};</script>
+<script src="bridge.js"></script>
+<script>window.__BOOTEXAM=(function(){var m=/[?&](?:exam|code)=([^&]*)/.exec(location.search);return m?decodeURIComponent(m[1]):'';})();</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>WINNERS 영어 채점</title>
+<style>
+:root{--ink:#111820;--muted:#6f7883;--line:#e4e8ed;--green:#0f6b4f;--red:#c02a20}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#f5f6f8;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+header{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--line);padding:12px 14px}
+header .t{font-weight:800;font-size:16px}
+header .s{font-size:12px;color:var(--muted);margin-top:3px}
+.wrap{padding:12px 12px 90px;max-width:640px;margin:0 auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+label{font-size:12.5px;color:var(--muted);font-weight:700;display:block;margin:10px 0 5px}
+input,select{width:100%;padding:12px;font-size:16px;border:1px solid var(--line);border-radius:10px;font-family:inherit}
+.btn{width:100%;padding:14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:16px;font-weight:700;font-family:inherit}
+.btn.pri{background:var(--green);color:#fff;border-color:var(--green)}
+.btn:disabled{opacity:.5}
+.item{display:flex;align-items:center;gap:8px;border-bottom:1px solid #eef1f4;padding:9px 2px}
+.item:last-child{border-bottom:0}
+.item .no{width:38px;font-weight:800;font-size:15px}
+.item .lab{flex:1;font-size:12px;color:var(--muted)}
+.item .ans{font-weight:800;color:var(--red);font-size:13px;min-width:38px;text-align:right}
+.ox{display:flex;gap:6px}
+.ox button{width:44px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:17px;font-weight:800}
+.ox button.onO{background:#e7f4ed;border-color:#0f6b4f;color:#0f6b4f}
+.ox button.onX{background:#fdeceb;border-color:#c0281f;color:#c0281f}
+.ox button.sol{width:34px;font-size:12px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 12px;display:flex;gap:10px;align-items:center}
+.bar .sc{font-weight:800;font-size:15px}
+.bar .btn{width:auto;flex:1;padding:13px}
+.hide{display:none!important}
+.err{background:#fdeeed;border:1px solid #f4cfcb;color:#8f1f16;border-radius:10px;padding:9px 11px;font-size:13px;margin-top:10px}
+.ok{background:#eef8f2;border:1px solid #cfe8dc;color:#0c5c43;border-radius:10px;padding:9px 11px;font-size:13px;margin-top:10px}
+.imgbox{padding:10px 0}
+.imgbox img{width:100%;border:1px solid var(--line);border-radius:10px}
+</style>
+</head>
+<body>
+<a href="index.html" style="display:inline-block;margin:10px 0 0 12px;font-size:13px;color:#1769bd;text-decoration:none;font-weight:700">← 위너스 화면 목록</a>
+<header>
+  <div class="t" id="hTitle">WINNERS 영어 채점</div>
+  <div class="s" id="hSub">QR을 찍어 들어왔습니다</div>
+</header>
+
+<div class="wrap">
+  
+  <div id="vLogin" class="card hide">
+    <div style="font-weight:800;font-size:15px;margin-bottom:2px">선생님 로그인</div>
+    <div style="font-size:12.5px;color:#6f7883">한 번만 하면 이 폰에 저장됩니다. 원장님이 핀을 바꾸면 다시 로그인해야 합니다.</div>
+    <label>이름</label>
+    <select id="selName"></select>
+    <label>핀 (4자리)</label>
+    <input id="pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••">
+    <div id="loginErr" class="err hide"></div>
+    <div style="height:12px"></div>
+    <button class="btn pri" id="btnLogin">들어가기</button>
+  </div>
+
+  
+  <div id="vGrade" class="hide">
+    <div class="card" id="examCard"></div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <b style="font-size:14px">문항별 채점</b>
+        <span style="font-size:12px;color:#6f7883" id="cnt">O 0 · X 0</span>
+      </div>
+      <div id="items"></div>
+    </div>
+    <div class="card">
+      <label>학생 이름 (비우면 시험지에 적힌 이름)</label>
+      <input id="student" placeholder="예: 최민정">
+      <label>메모</label>
+      <input id="note" placeholder="예: 3번 어법 다시 설명">
+      <div id="saveMsg"></div>
+    </div>
+    <div id="hist" class="card hide"></div>
+  </div>
+</div>
+
+<div class="bar hide" id="bar">
+  <div class="sc" id="score">0점</div>
+  <button class="btn pri" id="btnSave">점수 저장</button>
+</div>
+
+<div id="modal" class="hide" style="position:fixed;inset:0;background:rgba(10,16,20,.8);z-index:20;overflow:auto">
+  <div style="background:#fff;margin:14px;border-radius:14px;padding:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <b id="mTitle">해설</b><button class="btn" style="width:auto;padding:8px 14px" id="mClose">닫기</button>
+    </div>
+    <img id="mImg" style="width:100%">
+  </div>
+</div>
+
+<script>
+var BOOT = {"EXAM": (window.__BOOTEXAM||"")};
+var CODE = BOOT.EXAM || '';
+var LS = 'wae20_teacher';
+var teacher = null, exam = null, marks = {};
+if (!CODE) { document.addEventListener('DOMContentLoaded', function(){ var e = document.getElementById('loginErr'); if (e) { e.textContent = '시험 코드가 없습니다. 시험지의 QR을 다시 찍어 주세요.'; e.classList.remove('hide'); } }); }
+
+function $(s){ return document.querySelector(s); }
+function el(t,c,h){ var e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e; }
+function api(d){
+  return new Promise(function(res, rej){
+    google.script.run.withSuccessHandler(res).withFailureHandler(rej).wae20Api(d);
+  });
+}
+function show(id){ ['vLogin','vGrade'].forEach(function(x){ $('#'+x).classList.toggle('hide', x!==id); });
+  $('#bar').classList.toggle('hide', id!=='vGrade'); }
+
+function paint(){
+  var o=0,x=0;
+  for (var k in marks){ if(marks[k]==='O')o++; else if(marks[k]==='X')x++; }
+  $('#cnt').textContent = 'O '+o+' · X '+x;
+  var total = exam.items.length;
+  $('#score').textContent = Math.round(o/Math.max(1,total)*100)+'점';
+  document.querySelectorAll('.ox button').forEach(function(b){
+    var no=b.dataset.no, v=b.dataset.v;
+    b.classList.toggle(v==='O'?'onO':'onX', marks[no]===v);
+  });
+}
+
+async function boot(){
+  if (!CODE){ $('#hSub').textContent='주소에 시험 코드가 없습니다.'; return; }
+  var st = JSON.parse(localStorage.getItem(LS) || 'null');
+  var r = await api({action:'roster'});
+  var sel = $('#selName');
+  (r.teachers||[]).forEach(function(n){ var o=el('option'); o.value=n; o.textContent=n; sel.appendChild(o); });
+  if (st && st.name){ sel.value = st.name; }
+  if (st && st.pin){
+    var j = await api({action:'examInfo', code:CODE, name:st.name, pin:st.pin});
+    if (j.ok) return enter(j, st);
+    localStorage.removeItem(LS);
+  }
+  show('vLogin');
+  $('#btnLogin').onclick = login;
+}
+
+async function login(){
+  var name = $('#selName').value, pin = $('#pin').value.trim();
+  $('#loginErr').classList.add('hide');
+  var j = await api({action:'login', name:name, pin:pin});
+  if (!j.ok){ $('#loginErr').textContent = j.error||'로그인 실패'; $('#loginErr').classList.remove('hide'); return; }
+  localStorage.setItem(LS, JSON.stringify({name:name, pin:pin}));
+  var info = await api({action:'examInfo', code:CODE, name:name, pin:pin});
+  if (!info.ok){ $('#loginErr').textContent = '시험 코드 ' + CODE + ' — ' + (info.error || '문제지를 찾지 못했습니다. QR을 다시 찍어 주세요.'); $('#loginErr').classList.remove('hide'); return; }
+  enter(info, {name:name, pin:pin});
+}
+
+function enter(info, st){
+  teacher = info.teacher; exam = info.exam;
+  exam.items = info.items;
+  $('#hTitle').textContent = exam.title;
+  $('#hSub').textContent = exam.paper + ' · ' + teacher.name + ' 선생님';
+  $('#examCard').innerHTML = '<div style="font-weight:800;font-size:15px">'+exam.title+'</div>'
+    + '<div style="font-size:12.5px;color:#6f7883;margin-top:4px">'+exam.paper
+    + (exam.student? ' · '+exam.student : '') + ' · '+exam.items.length+'문항 · '+exam.created+'</div>';
+  $('#student').value = exam.student || '';
+  var box = $('#items'); box.innerHTML='';
+  exam.items.forEach(function(it){
+    var d = el('div','item');
+    d.innerHTML = '<div class="no">'+it.no+'</div><div class="lab">'+it.label+'</div>'
+      + '<div class="ans">'+(it.answer||'—')+'</div>'
+      + '<div class="ox"><button data-no="'+it.no+'" data-v="O">O</button>'
+      + '<button data-no="'+it.no+'" data-v="X">X</button>'
+      + (it.hasSol? '<button class="sol" data-sol="'+it.no+'">해설</button>':'')+'</div>';
+    box.appendChild(d);
+  });
+  box.onclick = function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    if (b.dataset.sol){ openSol(b.dataset.sol); return; }
+    var no = b.dataset.no, v = b.dataset.v;
+    marks[no] = (marks[no]===v) ? '' : v;
+    paint();
+  };
+  show('vGrade');
+  paint();
+  $('#btnSave').onclick = save;
+  loadHistory();
+}
+
+async function openSol(no){
+  $('#mTitle').textContent = no + '번 해설';
+  $('#mImg').src = '';
+  $('#modal').classList.remove('hide');
+  var j = await api({action:'sol', code:CODE, no:Number(no), name:teacher.name, pin:JSON.parse(localStorage.getItem(LS)).pin});
+  if (j.ok) $('#mImg').src = j.img; else $('#mImg').alt = j.error||'';
+}
+$('#mClose').onclick = function(){ $('#modal').classList.add('hide'); };
+
+async function save(){
+  var st = JSON.parse(localStorage.getItem(LS));
+  var j = await api({action:'save', code:CODE, marks:marks, student:$('#student').value.trim(),
+    note:$('#note').value.trim(), name:st.name, pin:st.pin});
+  $('#saveMsg').innerHTML = j.ok
+    ? '<div class="ok">저장했습니다 · '+j.score+'점 (맞음 '+j.right+' / 틀림 '+j.wrong.length+')</div>'
+    : '<div class="err">'+(j.error||'저장 실패')+'</div>';
+  if (j.ok) loadHistory();
+}
+
+async function loadHistory(){
+  var st = JSON.parse(localStorage.getItem(LS));
+  var j = await api({action:'history', code:CODE, name:st.name, pin:st.pin});
+  if (!j.ok || !j.rows.length) return;
+  $('#hist').classList.remove('hide');
+  $('#hist').innerHTML = '<b style="font-size:13.5px">이 시험지 채점 기록</b>'
+    + j.rows.map(function(r){
+        return '<div style="font-size:12.5px;color:#555;margin-top:6px">'+r.when+' · '+r.teacher+' · '
+          + (r.student||'-') + ' · '+r.score+'점</div>';
+      }).join('');
+}
+
+boot();
+</script>
+</body>
+</html>

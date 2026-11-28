@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script>window.WINNERS_BRIDGE={mode:"clinic",exec:"https://script.google.com/macros/s/AKfycbzUFYFZq7XonMiAYMaAzY4lzVWFc6L3uuqGAH3DgUPURoFRMzG_OrxNqY6dMViWo1bB/exec"};</script>
+<script src="bridge.js?v=8"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f6f4a">
+<title>위너스 클리닉</title>
+<style>
+:root{
+  --green:#1f6f4a; --green-2:#2e8b5f; --mint:#e8f5ee; --ink:#17211c;
+  --sub:#5d6b63; --line:#e2e8e4; --warn:#c2410c; --warn-bg:#fff4ec;
+  --ok:#15803d; --ok-bg:#eefaf1; --card:#fff; --bg:#f4f7f5;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;}
+body{padding-bottom:92px}
+.wrap{max-width:520px;margin:0 auto;padding:16px 16px 24px}
+header{display:flex;align-items:center;gap:10px;padding:14px 0 6px}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+.logo-img{height:30px;width:auto;max-width:126px;object-fit:contain;flex:0 0 auto}
+@media (max-width:520px){.logo-img{height:26px;max-width:104px}}
+h1{font-size:17px;margin:0;letter-spacing:-.02em}
+.sub{color:var(--sub);font-size:12.5px;margin-top:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 1px 2px rgba(20,40,30,.03)}
+.card h2{font-size:15px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.pill{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--mint);color:var(--green)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.gray{background:#f1f4f2;color:var(--sub)}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;
+  border-radius:999px;padding:7px 12px;font-size:13px;margin:0 6px 6px 0;cursor:pointer}
+.chip.on{border-color:var(--green);background:var(--mint);color:var(--green);font-weight:700}
+button{font-family:inherit}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font-size:15px;font-weight:800;
+  background:var(--green);color:#fff;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--green);border:1.5px solid var(--green)}
+.btn.small{padding:10px;font-size:13.5px;border-radius:11px}
+.btn:disabled{opacity:.5}
+input[type=text],input[type=password],input[type=tel],input[type=number]{
+  width:100%;padding:14px;border:1.5px solid var(--line);border-radius:12px;font-size:16px;background:#fff}
+label.f{display:block;font-size:12.5px;color:var(--sub);margin:12px 0 6px}
+.task{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.task:last-child{border-bottom:0}
+.tick{width:20px;height:20px;border-radius:6px;border:1.5px solid #cfd8d2;flex:0 0 auto;margin-top:1px;display:grid;place-items:center;font-size:12px;color:#fff}
+.tick.done{background:var(--ok);border-color:var(--ok)}
+.muted{color:var(--sub);font-size:12.5px;line-height:1.5}
+.big{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.over{background:var(--warn-bg);border-color:#f6d7c4}
+.over .pill{background:#ffe3d3;color:var(--warn)}
+.item{border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:8px;background:#fff}
+.item b{font-size:13.5px}
+.thumb{width:100%;border-radius:12px;border:1px solid var(--line);margin-top:8px;display:block}
+.verdict{border-radius:12px;padding:11px 12px;font-size:13px;margin-top:10px;line-height:1.5}
+.verdict.ok{background:var(--ok-bg);color:#14532d}
+.verdict.bad{background:var(--warn-bg);color:#7c2d12}
+.verdict.wait{background:#f4f6f5;color:var(--sub)}
+.tag{font-size:11px;padding:2px 7px;border-radius:6px;background:#f1f4f2;color:var(--sub);font-weight:700}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);
+  border-top:1px solid var(--line);display:flex;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:0;border:0;padding:8px 4px;font-size:11.5px;color:var(--sub);font-weight:700}
+nav button.on{color:var(--green)}
+nav .ic{display:block;font-size:18px;margin-bottom:2px}
+.hide{display:none!important}
+.center{text-align:center}
+.loader{width:20px;height:20px;border:2.5px solid #dfe7e2;border-top-color:var(--green);border-radius:50%;
+  animation:sp .8s linear infinite;display:inline-block;vertical-align:-4px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sheet{position:fixed;inset:0;background:rgba(15,25,20,.45);display:grid;place-items:end center;z-index:40}
+.sheet .inner{background:#fff;width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+.sheet h3{margin:2px 0 12px;font-size:16px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:104px;background:#17211c;color:#fff;
+  padding:11px 16px;border-radius:12px;font-size:13px;opacity:0;transition:.25s;z-index:60;max-width:90%}
+.toast.on{opacity:1}
+.acc{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.acc button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13px;font-weight:700}
+.banner{background:#ffe8dc;border:1px solid #f3c4ac;color:#7c2d12;border-radius:14px;padding:12px 14px;
+  font-size:13px;line-height:1.5;margin:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo-img" src="logo_winners.png" alt="위너스해법영수학원" width="132" height="41">
+    <div style="flex:1">
+      <h1 id="appTitle">위너스 클리닉</h1>
+      <div class="sub" id="who">오늘 할 클리닉을 확인하세요</div>
+    </div>
+    <button class="chip hide" id="switchBtn" onclick="openSwitch()">학생 바꾸기</button>
+  </header>
+
+  <div class="banner hide" id="remindBanner"></div>
+  <div class="banner hide" id="alertBanner" style="position:relative">
+    <button onclick="closeAlertBanner()" style="position:absolute;top:6px;right:8px;border:0;background:0;font-size:18px;line-height:1;color:#7c2d12">×</button>
+    <div id="alertText"></div>
+  </div>
+
+  <section id="login">
+    <div class="card">
+      <h2>로그인</h2>
+      <div class="acc" id="accChips"></div>
+      <label class="f">이름</label>
+      <input type="text" id="loginName" placeholder="예: 최고은" autocomplete="name">
+      <label class="f">4자리 핀</label>
+      <input type="password" id="loginPin" inputmode="numeric" maxlength="4" placeholder="••••">
+      <div style="height:14px"></div>
+      <button class="btn" onclick="doLogin()">들어가기</button>
+      <p class="muted center" style="margin:12px 0 0">형제가 한 폰을 쓸 때는 위의 이름을 눌러 바로 바꿀 수 있어요.</p>
+    </div>
+  </section>
+
+  <section id="main" class="hide">
+    <div class="card" id="todayCard">
+      <div class="row"><h2 style="margin:0">오늘 할 클리닉</h2><span class="pill" id="todayPill">-</span></div>
+      <div class="big" id="todayTitle" style="margin:10px 0 2px">-</div>
+      <div class="muted" id="todayMeta">-</div>
+      <div id="todaySubs" style="margin-top:8px"></div>
+      <div id="todayTasks" style="margin-top:10px"></div>
+      <div style="height:12px"></div>
+      <button class="btn" onclick="openUpload()" id="uploadBtn">숙제 사진 올리기</button>
+    </div>
+
+    <div class="card hide" id="hwCard">
+      <div class="row"><h2 style="margin:0" id="hwHead">오늘의 숙제</h2><span class="pill gray" id="hwPill">-</span></div>
+      <div id="hwList" style="margin-top:10px"></div>
+      <div style="height:12px"></div>
+      <button class="btn" onclick="openHomeworkUpload()" id="hwUploadBtn">숙제 사진 찍어 올리기</button>
+      <div class="muted" style="margin-top:8px">선생님이 낸 숙제가 없어도, 오늘 푼 책 사진을 그냥 올려도 됩니다.</div>
+    </div>
+
+    <div class="card hide" id="selfPlanCard">
+      <div class="row"><h2 style="margin:0">🗓️ 내 계획</h2><span class="pill" id="spPill">👑 자기주도왕</span></div>
+      <div class="muted" id="spText" style="margin-top:8px">내가 공부할 단원·쪽수와 요일을 직접 정해 보세요. 선생님이 검사해서 승인하면 그대로 이번 주 계획이 됩니다.</div>
+      <div style="height:10px"></div>
+      <button class="btn ghost small" onclick="openSelfPlan()">내 계획 짜기</button>
+    </div>
+
+    <div class="card" id="notiCard">
+      <h2>알림 <span class="pill gray" id="notiPill">꺼짐</span></h2>
+      <div class="muted" id="notiText">저녁 8시까지 안 올리면 화면으로 알려 드릴게요. (오늘 올렸으면 알리지 않습니다)</div>
+      <div class="muted" style="margin-top:6px">선생님이 계획을 승인하거나 수정을 요청하면 앱 위쪽에 배너·소리로 알려 드립니다.</div>
+      <div style="height:10px"></div>
+      <button class="btn ghost small" id="notiBtn" onclick="askNotify()">알림 켜기</button>
+    </div>
+
+    <div class="card" id="overdueCard">
+      <h2>밀린 클리닉 <span class="pill warn" id="overCount">0</span></h2>
+      <div id="overdueList"></div>
+    </div>
+
+    <div class="card" id="redoCard">
+      <h2>🌱 다시 도전! <span class="pill" id="redoCount">0</span></h2>
+      <div id="redoList"></div>
+    </div>
+
+    <div class="card" id="subCard">
+      <h2>오늘 올린 사진</h2>
+      <div id="subList" class="muted">아직 없습니다.</div>
+    </div>
+  </section>
+</div>
+
+<nav id="nav" class="hide">
+  <button class="on" id="navToday" onclick="go('today')"><span class="ic">📅</span>오늘</button>
+  <button id="navUpload" onclick="openUpload()"><span class="ic">📷</span>사진 올리기</button>
+  <button id="navRedo" onclick="go('redo')"><span class="ic">🌱</span>다시 도전</button>
+  <button class="hide" id="navPlan" onclick="openSelfPlan()"><span class="ic">🗓️</span>내 계획</button>
+  <button id="navSwitch" onclick="openSwitch()"><span class="ic">🙋</span>학생 전환</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+<div id="sheetHost"></div>
+
+<script>
+var BOOT = {"version": "clinic-gas-2.3", "ui": "clinic", "today": "2026-11-26", "timezone": "Asia/Seoul"};
+var $ = function(s){ return document.querySelector(s); };
+var state = { me:null, data:null, timer:null, busy:false, sp:null, spInfo:null,
+              hwId:'', hwBook:'', hwPages:'' };
+var WALL = ['월','화','수','목','금','토','일'];
+
+/* ---------- 서버 호출 (google.script.run) ---------- */
+function api(name, params){
+  return new Promise(function(resolve, reject){
+    google.script.run
+      .withSuccessHandler(function(r){ resolve(r || { ok:false, error:'빈 응답' }); })
+      .withFailureHandler(function(e){ reject(e); })
+      .apiCall(name, params || {});
+  });
+}
+
+function toast(msg){ var t=$('#toast'); t.textContent=msg; t.classList.add('on');
+  clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove('on');}, 2400); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function shortMode(l){ return String(l||'').replace(/\s*\(.*\)\s*/,'').trim(); }
+
+/* ---------- 기기 계정 ---------- */
+function accounts(){ try{ return JSON.parse(localStorage.getItem('clinic.accounts')||'[]'); }catch(e){ return []; } }
+function saveAccount(s){
+  var list = accounts().filter(function(a){ return a.name!==s.name; });
+  list.unshift({name:s.name, pin:s.pin, mode:s.mode_label});
+  localStorage.setItem('clinic.accounts', JSON.stringify(list.slice(0,6)));
+  renderAccounts();
+}
+function renderAccounts(){
+  $('#accChips').innerHTML = accounts().map(function(a){
+    return '<button onclick="quickLogin(\''+esc(a.name)+'\')">'+esc(a.name)+'</button>'; }).join('');
+}
+function quickLogin(name){
+  var a = accounts().filter(function(x){ return x.name===name; })[0];
+  if(!a) return;
+  $('#loginName').value=a.name; $('#loginPin').value=a.pin; doLogin();
+}
+
+/* ---------- 로그인 ---------- */
+function doLogin(){
+  var name = $('#loginName').value.trim(), pin = $('#loginPin').value.trim();
+  if(!name || pin.length!==4){ toast('이름과 4자리 핀을 넣어 주세요'); return; }
+  $('#loginPin').blur();
+  api('login', {name:name, pin:pin}).then(function(r){
+    if(!r.ok){ toast(r.error||'로그인 실패'); return; }
+    state.me = r.student; state.me.pin = pin;
+    saveAccount(state.me);
+    localStorage.setItem('clinic.last', name);
+    loadToday().then(function(){
+      $('#login').classList.add('hide'); $('#main').classList.remove('hide');
+      $('#nav').classList.remove('hide'); $('#switchBtn').classList.remove('hide');
+      applyModeUi();
+      setupNotifyUi();
+      applyKingUi();
+      if(state.timer) clearInterval(state.timer);
+      state.timer = setInterval(checkReminder, 60*1000);
+      checkReminder();
+      startStudentPolling();
+      window.scrollTo(0,0);
+    });
+  }).catch(function(e){ toast('연결 실패: '+(e && e.message || e)); });
+}
+
+function loadToday(){
+  if(!state.me) return Promise.resolve();
+  return api('today', {name:state.me.name, pin:state.me.pin}).then(function(d){
+    if(!d.ok){ toast(d.error||'불러오기 실패'); return; }
+    state.data = d; render();
+  });
+}
+
+/* ---------- 앱 모드: 클리닉 / 숙제제출 / 둘 다 ----------
+   숙제만 하는 학생은 주간 계획표·자기주도왕·오답 없이 오늘 숙제와 사진 제출만 본다.
+   숙제+클리닉 학생은 계획표 화면 아래에 숙제 카드가 함께 보인다. */
+function isHomework(){ return !!(state.me && state.me.app_mode === 'homework'); }
+function hasHw(){ return !!(state.me && (state.me.has_homework || state.me.app_mode === 'homework')); }
+function applyModeUi(){
+  if(!state.me) return;
+  var hw = isHomework(), hwOn = hasHw();
+  var none = !hw && !hwOn && !state.me.has_clinic;   // 세 칸을 다 꺼 둔 학생
+  var redoN = ((state.data && state.data.redo) || []).length;
+  $('#appTitle').textContent = hw ? '위너스 숙제' : '위너스 클리닉';
+  $('#who').textContent = state.me.name + ' · '
+    + (none ? '배정 없음' : (hw ? '숙제 제출' : (hwOn ? '숙제 + 클리닉' : shortMode(state.me.mode_label))));
+  $('#todayCard').classList.toggle('hide', hw);
+  if($('#uploadBtn')) $('#uploadBtn').classList.toggle('hide', none);
+  if($('#navUpload')) $('#navUpload').classList.toggle('hide', none);
+  $('#hwCard').classList.toggle('hide', !hwOn);
+  $('#overdueCard').classList.toggle('hide', hw);
+  /* 오답은 숙제만 하는 학생에게도 보여 준다 — 어제 틀린 문항이 있으면 */
+  $('#redoCard').classList.toggle('hide', hw && !redoN);
+  $('#notiCard').classList.toggle('hide', hw);
+  $('#navRedo').classList.toggle('hide', hw && !redoN);
+  if(hw) $('#navPlan').classList.add('hide');
+}
+function renderHomework(d){
+  var hw = d.homework || [];
+  var subs = (d.hw_submitted !== undefined) ? (d.hw_submissions_today || []) : (d.submissions_today || []);
+  $('#hwPill').textContent = subs.length ? ('사진 ' + subs.length + '장 올림') : '아직 안 올림';
+  $('#hwPill').className = 'pill ' + (subs.length ? '' : 'warn');
+  $('#hwList').innerHTML = hw.length ? hw.map(function(h, i){
+    var meta = [h.pages || '', h.task || '', (h.photos ? '사진 ' + h.photos + '장' : '')].filter(Boolean).join(' · ');
+    return '<div class="item"><div class="row"><b>'+esc(h.book || '숙제')+'</b>'+
+      '<span class="pill gray">'+esc(h.subject || '숙제')+'</span></div>'+
+      (meta ? '<div class="muted">'+esc(meta)+'</div>' : '')+
+      '<button class="btn ghost small" style="margin-top:8px" onclick="openHomeworkUpload('+i+')">이 숙제 사진 올리기</button></div>';
+  }).join('') : '<div class="muted">'+esc(d.message || '오늘 선생님이 낸 숙제가 없어요.')+'</div>';
+  if(isHomework()){
+    $('#subList').innerHTML = subs.length ? subs.map(function(s){
+      var gs = s.grade_status || '';
+      var state = (!gs || gs === '미채점') ? '선생님 확인 대기' : (gs === '채점완료' ? '채점 완료 — 틀린 문항은 내일 다시 도전' : '선생님 확인 중');
+      return '<div class="item"><div class="row"><b>'+esc(s.book || '숙제')+'</b><span class="tag">제출</span></div>'+
+        '<div class="muted">'+esc(s.submitted_at)+' · '+esc(state)+'</div></div>';
+    }).join('') : '아직 없습니다.';
+  }
+}
+
+/* 🌱 다시 도전! — 어제(그 전날) 틀린 문항이 오늘 화면에 다시 뜬다.
+   숙제만 하는 학생도 채점에서 틀린 문항이 있으면 이 카드를 본다. */
+function renderRedoCard(d){
+  var redo = (d && d.redo) || [];
+  if(!$('#redoCount') || !$('#redoList')) return;
+  $('#redoCount').textContent = redo.length;
+  $('#redoList').innerHTML = redo.length ? redo.map(function(r){
+    var where = [];
+    if(r.page) where.push('p.'+r.page);
+    if(r.no) where.push(r.no+'번');
+    return '<div class="item"><div class="row"><b>'+esc(r.label||r.book||'문제')+' <span class="tag">'+esc(r.shape||'')+'</span></b>'+
+      (r.self_fixed ? ' <span class="pill blue">스스로 해결</span>' : '')+
+      (where.length ? '<span class="muted">'+esc(where.join(' · '))+'</span>' : '')+'</div>'+
+      '<div class="muted">'+esc(r.book||'')+(r.asked_date?' · '+esc(r.asked_date)+'에 틀린 문항':'')+'</div>'+
+      '<button class="btn ghost small" style="margin-top:8px" onclick="openRedo(\''+esc(r.id)+'\')">🌱 도전!</button></div>';
+  }).join('') : '<div class="muted">🌱 지금은 다시 도전할 문항이 없어요.</div>';
+}
+
+function render(){
+  var d = state.data; if(!d || !d.ok) return;
+  if(isHomework()){ renderHomework(d); renderRedoCard(d); return; }
+  if(hasHw()) renderHomework(d);
+  var day = d.day;
+  if(day){
+    $('#todayPill').textContent = day.kind==='review' ? '복습일' : (day.kind==='study'?'학습일':'자율');
+    $('#todayTitle').textContent = day.kind==='review' ? '밀린 클리닉 + 🌱 다시 도전!'
+      : (day.subject + ' · ' + (day.title||''));
+    $('#todayMeta').textContent = day.kind==='study'
+      ? (day.pages + '쪽 · ' + (day.books||[]).map(function(b){ return b.role+' '+b.span; }).join(' / '))
+      : (day.tasks||[]).join(' · ');
+    if(day.kind==='study') $('#todayMeta').textContent += ' · 사진 ' + d.submitted + '/' + d.photos_needed + '장 제출';
+  } else {
+    $('#todayPill').textContent='계획 없음';
+    $('#todayTitle').textContent='오늘은 계획이 없어요';
+    $('#todayMeta').textContent = d.message || '선생님이 계획표를 저장하면 여기에 바로 보입니다.';
+  }
+  var tasks = d.tasks||[];
+  var partsToday = (day && day.items) || [];
+  $('#todaySubs').innerHTML = partsToday.length > 1 ? partsToday.map(function(p){
+    return '<div class="item" style="margin-bottom:8px"><div class="row"><b>'+esc(p.subject)+'</b><span class="pill">'+(p.pages||0)+'쪽</span></div>'+
+      '<div class="muted">'+esc(p.title||'')+'</div>'+
+      '<div class="muted">'+((p.books||[]).map(function(b){ return esc(b.role+' '+b.span); }).join(' / '))+'</div></div>';
+  }).join('') : '';
+  $('#todayTasks').innerHTML = tasks.map(function(t){
+    return '<div class="task"><div class="tick '+(t.done?'done':'')+'">'+(t.done?'✓':'')+'</div><div>'+esc(t.text)+'</div></div>';
+  }).join('') || '<div class="muted">할 일이 없습니다.</div>';
+
+  $('#overCount').textContent = (d.overdue||[]).length;
+  $('#overdueList').innerHTML = (d.overdue||[]).map(function(o){
+    return '<div class="item over"><div class="row"><b>'+esc(o.date.slice(5))+' ('+esc(o.weekday)+') '+esc(o.subject)+'</b>'+
+      '<span class="pill warn">미제출</span></div><div class="muted">'+esc(o.title||'')+(o.pages?' · '+o.pages+'쪽':'')+'</div></div>';
+  }).join('') || '<div class="muted">밀린 클리닉이 없습니다. 👍</div>';
+
+  renderRedoCard(d);
+
+  var subs = d.submissions_today||[];
+  $('#subList').innerHTML = subs.length ? subs.map(function(s){
+    var gs = s.grade_status || '';
+    var state = (!gs || gs === '미채점') ? '선생님 확인 대기' : (gs === '채점완료' ? '채점 완료 — 틀린 문항은 내일 다시 도전' : '선생님 확인 중');
+    return '<div class="item"><div class="row"><b>'+esc(s.book)+'</b><span class="tag">제출</span></div>'+
+      '<div class="muted">'+esc(s.submitted_at)+' · '+esc(state)+'</div></div>';
+  }).join('') : '아직 없습니다.';
+}
+
+/* ---------- 알림 / 20시 체크 ---------- */
+function setupNotifyUi(){
+  var supported = ('Notification' in window);
+  var on = supported && Notification.permission==='granted';
+  $('#notiPill').textContent = on ? '켜짐' : (supported ? '꺼짐' : '지원 안 함');
+  $('#notiPill').className = 'pill ' + (on?'':'gray');
+  $('#notiBtn').textContent = on ? '알림 상태 확인' : '알림 켜기';
+  var ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  if(ios){
+    $('#notiText').textContent = '아이폰은 홈 화면에 추가한 뒤에도 알림이 막힐 수 있어요. 앱을 열어 두면 저녁 8시에 화면으로 알려 드립니다.';
+  } else if(!supported){
+    $('#notiText').textContent = '이 브라우저는 알림을 지원하지 않아, 앱을 열어 둔 동안 화면으로 알려 드립니다.';
+  }
+}
+function askNotify(){
+  if(!('Notification' in window)){ toast('이 브라우저는 알림을 지원하지 않습니다'); return; }
+  try{
+    Notification.requestPermission().then(function(p){
+      setupNotifyUi();
+      if(p==='granted') toast('저녁 8시에 알려 드릴게요');
+      else toast('알림이 막혀 있어요. 앱을 열어 두면 화면으로 알려 드립니다.');
+    });
+  }catch(e){ toast('알림을 켤 수 없어요. 앱을 열어 두면 화면으로 알려 드립니다.'); }
+}
+function checkReminder(){
+  var d = state.data; if(!d || !state.me) return;
+  if(isHomework()) return;
+  if(!hasHw() && !state.me.has_clinic) return;   // 배정이 없는 학생은 재촉하지 않는다
+  var now = new Date();
+  if(now.getHours() < 20) return;
+  if((d.submitted||0) > 0) return;
+  var key = 'clinic.reminded.' + (d.today||'') + '.' + state.me.name;
+  if(localStorage.getItem(key)) return;
+  localStorage.setItem(key,'1');
+  $('#remindBanner').classList.remove('hide');
+  $('#remindBanner').innerHTML = '<b>'+esc(state.me.name)+'</b> 오늘 클리닉 사진이 아직 없어요. 지금 올려 주세요!';
+  if(('Notification' in window) && Notification.permission==='granted'){
+    try{ new Notification('위너스 클리닉', {body: state.me.name+' 오늘 클리닉 사진이 아직 없어요. 지금 올려 주세요!'}); }catch(e){}
+  }
+}
+
+/* ---------- 앱 안 알림 — 선생님 승인·수정 요청을 배너 + 소리로 ---------- */
+var SN = { timer:null, ms:45000, audio:null, started:false };
+function unlockAudio(){
+  try{
+    var AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
+    if(!SN.audio) SN.audio = new AC();
+    if(SN.audio.state === 'suspended') SN.audio.resume();
+  }catch(e){}
+}
+if(window.addEventListener){
+  window.addEventListener('pointerdown', unlockAudio, true);
+  window.addEventListener('keydown', unlockAudio, true);
+}
+function chime(){
+  unlockAudio();
+  var a = SN.audio; if(!a) return;
+  try{
+    var t0 = a.currentTime;
+    [[880,0],[1318.5,0.14]].forEach(function(n){
+      var o = a.createOscillator(), g = a.createGain();
+      o.type = 'sine'; o.frequency.value = n[0];
+      g.gain.setValueAtTime(0.0001, t0+n[1]);
+      g.gain.exponentialRampToValueAtTime(0.14, t0+n[1]+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0+n[1]+0.3);
+      o.connect(g); g.connect(a.destination);
+      o.start(t0+n[1]); o.stop(t0+n[1]+0.36);
+    });
+  }catch(e){}
+}
+function closeAlertBanner(){ $('#alertBanner').classList.add('hide'); }
+function showAlertBanner(html){
+  $('#alertText').innerHTML = html;
+  $('#alertBanner').classList.remove('hide');
+  try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){}
+}
+function checkTeacherNotices(){
+  if(!state.me || document.hidden) return;
+  if(isHomework()) return;
+  api('notify_poll', {name:state.me.name, pin:state.me.pin}).then(function(r){
+    if(!r.ok) return;
+    var sig = r.signature || 'none';
+    var key = 'clinic.notify.plan.' + state.me.name;
+    var prev = null;
+    try{ prev = localStorage.getItem(key); }catch(e){}
+    try{ localStorage.setItem(key, sig); }catch(e){}
+    var p = r.plan || {};
+    var firstTime = (prev === null);
+    var isNew = !firstTime && prev !== sig;
+    if(!isNew && !(firstTime && p.status === 'rejected')) return;
+    if(p.status === 'rejected'){
+      showAlertBanner('<b>선생님이 계획 수정을 요청했어요</b>'+
+        '<div style="margin-top:5px">«'+esc(p.note || '다시 짜서 올려 주세요.')+'»</div>'+
+        '<div class="muted" style="margin-top:5px">🗓️ 내 계획에서 다시 짜서 올려 보세요.'+(p.week?' ('+esc(p.week)+'주)':'')+'</div>');
+    } else if(p.status === 'approved'){
+      var msg = String(p.source||'').indexOf('self') >= 0
+        ? '네가 짠 계획을 승인했어요. 이번 주 계획으로 확정됐습니다.'
+        : '이번 주 계획을 저장했어요. 오늘 할 클리닉을 확인해 보세요.';
+      showAlertBanner('<b>선생님 알림</b><div style="margin-top:5px">'+esc(msg)+(p.week?' ('+esc(p.week)+'주)':'')+'</div>');
+      loadToday();
+      if(state.me.self_plan_king) loadKingStatus();
+    } else {
+      return;   // 검사 대기 등은 알리지 않는다
+    }
+    if(isNew) chime();
+    if(('Notification' in window) && Notification.permission === 'granted'){
+      try{ new Notification('위너스 클리닉', {body: (p.status==='rejected' ? '선생님이 계획 수정을 요청했어요' : '선생님이 계획을 확인했어요'), tag:'clinic-student'}); }catch(e){}
+    }
+  }).catch(function(){});
+}
+function startStudentPolling(){
+  if(SN.started){ checkTeacherNotices(); return; }
+  SN.started = true;
+  if(SN.timer) clearInterval(SN.timer);
+  SN.timer = setInterval(checkTeacherNotices, SN.ms);
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) checkTeacherNotices(); });
+  checkTeacherNotices();
+}
+function stopStudentPolling(){ if(SN.timer){ clearInterval(SN.timer); SN.timer=null; } SN.started=false; }
+
+/* ---------- 시트 ---------- */
+function openSheet(html){
+  $('#sheetHost').innerHTML = '<div class="sheet" onclick="if(event.target===this)closeSheet()"><div class="inner">'+html+'</div></div>';
+}
+function closeSheet(){ $('#sheetHost').innerHTML=''; }
+
+/* ---------- 사진 업로드 ---------- */
+function openUpload(hwIndex){
+  var d = state.data;
+  if(!d || !state.me){ toast('먼저 로그인해 주세요'); return; }
+  if(isHomework()) return openHomeworkUpload(hwIndex);
+  var targets = d.verify_targets||[];
+  if(!targets.length){ toast('오늘 검증할 계획이 없습니다'); return; }
+  openSheet(
+    '<h3>숙제 사진 올리기</h3>'+
+    '<div class="muted" style="margin-bottom:10px">오늘 분량이 사진에 다 보이게 찍어 주세요. 페이지 번호가 함께 보이면 더 좋아요.</div>'+
+    '<label class="f">교재</label><div>'+ targets.map(function(t,i){
+      return '<span class="chip '+(i===0?'on':'')+'" data-book="'+esc(t.book)+'" onclick="pickBook(this)">'+
+        esc(t.role)+' p.'+t.pages[0]+'~'+t.pages[t.pages.length-1]+'</span>'; }).join('') +'</div>'+
+    '<label class="f">사진</label>'+
+    '<input type="file" id="photo" accept="image/*" capture="environment" style="width:100%" onchange="previewPhoto()">'+
+    '<img id="prev" class="thumb hide">'+
+    '<div style="height:14px"></div>'+
+    '<button class="btn" id="sendBtn" onclick="sendPhoto()">올리기</button>'+
+    '<div id="upResult" style="margin-top:10px"></div>'
+  );
+}
+function pickBook(el){ var all=document.querySelectorAll('[data-book]');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('on'); el.classList.add('on'); }
+function currentBook(){ var el=document.querySelector('[data-book].on'); return el? el.dataset.book : null; }
+function previewPhoto(){
+  var f = $('#photo').files[0]; if(!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){ var im=$('#prev'); im.src=fr.result; im.classList.remove('hide'); };
+  fr.readAsDataURL(f);
+}
+function shrinkImage(file, maxDim, quality){
+  return new Promise(function(resolve,reject){
+    var fr = new FileReader();
+    fr.onload = function(){
+      var img = new Image();
+      img.onload = function(){
+        var s = Math.min(1, maxDim / Math.max(img.width, img.height));
+        var w = Math.round(img.width*s), h = Math.round(img.height*s);
+        var cv = document.createElement('canvas'); cv.width=w; cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(cv.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = function(){ reject(new Error('사진을 읽지 못했습니다')); };
+      img.src = fr.result;
+    };
+    fr.onerror = function(){ reject(new Error('사진을 읽지 못했습니다')); };
+    fr.readAsDataURL(file);
+  });
+}
+function sendPhoto(){
+  var f = $('#photo').files[0];
+  if(!f){ toast('사진을 선택해 주세요'); return; }
+  if(state.busy) return;
+  state.busy = true;
+  var book = currentBook();
+  var slot = Math.max(0, (state.data.verify_targets||[]).map(function(t){return t.book;}).indexOf(book));
+  $('#sendBtn').disabled = true;
+  $('#upResult').innerHTML = '<div class="verdict wait"><span class="loader"></span> 사진을 줄여서 올리는 중…</div>';
+  shrinkImage(f, 1600, 0.82).then(function(dataUrl){
+    $('#upResult').innerHTML = '<div class="verdict wait"><span class="loader"></span> 드라이브에 저장하는 중…</div>';
+    return api('upload', {student:state.me.name, pin:state.me.pin, book:book, slot:slot, image:dataUrl});
+  }).then(function(r){
+    state.busy = false; $('#sendBtn').disabled = false;
+    if(!r.ok){
+      $('#upResult').innerHTML = '<div class="verdict bad">'+esc(r.error||'실패')+'</div>';
+      return;
+    }
+    $('#upResult').innerHTML = '<div class="verdict ok"><b>올렸습니다</b><br>'+
+      '오늘 사진 '+r.submitted+'/'+r.photos_needed+'장 · 선생님이 확인합니다.</div>';
+    return loadToday();
+  }).catch(function(e){
+    state.busy = false; $('#sendBtn').disabled = false;
+    $('#upResult').innerHTML = '<div class="verdict bad">올리지 못했습니다: '+esc(e && e.message || e)+'</div>';
+  });
+}
+
+/* ---------- 숙제 사진 올리기 (숙제제출 모드 · 자유 제출 포함) ---------- */
+function openHomeworkUpload(hwIndex){
+  var d = state.data;
+  var hw = (d && d.homework) || [];
+  var idx = (hwIndex === undefined || hwIndex === null) ? -1 : Number(hwIndex);
+  var cur = (idx >= 0 && hw[idx]) ? hw[idx] : null;
+  state.hwId = cur ? (cur.id || '') : '';
+  state.hwBook = cur ? (cur.book || '') : '';
+  state.hwPages = cur ? (cur.pages || '') : '';
+  var chips = hw.map(function(h, i){
+    return '<span class="chip '+(i===idx?'on':'')+'" data-hw="'+esc(h.id)+'" data-bk="'+esc(h.book||'')+'" data-pg="'+esc(h.pages||'')+'" onclick="pickHw(this)">'+
+      esc(h.book||'숙제')+(h.pages?' '+esc(h.pages):'')+'</span>';
+  }).join('');
+  openSheet(
+    '<h3>숙제 사진 올리기</h3>'+
+    '<div class="muted" style="margin-bottom:10px">오늘 푼 부분이 사진에 다 보이게 찍어 주세요. 교재 이름과 쪽수가 함께 보이면 더 좋아요.</div>'+
+    (chips ? '<label class="f">선생님이 낸 숙제</label><div>'+chips+'</div>' : '')+
+    '<label class="f">교재 이름 <span class="muted">비워도 됩니다</span></label>'+
+    '<input type="text" id="hwBook" value="'+esc(state.hwBook)+'" placeholder="예: 쌈 중2-2">'+
+    '<label class="f">쪽수 <span class="muted">선택</span></label>'+
+    '<input type="text" id="hwPages" value="'+esc(state.hwPages)+'" placeholder="예: 45~48">'+
+    '<label class="f">사진</label>'+
+    '<input type="file" id="photo" accept="image/*" capture="environment" style="width:100%" onchange="previewPhoto()">'+
+    '<img id="prev" class="thumb hide">'+
+    '<div style="height:14px"></div>'+
+    '<button class="btn" id="sendBtn" onclick="sendHomeworkPhoto()">올리기</button>'+
+    '<div id="upResult" style="margin-top:10px"></div>'
+  );
+}
+function pickHw(el){
+  var all = document.querySelectorAll('[data-hw]');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('on');
+  el.classList.add('on');
+  state.hwId = el.dataset.hw || '';
+  state.hwBook = el.dataset.bk || '';
+  state.hwPages = el.dataset.pg || '';
+  if($('#hwBook')) $('#hwBook').value = state.hwBook;
+  if($('#hwPages')) $('#hwPages').value = state.hwPages;
+}
+function sendHomeworkPhoto(){
+  var f = $('#photo').files[0];
+  if(!f){ toast('사진을 선택해 주세요'); return; }
+  if(state.busy) return;
+  state.busy = true;
+  var book = ($('#hwBook') ? $('#hwBook').value.trim() : '');
+  var pages = ($('#hwPages') ? $('#hwPages').value.trim() : '');
+  var btn = $('#sendBtn'); if(btn) btn.disabled = true;
+  $('#upResult').innerHTML = '<div class="verdict wait"><span class="loader"></span> 사진을 줄여서 올리는 중…</div>';
+  shrinkImage(f, 1600, 0.82).then(function(dataUrl){
+    $('#upResult').innerHTML = '<div class="verdict wait"><span class="loader"></span> 드라이브에 저장하는 중…</div>';
+    return api('upload', {student:state.me.name, pin:state.me.pin, book:book, pages:pages, kind:'homework',
+                          hw_id: state.hwId || '', note: pages ? ('p.' + pages) : '', image:dataUrl});
+  }).then(function(r){
+    state.busy = false; if(btn) btn.disabled = false;
+    if(!r.ok){ $('#upResult').innerHTML = '<div class="verdict bad">'+esc(r.error||'실패')+'</div>'; return; }
+    $('#upResult').innerHTML = '<div class="verdict ok"><b>올렸습니다</b><br>오늘 숙제 사진 '+r.submitted+'장 · 선생님이 확인합니다.</div>';
+    state.hwId = '';
+    return loadToday();
+  }).catch(function(e){
+    state.busy = false; if(btn) btn.disabled = false;
+    $('#upResult').innerHTML = '<div class="verdict bad">올리지 못했습니다: '+esc(e && e.message || e)+'</div>';
+  });
+}
+
+/* ---------- 🌱 다시 도전! ---------- */
+function openRedo(id){
+  openSheet('<h3>문항 불러오는 중…</h3><div class="muted"><span class="loader"></span></div>');
+  api('redo', {name:state.me.name, pin:state.me.pin}).then(function(r){
+    if(!r.ok){ openSheet('<h3>오류</h3><div class="verdict bad">'+esc(r.error)+'</div>'); return; }
+    var it = (r.items||[]).filter(function(x){ return x.id===id; })[0];
+    if(!it){ openSheet('<h3>오류</h3><div class="verdict bad">문항을 찾지 못했습니다.</div>'); return; }
+    var hasKey = it.answer && it.answer.type==='선택';
+    var where = [];
+    if(it.page) where.push('p.'+it.page);
+    if(it.no) where.push(it.no+'번');
+    openSheet(
+      '<h3>'+esc(it.label||it.book||'문제')+' 🌱 다시 도전!</h3>'+
+      '<div class="muted" style="margin-bottom:8px">'+esc(it.book)+(where.length?' '+esc(where.join(' · ')):'')+' · '+esc(it.asked_date)+'에 틀린 문항</div>'+
+      (it.self_fixed ? '<div class="muted" style="margin-bottom:6px">파란 표시로 스스로 고친 문항이에요. 한 번 더 풀어 봐도 좋아요.</div>' : '')+
+      (it.img ? '<img class="thumb" src="'+it.img+'" alt="문항">'
+        : '<div class="verdict wait">문항 사진은 아직 없습니다. 책에서 그 문항을 찾아 다시 풀고 답을 적어 주세요.</div>')+
+      '<label class="f">답 '+(hasKey?'(①~⑤ 중 번호)':'(정답표가 없는 문항 — 선생님이 확인합니다)')+'</label>'+
+      (hasKey
+        ? '<input type="number" id="redoAns" min="1" max="5" placeholder="예: 3">'
+        : '<input type="text" id="redoAns" placeholder="답을 적어 주세요">')+
+      '<div style="height:12px"></div>'+
+      '<button class="btn" onclick="submitRedo(\''+esc(it.id)+'\')">채점하기</button>'+
+      '<div id="redoRes" style="margin-top:10px"></div>'
+    );
+  }).catch(function(e){ openSheet('<h3>오류</h3><div class="verdict bad">'+esc(e && e.message || e)+'</div>'); });
+}
+function submitRedo(id){
+  var ans = ($('#redoAns')||{}).value;
+  if(!ans){ toast('답을 입력해 주세요'); return; }
+  $('#redoRes').innerHTML = '<div class="verdict wait"><span class="loader"></span> 채점 중…</div>';
+  api('redo_answer', {student:state.me.name, pin:state.me.pin, id:id, answer:ans}).then(function(r){
+    if(!r.ok){ $('#redoRes').innerHTML = '<div class="verdict bad">'+esc(r.error)+'</div>'; return; }
+    var msg;
+    if(r.correct===true) msg = '<div class="verdict ok"><b>정답입니다!</b> 이 문항은 끝났어요.</div>';
+    else if(r.correct===false){
+      var key = r.answer_key && r.answer_key.type==='선택' ? r.answer_key.answer : '?';
+      msg = '<div class="verdict bad"><b>다시 볼까요?</b> 정답은 '+key+'번입니다. 해설을 보고 한 번 더 풀어 보세요.</div>';
+    } else if(String(r.graded).indexOf('서술')>=0) msg = '<div class="verdict wait">서술형 문항입니다. 선생님이 확인합니다.</div>';
+    else msg = '<div class="verdict wait">이 문항은 정답표가 없어(진도교재) 선생님이 확인합니다. 답은 기록해 두었어요.</div>';
+    $('#redoRes').innerHTML = msg;
+    loadToday();
+  }).catch(function(e){ $('#redoRes').innerHTML = '<div class="verdict bad">'+esc(e && e.message || e)+'</div>'; });
+}
+
+/* ---------- 🗓️ 내 계획 짜기 (👑 자기주도왕) ---------- */
+function applyKingUi(){
+  var king = !!(state.me && state.me.self_plan_king);
+  $('#selfPlanCard').classList.toggle('hide', !king);
+  $('#navPlan').classList.toggle('hide', !king);
+  if(king) loadKingStatus();
+}
+function loadKingStatus(){
+  if(!state.me) return;
+  api('selfplan_info', {name:state.me.name, pin:state.me.pin}).then(function(r){
+    if(!r.ok) return;
+    state.spInfo = r;
+    var pill = '👑 자기주도왕';
+    var t = '내가 공부할 단원·쪽수와 요일을 직접 정해 보세요. 선생님이 검사해서 승인하면 그대로 이번 주 계획이 됩니다. 일요일도 공부 요일로 고를 수 있어요.';
+    if(r.pending && r.pending.length){
+      pill = '검사 대기';
+      t = '검사 기다리는 계획이 있어요 (' + r.pending[0].week + '주 · 총 ' + (((r.pending[0].stats||{}).total_pages)||0) + '쪽). 선생님이 승인하면 확정됩니다.';
+    } else if(r.rejected && r.rejected.length && !r.official_week){
+      pill = '수정 요청';
+      t = '선생님이 수정을 요청했어요: «' + (r.rejected[0].note || '다시 짜서 올려 주세요.') + '» 다시 짜서 올려 보세요.';
+    } else if(r.official_week){
+      pill = '확정됨';
+      t = '(' + r.official_week + '~) 확정된 주간 계획이 있어요. 다음 주 계획을 직접 짜서 올릴 수 있습니다.';
+    }
+    $('#spText').textContent = t;
+    $('#spPill').textContent = pill;
+  }).catch(function(){});
+}
+function spInit(){
+  if(!state.sp) state.sp = { items: [], week: '', subject: '', book: '', units: [], pages: '', perDay: 4, weekdays: [],
+                             examRange: '', examExclude: '', examBook: '', examRangeExam: '', skipEssay: false };
+  return state.sp;
+}
+function openSelfPlan(){
+  if(!state.me){ toast('먼저 로그인해 주세요'); return; }
+  spInit();
+  openSheet('<h3>불러오는 중…</h3><div class="muted"><span class="loader"></span></div>');
+  api('selfplan_info', {name:state.me.name, pin:state.me.pin}).then(function(r){
+    if(!r.ok){ openSheet('<h3>내 계획</h3><div class="verdict bad">'+esc(r.error)+'</div>'); return; }
+    if(!r.self_plan_king){ openSheet('<h3>내 계획</h3><div class="verdict wait">👑 자기주도왕인 학생만 쓸 수 있어요. 선생님께 말씀해 주세요.</div>'); return; }
+    state.spInfo = r;
+    state.sp.week = state.sp.week || r.next_week;
+    var subs = spSubjects();
+    if(subs.indexOf(state.sp.subject) < 0) state.sp.subject = (subs.indexOf(r.default_subject)>=0 ? r.default_subject : (subs[0]||''));
+    spEnsureBook();
+    if(!state.sp.examRange && !state.sp.examExclude && !state.sp.examBook) spFillExam();
+    renderSelfPlan();
+  }).catch(function(e){ openSheet('<h3>오류</h3><div class="verdict bad">'+esc(e && e.message || e)+'</div>'); });
+}
+function spSubjects(){ return Object.keys((state.spInfo && state.spInfo.subjects) || {}); }
+function spBooks(){ return ((state.spInfo && state.spInfo.subjects) || {})[state.sp.subject] || []; }
+function spBookObj(){ return spBooks().filter(function(b){ return b.id === state.sp.book; })[0] || null; }
+function spExamBooks(){
+  return spBooks().filter(function(b){ return /시험|실전/.test(b.role||'') || /\.exam$/.test(b.id); });
+}
+function spFillExam(){
+  var sp = state.sp, b = spBookObj() || {};
+  sp.examRange = b.exam_range || '';
+  sp.examExclude = b.exam_exclude || '';
+  sp.examBook = b.exam_book || '';
+  sp.examRangeExam = b.exam_range_exam || '';
+  sp.skipEssay = false;
+}
+function spEnsureBook(){
+  var books = spBooks();
+  if(!books.some(function(b){ return b.id === state.sp.book; })){
+    state.sp.book = books.length ? books[0].id : '';
+    spFillExam();
+  }
+  var b = spBookObj();
+  state.sp.units = (state.sp.units||[]).filter(function(u){
+    return ((b||{}).units||[]).some(function(x){ return x.unit === u; });
+  });
+}
+function spSync(){
+  var p = $('#spPages'), n = $('#spPerDay'), er = $('#spExam'), ee = $('#spExamEx'), ebr = $('#spExamRange'), se = $('#spEssay');
+  if(p) state.sp.pages = p.value.trim();
+  if(n) state.sp.perDay = +n.value || 4;
+  if(er) state.sp.examRange = er.value.trim();
+  if(ee) state.sp.examExclude = ee.value.trim();
+  if(ebr) state.sp.examRangeExam = ebr.value.trim();
+  if(se) state.sp.skipEssay = !!se.checked;
+}
+function spSetWeek(w){ spSync(); state.sp.week = w; renderSelfPlan(); }
+function spPickSubject(s){ spSync(); state.sp.subject = s; state.sp.book=''; state.sp.units=[]; spEnsureBook(); renderSelfPlan(); }
+function spSetBook(id){ spSync(); state.sp.book = id; state.sp.units = []; spFillExam(); renderSelfPlan(); }
+function spSetExamBook(id){ spSync(); state.sp.examBook = id; var ex = spExamBooks().filter(function(b){ return b.id===id; })[0]; state.sp.examRangeExam = (ex && ex.exam_range) || ''; renderSelfPlan(); }
+function spToggleUnit(u){ spSync(); var i = state.sp.units.indexOf(u); if(i>=0) state.sp.units.splice(i,1); else state.sp.units.push(u); renderSelfPlan(); }
+function spToggleWd(w){ spSync(); var i = state.sp.weekdays.indexOf(w);
+  if(i>=0) state.sp.weekdays.splice(i,1); else state.sp.weekdays.push(w);
+  state.sp.weekdays.sort(function(a,b){ return WALL.indexOf(a)-WALL.indexOf(b); });
+  renderSelfPlan(); }
+function spToggleEssay(){ spSync(); renderSelfPlan(); }
+function spAdd(){
+  spSync();
+  var b = spBookObj();
+  if(!b){ toast('교재를 골라 주세요'); return; }
+  if(!state.sp.units.length && !state.sp.pages){ toast('단원을 고르거나 쪽수를 넣어 주세요'); return; }
+  state.sp.items.push({
+    subject: state.sp.subject, book: state.sp.book, units: state.sp.units.slice(),
+    manual_pages: state.sp.units.length ? '' : state.sp.pages,
+    per_day: state.sp.perDay, weekdays: state.sp.weekdays.slice(),
+    exam_range: state.sp.examRange, exam_exclude: state.sp.examExclude,
+    exam_book: state.sp.examBook, exam_range_exam: state.sp.examRangeExam,
+    skip_essay: !!state.sp.skipEssay
+  });
+  state.sp.units = []; state.sp.pages = ''; state.sp.weekdays = [];
+  spFillExam();
+  renderSelfPlan();
+}
+function spRemove(i){ spSync(); state.sp.items.splice(i,1); renderSelfPlan(); }
+function spSubmit(){
+  spSync();
+  if(!state.sp.items.length){ toast('과목을 하나 이상 담아 주세요'); return; }
+  var btn = $('#spSubmit'); if(btn) btn.disabled = true;
+  api('selfplan_submit', {name:state.me.name, pin:state.me.pin, week:state.sp.week,
+                          items:state.sp.items, per_day:4}).then(function(r){
+    if(!r.ok){ if(btn) btn.disabled=false; toast(r.error||'올리지 못했습니다'); return; }
+    state.sp.items = [];
+    openSheet('<h3>선생님께 올렸습니다</h3><div class="verdict ok">'+esc(r.message||'')+'</div>'+
+      '<div style="height:12px"></div><button class="btn" onclick="closeSheet()">확인</button>');
+    loadKingStatus();
+    loadToday();
+  }).catch(function(e){ if(btn) btn.disabled=false; toast('연결 오류: '+(e && e.message || e)); });
+}
+function renderSelfPlan(){
+  var sp = state.sp, info = state.spInfo || {};
+  var subs = spSubjects(), books = spBooks(), b = spBookObj() || {};
+  var allBooks = {};
+  subs.forEach(function(s){ ((info.subjects||{})[s]||[]).forEach(function(x){ allBooks[x.id] = x; }); });
+  var units = (b && b.units) || [];
+  var statusHtml = '';
+  (info.pending||[]).forEach(function(p){
+    statusHtml += '<div class="verdict wait">검사 대기 · '+esc(p.week)+'주 · 총 '+(((p.stats||{}).total_pages)||0)+'쪽<br>올린 시각 '+esc(String(p.submitted_at||'').replace('T',' '))+'</div>';
+  });
+  (info.rejected||[]).forEach(function(p){
+    statusHtml += '<div class="verdict bad">수정 요청 · '+esc(p.week)+'주<br>«'+esc(p.note||'')+'»</div>';
+  });
+  if(info.official && info.official.legacy){
+    statusHtml += '<div class="verdict wait"><b>이번 주 확정 계획</b>은 «'+esc((info.official.books||[]).join(' / '))+'» 로 되어 있어요.<br>'+
+      '새로 짜는 계획은 아래에서 교재를 고르면 됩니다. (지난 교재는 목록에서 <b>(지난 교재)</b>로 표시)</div>';
+  }
+  var wd = WALL.map(function(w){
+    return '<button class="chip'+(sp.weekdays.indexOf(w)>=0?' on':'')+'" onclick="spToggleWd(\''+w+'\')">'+w+'</button>';
+  }).join('');
+  var subjChips = subs.map(function(s){
+    return '<button class="chip'+(sp.subject===s?' on':'')+'" onclick="spPickSubject(\''+esc(s)+'\')">'+esc(s)+'</button>';
+  }).join('') || '<div class="muted">교재가 등록되어 있지 않아요. 선생님께 말씀해 주세요.</div>';
+  var bookSel = '<select onchange="spSetBook(this.value)" style="width:100%">'+ books.map(function(x){
+      return '<option value="'+esc(x.id)+'"'+(x.id===sp.book?' selected':'')+'>'+esc(x.title)+(x.legacy?' (지난 교재)':'')+'</option>'; }).join('')+'</select>';
+  var unitChips = units.length ? units.map(function(u){
+      return '<button class="chip'+(sp.units.indexOf(u.unit)>=0?' on':'')+'" onclick="spToggleUnit(\''+esc(u.unit)+'\')">'+esc(u.unit)+' '+esc(u.title||'')+' <span class="muted">'+esc(u.page_range||'')+'</span></button>';
+    }).join('') : '<div class="muted">이 교재는 단원 구조가 없어요 → 아래 쪽수에 범위를 적어 주세요.</div>';
+  var examBooks = spExamBooks();
+  var examSel = '<select onchange="spSetExamBook(this.value)" style="width:100%">'+
+    '<option value=""'+(!sp.examBook?' selected':'')+'>병행 안 함</option>'+
+    examBooks.map(function(x){ return '<option value="'+esc(x.id)+'"'+(x.id===sp.examBook?' selected':'')+'>'+esc(x.title)+'</option>'; }).join('')+'</select>';
+  var examHint = [];
+  if(b.exam_range) examHint.push('이 교재 시험범위 <b>'+esc(b.exam_range)+'</b>');
+  if(b.exam_exclude) examHint.push('이미 푼 쪽 <b>'+esc(b.exam_exclude)+'</b> 빼기');
+  var items = sp.items.map(function(it,i){
+    var bb = allBooks[it.book] || {};
+    var range = it.units.length ? it.units.join(',') : ('p.'+it.manual_pages);
+    var ex = [];
+    if(it.exam_range) ex.push('시험범위 '+it.exam_range);
+    if(it.exam_exclude) ex.push(it.exam_exclude+' 빼기');
+    if(it.exam_book) ex.push('시험대비 '+(it.exam_range_exam||'전체'));
+    if(it.skip_essay) ex.push('서술형 제외');
+    return '<div class="item"><div class="row"><b>'+esc(it.subject)+'</b><button class="chip" onclick="spRemove('+i+')">빼기</button></div>'+
+      '<div class="muted">'+esc(bb.title||it.book)+' · '+esc(range)+(it.weekdays.length?' · '+esc(it.weekdays.join('·')):' · 요일 자동')+' · 하루 '+it.per_day+'쪽'+
+      (ex.length?'<br>'+esc(ex.join(' · ')):'')+'</div></div>';
+  }).join('') || '<div class="muted">아직 담은 과목이 없어요.</div>';
+
+  openSheet(
+    '<h3>🗓️ 내 계획 짜기</h3>'+ statusHtml +
+    '<div class="muted">내가 정한 대로 계획을 짜서 선생님께 검사받아요. 승인되면 이번 주 계획이 됩니다.<br>과목을 여러 개 담으면 같은 날 두 과목이 겹쳐도 그날 다 같이 나와요.</div>'+
+    '<label class="f">주 (월요일 시작)</label>'+
+    '<select onchange="spSetWeek(this.value)" style="width:100%">'+
+      '<option value="'+esc(info.week)+'"'+(sp.week===info.week?' selected':'')+'>'+esc(info.week)+'주 (이번 주)</option>'+
+      '<option value="'+esc(info.next_week)+'"'+(sp.week===info.next_week?' selected':'')+'>'+esc(info.next_week)+'주 (다음 주)</option>'+
+    '</select>'+
+    '<label class="f">과목</label><div class="acc">'+subjChips+'</div>'+
+    '<label class="f">교재</label>'+bookSel+
+    '<label class="f">단원 <span class="muted">누른 순서대로</span></label><div class="acc">'+unitChips+'</div>'+
+    '<label class="f">쪽수 직접 입력 <span class="muted">단원 없이 할 때 (예: 101~120)</span></label>'+
+    '<input type="text" id="spPages" value="'+esc(sp.pages)+'" placeholder="예: 101~120">'+
+    '<label class="f">하루 분량(쪽)</label><input type="number" id="spPerDay" value="'+(sp.perDay||4)+'" min="1" max="20">'+
+    '<label class="f">시험범위 · 진도교재 쪽 <span class="muted">비우면 전체'+(examHint.length?' · '+examHint.join(' · '):'')+'</span></label>'+
+    '<input type="text" id="spExam" value="'+esc(sp.examRange)+'" placeholder="예: 101~155">'+
+    '<label class="f">이미 푼 쪽 빼기 <span class="muted">예: 141,146,148</span></label>'+
+    '<input type="text" id="spExamEx" value="'+esc(sp.examExclude)+'" placeholder="예: 141,146,148">'+
+    '<label class="f">시험대비교재 <span class="muted">고르면 그날 함께 풀어요</span></label>'+ examSel +
+    '<label class="f">시험범위 · 시험대비교재 쪽 <span class="muted">비우면 전체</span></label>'+
+    '<input type="text" id="spExamRange" value="'+esc(sp.examRangeExam)+'" placeholder="예: 45~85">'+
+    '<label class="f" style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="spEssay" style="width:auto"'+(sp.skipEssay?' checked':'')+' onclick="spToggleEssay()"> ☐ 서술형 문제 빼고 계획</label>'+
+    '<label class="f">공부 요일 <span class="muted">비우면 남은 날에 자동 · 일요일도 고를 수 있어요</span></label><div class="acc">'+wd+'</div>'+
+    '<div style="height:10px"></div><button class="btn ghost small" onclick="spAdd()">＋ 계획에 담기</button>'+
+    '<label class="f">내가 담은 계획</label>'+items+
+    '<div style="height:14px"></div>'+
+    '<button class="btn" id="spSubmit" onclick="spSubmit()"'+(sp.items.length?'':' disabled')+'>선생님께 검사받기</button>'+
+    '<div style="height:10px"></div><button class="btn ghost small" onclick="closeSheet()">닫기</button>'
+  );
+}
+
+/* ---------- 학생 전환 (쌍둥이) ---------- */
+function openSwitch(){
+  var list = accounts();
+  openSheet(
+    '<h3>학생 바꾸기</h3>'+
+    '<div class="muted" style="margin-bottom:10px">한 폰을 같이 쓰는 형제는 여기서 바로 바꿀 수 있어요.</div>'+
+    list.map(function(a){
+      return '<div class="item"><div class="row"><b>'+esc(a.name)+'</b>'+
+        '<button class="chip" onclick="switchTo(\''+esc(a.name)+'\')">이 학생으로</button></div>'+
+        '<div class="muted">'+esc(shortMode(a.mode))+'</div></div>';
+    }).join('')+
+    '<div style="height:8px"></div>'+
+    '<button class="btn ghost small" onclick="closeSheet();logout()">다른 이름으로 로그인</button>'
+  );
+}
+function switchTo(name){
+  var a = accounts().filter(function(x){ return x.name===name; })[0]; if(!a) return;
+  closeSheet(); $('#loginName').value=name; $('#loginPin').value=a.pin; doLogin();
+}
+function logout(){
+  state.me=null; state.data=null;
+  $('#main').classList.add('hide'); $('#login').classList.remove('hide');
+  $('#nav').classList.add('hide'); $('#switchBtn').classList.add('hide');
+  $('#remindBanner').classList.add('hide');
+  $('#selfPlanCard').classList.add('hide');
+  $('#navPlan').classList.add('hide');
+  $('#loginPin').value='';
+  $('#appTitle').textContent = '위너스 클리닉';
+  $('#who').textContent = '오늘 할 클리닉을 확인하세요';
+  $('#hwCard').classList.add('hide');
+  $('#todayCard').classList.remove('hide');
+  $('#notiCard').classList.remove('hide');
+  $('#redoCard').classList.remove('hide');
+  $('#overdueCard').classList.remove('hide');
+  $('#navRedo').classList.remove('hide');
+  closeAlertBanner();
+  stopStudentPolling();
+  if(state.timer) clearInterval(state.timer);
+}
+function go(where){
+  var btns = document.querySelectorAll('nav button');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('on');
+  if(where==='today') btns[0].classList.add('on');
+  if(where==='redo'){ btns[2].classList.add('on');
+    var el=$('#redoList'); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+
+/* ---------- 시작 ---------- */
+renderAccounts();
+var last = localStorage.getItem('clinic.last');
+if(last){ $('#loginName').value = last; $('#loginPin').focus(); }
+</script>
+</body>
+</html>
+

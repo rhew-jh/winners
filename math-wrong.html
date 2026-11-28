@@ -1,0 +1,3604 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WINNERS 수학 선생님</title>
+<script>window.WINNERS_BRIDGE={mode:"gas",exec:"https://script.google.com/macros/s/AKfycbymRr0dMKGbCob4w9LyNR08N2RbmfyK4xxXrgt2SgcZan9daWbro64jG_NP3GVvpRK3sg/exec"};</script>
+<script src="bridge.js?v=8"></script>
+<script src="photo-upload.js?v=6"></script>
+<script src="ans-img.js?v=3"></script>
+<style>
+:root{
+  /* 2026-11-28 UI 4번 — 블루 & 오렌지 */
+  --teal:#f2711c; --teal2:#fff1e6; --ink:#1d2b3a; --mut:#6f8093; --line:#dce5ef;
+  --navy:#12447e; --blue:#1f6fd0; --red:#e2543a; --amber:#c2410c;
+}
+*{box-sizing:border-box;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;background:#f2f6fc;color:var(--ink);
+  font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',system-ui,sans-serif}
+body{padding:12px}
+a{color:#1769bd}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.hide{display:none!important}
+.wb{max-width:1240px;margin:0 auto}
+
+/* 로그인 */
+.wb-login{display:flex;justify-content:center;padding:9vh 8px 40px}
+.wb-login-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;width:min(400px,100%);
+  box-shadow:0 10px 30px rgba(20,40,70,.08)}
+.wb-login-tt{font-size:20px;font-weight:800;color:var(--navy)}
+.wb-login-sub{font-size:14px;color:var(--mut);margin:6px 0 14px;line-height:1.5}
+.wb-pin{width:100%;font-size:26px;letter-spacing:.5em;text-align:center;padding:12px;border:2px solid #cdd9e6;
+  border-radius:12px;font-weight:800}
+.wb-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.wb-key{min-height:56px;font-size:20px;font-weight:800;border:1px solid #d3e0ec;background:#f7fafd;color:var(--navy);
+  border-radius:12px}
+.wb-key.del{font-size:15px}
+.wb-key.ok{font-size:15px;background:var(--teal2);border-color:#bfe0da;color:#1d7d70}
+.wb-key:active{background:#e6eef7}
+.wb-enter{width:100%;min-height:48px;font-size:16px}
+.wb-status{font-size:13.5px;color:var(--mut);margin:8px 2px;line-height:1.5;min-height:18px}
+.wb-status.err{color:var(--amber)}
+.wb-split{display:flex;align-items:center;gap:10px;margin:16px 0 12px;color:#9aa9b8;font-size:12px;font-weight:800}
+.wb-split::before,.wb-split::after{content:'';flex:1;height:1px;background:var(--line)}
+.wb-alt{display:block;width:100%;min-height:46px;font-size:14.5px;font-weight:800;border-radius:12px;
+  border:1px solid #cfe0d9;background:var(--teal2);color:#1d7d70;margin-top:8px}
+.wb-alt.grey{background:#f3f6fa;border-color:#dbe3ec;color:#41586e}
+
+/* 상단 */
+.wb-bar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:9px 14px;margin-bottom:8px;position:sticky;top:0;z-index:40}
+.wb-date{font-size:17px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+.wb-who{margin-left:auto;font-size:13.5px;font-weight:800;color:#125f8c}
+.wb-mini{min-height:32px;padding:0 10px;font-size:12.5px;border-radius:9px;border:1px solid #d3e0ec;
+  background:#eef4f8;color:#2d5470;font-weight:800}
+
+/* 탭 */
+.wb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+.wb-tab{min-height:44px;padding:0 15px;border-radius:12px;border:1px solid #d3e0ec;background:#fff;color:#2d5470;
+  font-weight:900;font-size:14px}
+.wb-tab.on{background:#174777;border-color:#174777;color:#fff}
+.wb-tab small{display:block;font-size:10.5px;font-weight:700;opacity:.75;margin-top:-2px}
+.wb-tab.admin{border-color:#f0c9a8;background:#fff7ef;color:#b45309}
+.wb-tab.admin.on{background:#b45309;border-color:#b45309;color:#fff}
+
+/* 고르기 */
+.wb-pick{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+.wb-chips{display:flex;gap:6px;flex-wrap:wrap}
+.wb-chip{min-height:38px;padding:0 13px;border-radius:999px;border:1px solid #d3e0ec;background:#fff;color:#2d5470;
+  font-weight:800;font-size:14px}
+.wb-chip.on{background:#174777;border-color:#174777;color:#fff}
+.wb-chip small{font-weight:700;opacity:.7;margin-left:4px;font-size:11.5px}
+.wb-book select{width:100%;min-height:44px;border:1px solid #cdd9e6;border-radius:11px;padding:6px 10px;
+  font-size:15px;background:#fff;color:inherit;font-weight:800}
+
+/* 숙제여부·수행력 */
+.wb-meta{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:8px;
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.wb-meta-row{display:flex;align-items:center;gap:8px}
+.wb-meta-lb{font-size:13.5px;font-weight:800;color:#31536f;white-space:nowrap}
+.wb-range{width:min(300px,46vw);accent-color:var(--teal);height:28px}
+.wb-und{font-size:14px;font-weight:900;color:var(--teal);min-width:44px}
+
+/* 채점범위 */
+.wb-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#fff;
+  border:1px solid var(--line);border-radius:14px}
+.wb-lbl{font-weight:800;font-size:14px}
+.wb-num{width:64px;min-height:38px;text-align:center;font-size:16px;font-weight:800;border:1px solid #cdd9e6;
+  border-radius:9px;padding:4px 6px;background:#fff;color:inherit}
+.wb-btn2{min-height:38px;padding:0 14px;border-radius:9px;border:0;background:var(--teal);color:#fff;
+  font-weight:800;font-size:14px}
+.wb-btn2.ghost{background:#eef4f8;color:#2d5470;border:1px solid #d3e0ec}
+.wb-btn2.print{background:#16406b;margin-left:auto}
+.wb-hide{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#31536f;white-space:nowrap}
+.wb-hide input{width:19px;height:19px;accent-color:var(--teal)}
+
+/* ── 2차(2026-11-28): 좌우 2분할을 없애고 1열 한 화면 ──
+   쪽마다 [빠른 정답](크고 넓게) → 바로 아래 [O/X 문항] 순서로 세로로 쌓는다.
+   세로로 쭉 내려 보며 채점할 수 있게 위아래 여백을 넉넉히 둔다. */
+.wb-mx{display:block;margin-top:6px;background:#fff;border:1px solid var(--line);
+  border-radius:14px;overflow:hidden}
+/* 쪽 행 위의 작은 머리글은 1열에서 필요 없다(쪽 이름은 각 줄이 스스로 보여 준다) */
+.wb-mh{display:none}
+.wb-mu{background:#12447e;color:#fff;font-weight:900;font-size:14px;padding:9px 15px;letter-spacing:-.01em}
+.wb-mq{display:flex;align-items:flex-start;gap:11px;padding:13px 15px 12px;background:#eef6ff;
+  border-top:1px solid #dbe8f8;min-width:0;flex-wrap:wrap}
+.wb-mq a{flex:0 0 auto;font-weight:900;font-size:17px;color:#0f3f74;text-decoration:none;
+  background:#fff;border:1.5px solid #c9dcf0;border-radius:10px;padding:6px 12px;min-width:64px;
+  text-align:center;line-height:1.25}
+.wb-q-nos{display:flex;flex-wrap:wrap;gap:8px;flex:1 1 auto;min-width:0}
+.wb-q{display:inline-flex;align-items:baseline;gap:5px;background:#fff;border:1.5px solid #cfdfef;
+  border-radius:10px;padding:6px 11px;font-size:18px;font-weight:900;color:#123a63;line-height:1.25}
+.wb-q b{font-size:12.5px;color:#6d8dab;font-weight:900}
+.wb-q.none{background:#f7fafc;border-color:#e7eef5;color:#b3bec9}
+.wb-mq.cont{background:#f7fbff;padding:7px 15px;color:#6d8dab;font-size:13px;font-weight:800;
+  border-top:1px dashed #dbe8f8}
+.wb-mr{display:flex;align-items:center;gap:10px;padding:11px 15px 13px;border-bottom:1px solid #e9eff6;
+  min-width:0;flex-wrap:wrap}
+.wb-mr.done{background:#f6fbf8}
+/* 빠른정답 쪽 번호를 누르면 그 줄로 이동 + 잠깐 노란 표시 */
+.wb-mr.flash{background:#fff6cf !important;box-shadow:inset 0 0 0 2px #eab308;transition:background .25s}
+.wb-pg{flex:0 0 64px;font-weight:900;font-size:17px;color:#123a63;display:flex;
+  flex-direction:column;gap:3px;align-items:flex-start}
+.wb-pg .st{font-size:11px;font-weight:900;color:#1d7d70;background:#e8f5f3;border-radius:6px;padding:1px 5px}
+.wb-pg .st.stu{color:#8a4b00;background:#fff1e0}
+.wb-nos{display:flex;flex-wrap:wrap;gap:9px 3px;flex:1 1 260px;min-width:0}
+.wb-o{position:relative;width:52px;min-height:64px;border:0;background:transparent;padding:0 0 2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;color:#7b8a9a;cursor:pointer}
+.wb-o .n{font-size:13px;font-weight:900;line-height:1.3;color:#6f8296}
+.wb-o .c{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;
+  border:3px solid var(--teal);color:var(--teal);font-size:20px;font-weight:900;line-height:1;background:#fff}
+.wb-o.on .n{color:var(--amber)}
+.wb-o.on .c{border-color:var(--red);color:var(--red);background:#fdecea}
+.wb-att{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4px;min-width:124px}
+.wb-att button{font-family:inherit;min-height:29px;font-size:11.5px;font-weight:900;padding:3px 2px;border-radius:8px;
+  border:1px solid #d8e2ec;background:#fff;color:#5b7c96;line-height:1.1}
+.wb-att button.on{background:#fff3e8;border-color:#f0c9a8;color:#b45309}
+.wb-att button[data-k="check"].on{background:#fdecea;border-color:#f0b4ab;color:#b3261e}
+.wb-sc{flex:0 0 54px;text-align:center;font-weight:900;font-size:14px;color:#5b7c96}
+.wb-sc.warn{color:var(--amber)}
+.wb-sv{flex:0 0 auto}
+.wb-save{flex:0 0 auto;min-width:78px;min-height:46px;border-radius:10px;border:1px solid #cfe0d9;background:var(--teal2);
+  color:#1d7d70;font-weight:900;font-size:14px;white-space:nowrap}
+.wb-save:disabled{opacity:.6}
+.wb-save.ok{background:#1d7d70;border-color:#1d7d70;color:#fff}
+.wb-empty{padding:26px 12px;text-align:center;color:var(--mut);font-size:13.5px;line-height:1.7;white-space:pre-line}
+.wb-mx .wb-empty{grid-column:1 / -1}
+
+/* 카드(코멘트·출제·배정·원장) */
+.wb-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-top:8px}
+.wb-h2{font-size:14.5px;font-weight:900;color:var(--navy);margin:0 0 9px;display:flex;align-items:center;gap:8px}
+.wb-h2 .tag{font-size:11px;font-weight:800;background:var(--teal2);color:#1d7d70;border-radius:20px;padding:2px 8px}
+.wb-in{width:100%;min-height:42px;border:1px solid #cdd9e6;border-radius:10px;padding:8px 10px;font-size:14.5px;
+  font-weight:700;font-family:inherit;background:#fff;color:inherit}
+.wb-ta{width:100%;min-height:96px;border:1px solid #cdd9e6;border-radius:10px;padding:9px 10px;font-size:14.5px;
+  font-family:inherit;line-height:1.55;resize:vertical;background:#fff;color:inherit}
+.wb-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.wb-row>*{flex:0 1 auto}
+.wb-row .grow{flex:1 1 200px}
+.wb-f{display:flex;flex-direction:column;gap:4px;flex:1 1 120px;min-width:96px}
+.wb-f span{font-size:12px;font-weight:800;color:#4a6a86}
+.wb-list{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.wb-item{border:1px solid #eef2f7;border-radius:11px;padding:8px 10px;background:#fbfdfe;font-size:13px;line-height:1.5}
+.wb-item b{color:var(--navy)}
+.wb-item .mut{color:var(--mut);font-size:12px}
+.wb-item .txt{white-space:pre-wrap;margin-top:4px;font-size:13.5px;color:#23384d}
+.wb-pgsel{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.wb-ck{display:inline-flex;align-items:center;gap:4px;border:1px solid #dbe6ef;background:#fff;border-radius:8px;
+  padding:3px 7px;font-size:12.5px;font-weight:800;color:#31536f}
+.wb-ck input{width:16px;height:16px;accent-color:var(--teal)}
+.wb-ck.on{background:#fdecea;border-color:#f0b4ab;color:#b3261e}
+.wb-note{font-size:12.5px;line-height:1.6;border-radius:10px;padding:9px 11px;margin-top:8px;background:#f4f7fb;color:#41607c}
+.wb-note.ok{background:#eaf7ee;color:#125c33}
+.wb-note.err{background:#fdecec;color:#8c1d18}
+.wb-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+.wb-tbl th,.wb-tbl td{border-bottom:1px solid #eef2f7;padding:6px 5px;text-align:left;vertical-align:top}
+.wb-tbl th{color:#4a6a86;font-size:11.5px;font-weight:900;background:#f6f9fc}
+.wb-gchips{display:flex;flex-wrap:wrap;gap:3px;max-width:430px}
+.wb-gc{min-height:28px;padding:0 7px;border-radius:7px;border:1px solid #d8e2ec;background:#fff;color:#5b7c96;
+  font-size:11.5px;font-weight:800}
+.wb-gc.on{background:#174777;border-color:#174777;color:#fff}
+.wb-bar-b{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.wb-count{margin-left:auto;font-size:13px;font-weight:900;color:#125f8c}
+
+/* 인쇄 요청 창 */
+.wb-modal{position:fixed;inset:0;background:#0b1220b8;display:flex;align-items:center;justify-content:center;padding:14px;z-index:60}
+.wb-modal-box{background:#fff;border-radius:16px;padding:18px;width:min(460px,100%)}
+.wb-modal-tt{font-size:18px;font-weight:900;color:var(--navy)}
+.wb-modal-sub{font-size:13px;color:var(--mut);margin:6px 0 10px;line-height:1.5}
+.wb-modal-row{display:flex;align-items:center;gap:8px;margin:8px 0}
+.wb-modal-in{flex:1;min-height:42px;border:1px solid #cdd9e6;border-radius:10px;padding:8px 10px;font-size:15px;font-weight:800}
+.wb-modal-foot{display:flex;gap:8px;margin-top:14px}
+.wb-modal-foot>*{flex:1;min-height:46px;font-size:15px}
+
+/* 학생 화면 */
+.wb-stu-hd{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.wb-stu-tt{font-size:18px;font-weight:900;color:var(--navy)}
+.wb-stu-sub{font-size:13px;color:var(--mut);margin-top:4px;line-height:1.5}
+.wb-stu-who{display:inline-block;margin-top:9px;padding:7px 14px;border-radius:999px;background:#e8f5f3;
+  border:1px solid #bfe0da;color:#1d7d70;font-size:15px;font-weight:900;letter-spacing:-.01em}
+.wb-stu-who.hide{display:none}
+.wb-stu .wb-mx{grid-template-columns:1fr}
+.wb-stu .wb-mh.q,.wb-stu .wb-mq{display:none}
+
+/* 좁은 노트북·태블릿: 1열은 그대로 두고 글씨만 살짝 줄인다(태블릿에서도 크게 보이도록) */
+@media (max-width:1100px){
+  .wb-q{font-size:17px;padding:5px 10px}
+  .wb-o{width:48px}
+  .wb-o .c{width:35px;height:35px;font-size:18px}
+}
+
+/* 768 안팍 태블릿 세로 */
+@media (max-width:820px){
+  .wb-q{font-size:16.5px}
+  .wb-mq a{font-size:16px;min-width:58px}
+  .wb-o{width:46px;min-height:60px}
+  .wb-o .c{width:33px;height:33px;font-size:17px}
+  .wb-pg{flex:0 0 58px;font-size:16px}
+}
+
+/* 그보다 좁은 화면 */
+@media (max-width:760px){  body{padding:8px}
+  .wb-mq{padding:11px 12px 10px;gap:9px}
+  .wb-q{font-size:16px;padding:5px 9px}
+  .wb-q b{font-size:11.5px}
+  .wb-o{width:44px;min-height:58px}
+  .wb-o .c{width:32px;height:32px;font-size:16px;border-width:2.5px}
+  .wb-o .n{font-size:12px}
+  .wb-att{min-width:110px}
+  .wb-pg{flex:0 0 52px;font-size:15px}
+  .wb-save{min-width:66px;font-size:13px}
+  .wb-sc{flex:0 0 46px;font-size:13px}
+  .wb-date{font-size:15.5px}
+  .wb-btn2.print{margin-left:0;width:100%}
+  .wb-tab{padding:0 11px;font-size:13px}
+}
+
+/* 폰(390px 안팍): 페이지 줄을 카드로 — 문항 동그라미가 여러 개 가로로 */
+@media (max-width:520px){
+  body{padding:6px}
+  .wb{max-width:none}
+  .wb-bar{padding:7px 9px;gap:6px;flex-wrap:wrap}
+  .wb-date{font-size:14.5px}
+  .wb-who{font-size:12px;margin-left:0}
+  .wb-mini{min-height:29px;font-size:11.5px;padding:0 8px}
+  .wb-tabs{gap:5px}
+  .wb-tab{min-height:36px;padding:0 9px;font-size:12px;border-radius:10px}
+  .wb-tab small{display:none}
+  .wb-chip{min-height:34px;padding:0 10px;font-size:13px}
+  .wb-meta{padding:8px 10px;gap:6px 12px}
+  .wb-range{width:150px}
+  .wb-top{padding:8px 9px;gap:6px}
+  .wb-num{width:64px;min-height:34px;font-size:14.5px;padding:4px 3px}
+  .wb-btn2{min-height:34px;padding:0 11px;font-size:13px}
+  /* 1열 유지 — 폰에서도 빠른정답·O/X가 한눈에 보이는 크기 */
+  .wb-mu{border-radius:8px;margin:8px 0 5px;padding:6px 10px;font-size:12.5px}
+  .wb-mq{gap:8px;padding:10px 10px 9px;background:#eef6ff;border:1px solid #dbe8f8;
+    border-bottom:0;border-radius:10px 10px 0 0}
+  .wb-mq a{font-size:15px;min-width:54px;padding:5px 9px}
+  .wb-q{padding:5px 8px;font-size:16px;gap:4px}
+  .wb-q b{font-size:11px}
+  .wb-mr{flex-wrap:wrap;align-items:center;gap:7px 6px;padding:9px 10px 10px;background:#fff;
+    border:1px solid #e6edf4;border-radius:0 0 10px 10px;margin:0 0 9px;border-top:0}
+  .wb-mr.done{background:#f6fbf9}
+  .wb-pg{flex:0 0 50px;font-size:15px}
+  .wb-pg .st{font-size:10px}
+  .wb-nos{flex:1 1 auto;width:calc(100% - 58px);min-width:0;gap:8px 2px}
+  .wb-o{width:44px;min-height:58px}
+  .wb-o .n{font-size:12px;line-height:1.2}
+  .wb-o .c{width:32px;height:32px;font-size:16px;border-width:2.5px}
+  /* 둘째 줄: 태도(2×2) · 점수 · 저장 */
+  .wb-att{flex:1 1 0;grid-template-columns:repeat(2,1fr);gap:3px;max-width:170px;min-width:120px}
+  .wb-att button{min-height:30px;font-size:11px;border-radius:7px;padding:0 2px}
+  .wb-sc{flex:0 0 44px;font-size:13px}
+  .wb-sv{flex:0 0 auto}
+  .wb-save{min-height:42px;font-size:13px;padding:0 8px;border-radius:9px}
+  .wb-stu .wb-att{display:none}
+  .wb-card{padding:11px}
+  .wb-ta{min-height:78px}
+  .wb-list .wb-item{font-size:12.5px}
+  /* L1(2026-11-28): 폰에서 누를 것을 크게 — 44px 기준에 가깝게 */
+  .wb-tab{min-height:44px;font-size:13px}
+  .wb-chip{min-height:42px}
+  .wb-mini{min-height:38px;font-size:12.5px}
+  .wb-hwq{min-height:32px;font-size:13px;padding:0 7px}
+  .wb-logo{height:28px}
+}
+
+/* ── 2026-11-28 추가: 로고 · 로딩 가림 · 코너 칩 · 원클릭 숙제 · 답안지 화면 ── */
+.wb-logo{height:34px;width:auto;max-width:140px;object-fit:contain;flex:0 0 auto}
+@media (max-width:520px){ .wb-logo{height:26px;max-width:104px} }
+.wb-loading{display:flex;align-items:center;gap:10px;justify-content:center;padding:26px 12px;
+  color:#5c7590;font-size:14px;font-weight:800}
+.wb-loading::before{content:'';width:18px;height:18px;border-radius:50%;
+  border:3px solid #d7e3f1;border-top-color:#f2711c;animation:wbspin .8s linear infinite}
+@keyframes wbspin{to{transform:rotate(360deg)}}
+.wb-corner{display:flex;gap:6px;flex-wrap:nowrap;align-items:center;margin:6px 0 2px;
+  overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+  padding:2px 2px 6px;scrollbar-width:thin}
+.wb-corner>*{flex:0 0 auto}
+.wb-corner .wb-lbl{position:sticky;left:0;background:#f2f6fc;padding:0 6px 0 2px;z-index:1}
+.wb-corner .wb-chip{min-height:44px;font-size:14px;padding:0 14px;white-space:nowrap;
+  box-shadow:0 1px 2px rgba(20,40,70,.06)}
+.wb-corner::-webkit-scrollbar{height:6px}
+.wb-corner::-webkit-scrollbar-thumb{background:#c9d8e8;border-radius:99px}
+.wb-last{font-size:12.5px;font-weight:800;color:#8a5a1f;background:#fff4e6;border:1px solid #f6dcc0;
+  border-radius:8px;padding:4px 9px}
+.wb-stu-row{display:inline-flex;align-items:center;gap:3px;margin:0 4px 5px 0;padding:2px 4px 2px 2px;
+  border:1px solid #e2eaf3;border-radius:12px;background:#fff}
+.wb-stu-row .wb-chip:not(.on){border:0;background:#f4f8fd;color:#2d5470}
+/* L2(2026-11-28): 선택된 학생 이름이 흰 글씨 + 연한 배경으로 안 보이던 문제 — 진한 네이비 + 흰 글씨 */
+.wb-stu-row .wb-chip.on{background:#12447e;border:0;color:#fff;box-shadow:inset 0 0 0 1px #12447e}
+.wb-stu-row .wb-chip.on small{color:#dbeaff}
+.wb-stu-row .wb-chip.ok:not(.on){background:#eefaf3;border:0;color:#1d5b3c}
+.wb-stu-row .wb-chip.ok.on{background:#12447e;color:#fff}
+.wb-hwq{min-height:32px;padding:0 7px;font-size:13px;font-weight:900;border-radius:7px;margin-left:1px;
+  border:1px solid #d9e3ee;background:#f7fafd;color:#41586e}
+.wb-hwq.x.on{background:#b23a32;border-color:#b23a32;color:#fff}
+.wb-hwq.t.on{background:#b7791f;border-color:#b7791f;color:#fff}
+.wb-hwq.o.on{background:#1f7a4d;border-color:#1f7a4d;color:#fff}
+.wb-ansbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 10px}
+.wb-ansbar select{min-height:38px;border:1px solid #d3e0ec;border-radius:10px;padding:4px 8px;font-size:13.5px}
+.wb-anspg{display:grid;grid-template-columns:66px 1fr;gap:8px;align-items:start;
+  border-bottom:1px solid #eef2f7;padding:7px 2px}
+.wb-anspg>b{font-size:13px;color:#12447e;padding-top:2px}
+.wb-anspg .wb-q-nos{display:flex;flex-wrap:wrap;gap:4px}
+.wb-note{font-size:13px;color:#5c7590;line-height:1.55}
+
+.wb-nav{max-width:1240px;margin:0 auto 8px;display:flex;gap:12px;align-items:center;font-size:13px;flex-wrap:wrap}
+.wb-nav a{font-weight:800;text-decoration:none}
+
+/* ── 편의 기능(WB+) 2026-11-26 ── */
+.wb-batch{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0 8px;padding:9px 10px;
+  background:#f7fbff;border:1px solid #d8e6f5;border-radius:12px}
+.wb-batch .wb-btn2{margin:0}
+.wb-batch select{margin:0}
+.wb-pstate{font-size:13px;font-weight:800;padding:5px 10px;border-radius:9px;background:#eef3fb;color:#2d5470}
+.wb-pstate.wait{background:#fff5e4;color:#966200}
+.wb-pstate.ok{background:#e7f5ec;color:#2b7653}
+.wb-pstate.err{background:#ffefef;color:#a33232}
+.wb-chip .wb-ok{display:inline-block;margin-left:4px;color:#1f8a5b;font-weight:900}
+.wb-chip .wb-need{display:inline-block;margin-left:4px;font-size:10.5px;font-weight:900;color:#c2410c;background:#fdecea;border-radius:6px;padding:1px 5px}
+.wb-chip.ok{background:#eefaf3;border-color:#bfe3cd}
+/* L2(2026-11-28): 선택 + 오늘 완료 칩이 흰 글자에 연한 배경으로 안 보이던 문제 */
+.wb-chip.ok.on{background:#12447e;border-color:#12447e;color:#fff}
+.wb-chip.ok.on small{color:#dbeaff}
+.wb-only.on{background:#174777;border-color:#174777;color:#fff}
+.wb-top3{font-size:12.5px;color:#7b4a1a;background:#fff7ef;border:1px solid #f2dfc1;border-radius:10px;padding:6px 10px;margin:6px 0 0}
+.wb-today{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid #d8e6f5;
+  border-radius:14px;padding:10px 12px;margin:0 0 10px;box-shadow:0 4px 14px rgba(20,40,70,.05)}
+.wb-today b.t{font-size:13px;color:#174777;margin-right:4px}
+.wb-today button{min-height:38px;border-radius:10px;border:1px solid #d3e0ec;background:#f8fbff;color:#2d5470;
+  font-weight:800;font-size:13px;padding:0 12px}
+.wb-today button b{font-size:16px;margin-left:4px}
+.wb-today button.need{background:#fdecea;border-color:#f4c4c0;color:#a33232}
+.wb-today button.wait{background:#fff5e4;border-color:#f2dfc1;color:#966200}
+.wb-today button.clinic{background:#eef3fb;border-color:#d5e9ff;color:#1d62aa}
+.wb-stu-ban{background:#eaf3ff;border:1px solid #cfe0f5;border-radius:12px;padding:10px 12px;margin:8px 0;
+  font-size:14.5px;font-weight:800;color:#12558f;line-height:1.5;word-break:keep-all}
+.wb-cheer{background:#eefaf3;border:1px solid #bfe3cd;border-radius:12px;padding:10px 12px;margin:8px 0;
+  font-size:14.5px;font-weight:900;color:#1d7d70}
+
+  /* 📸 숙제 사진 올리기 (학생) */
+  .ph-card{margin:10px 0 14px;padding:14px;border:1px solid #cfe0f5;border-radius:16px;background:#f7fbff}
+  .ph-tt{font-size:15.5px;font-weight:900;color:#15345d}
+  .ph-sub{font-size:12.5px;color:#6e87a2;line-height:1.55;margin:5px 0 10px}
+  .ph-row{display:flex;gap:8px;align-items:center}
+  .ph-num{width:74px;height:44px;border:1px solid #cfe0f5;border-radius:12px;text-align:center;
+    font-size:16px;font-weight:800;color:#1b3b60;background:#fff}
+  .ph-btn{flex:1;min-height:46px;border:0;border-radius:12px;background:#1a70d6;color:#fff;
+    font-size:15px;font-weight:900;box-shadow:0 6px 14px rgba(26,112,214,.2)}
+  .ph-btn:disabled{opacity:.55}
+  .ph-msg{margin-top:9px;font-size:12.5px;color:#6e87a2;line-height:1.5}
+  .ph-msg.ok{color:#1d7d70;font-weight:800}
+  .ph-msg.err{color:#c2410c;font-weight:800}
+
+/* ── 2차(2026-11-28): 열린 학생·답안지 자체 탭바 + 큰 답안지 버튼 ── */
+.wb-tabbar{display:flex;gap:6px;align-items:center;margin:0 0 8px;padding:6px 8px;
+  background:#0f355f;border-radius:12px;overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:55;scrollbar-width:thin}
+.wb-tabbar.hide{display:none}
+.wb-tabbar .lb{flex:0 0 auto;font-size:11.5px;font-weight:900;color:#9fc0e3;padding:0 4px 0 2px;white-space:nowrap}
+.wb-tabb{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;min-height:38px;padding:0 8px 0 12px;
+  border-radius:9px;border:1px solid #2c5a8c;background:#173f6b;color:#dbe9f8;font-size:13.5px;
+  font-weight:900;max-width:220px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.wb-tabb.cur{background:#fff;border-color:#fff;color:#0f355f}
+.wb-tabb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wb-tabb i{font-style:normal;font-size:15px;color:#8fb4d8;padding:0 2px;line-height:1}
+.wb-tabb.cur i{color:#7a93ad}
+.wb-tabb i:hover{color:#ffb37a}
+.wb-tabbar::-webkit-scrollbar{height:6px}
+.wb-tabbar::-webkit-scrollbar-thumb{background:#2c5a8c;border-radius:99px}
+.wb-ansbig{min-height:44px;padding:0 16px;border-radius:11px;border:0;background:#f2711c;color:#fff;
+  font-weight:900;font-size:15px;white-space:nowrap;box-shadow:0 3px 10px rgba(242,113,28,.28)}
+.wb-ansbig:active{background:#d9630f}
+</style>
+</head><body>
+<div class="wb-nav">
+  <a href="https://script.google.com/macros/s/AKfycbx7JsxXVdIFFgReIUdB4xGPpHONWRHRL8N3z-DxoUWgpxq99G59P4XAmImJsPa4Fcez1g/exec?ui=console" target="_top">← 수학 선생님 화면</a>
+  <a href="math-wrong.html?mode=student">🎒 학생 틀린 문항 입력</a>
+  <a href="index.html" style="color:#7b8a9a">화면 목록</a>
+</div>
+<div id="wbRoot"></div>
+<script>
+/* WINNERS 수학 — 선생님 통합 화면 (숙제 오답체크 · 선생님 코멘트 · 오프라인 오답 출제 · 숙제 배정)
+   + 학생 자가 입력(이름 고르기 · QR sid+k 잠금) + 원장(선생님별 공개 범위)
+   · 정적 화면(github.io): bridge.js 가 google.script.run 을 GAS 다리로 바꿔 준다.
+   · GAS 화면: 실제 google.script.run.
+   서버 함수는 WINNERS_수학오답함.gs / WINNERS_정적브리지.gs.
+*/
+(function (global) {
+  'use strict';
+
+  var LS_T = 'wmath_wb_teacher_v3';
+  var LS_M = 'wmath_wb_meta_v3';
+  var CIRCLED = { '1': '①', '2': '②', '3': '③', '4': '④', '5': '⑤' };
+  var ATT = [['guess', '찍음'], ['nosol', '풀이과정없음'], ['bad', '글씨엉망'], ['check', '확인필요']];
+  var ATT_LABEL = { '찍음': 'guess', '풀이과정없음': 'nosol', '글씨엉망': 'bad', '확인필요': 'check' };
+
+  function srv(fn, arg) {
+    return new Promise(function (res, rej) {
+      var slow = null;
+      function clearSlow() { if (slow) { clearTimeout(slow); slow = null; } }
+      try {
+        if (!(global.google && global.google.script && global.google.script.run)) {
+          rej(new Error('앱 연결이 없습니다. 새로 고쳐 주세요.'));
+          return;
+        }
+        /* Q5(2026-11-28): 8초가 지나도 응답이 없으면 상태줄에 안내 */
+        slow = setTimeout(function () {
+          try { if (global.WB_SLOW) global.WB_SLOW(fn); } catch (e) { }
+        }, 8000);
+        var run = global.google.script.run
+          .withSuccessHandler(function (r) {
+            clearSlow();
+            if (r && r.ok === false) { rej(new Error(r.error || '서버 오류')); return; }
+            res(r);
+          })
+          .withFailureHandler(function (e) { clearSlow(); rej(new Error((e && e.message) || String(e))); });
+        if (arg === undefined) run[fn](); else run[fn](arg);
+      } catch (e) { clearSlow(); rej(e); }
+    });
+  }
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function btn(cls, text) { var b = el('button', cls, text); b.type = 'button'; return b; }
+  function store(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+  function load(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+
+  /* 2026-11-28: 숫자 답 1~5를 원문자 ①~⑤로 무조건 바꾸지 않는다.
+     실제 정답이 '3'·'1,3,5'인 경우가 많고(객관식은 시트에 ①~⑤로 들어 있음),
+     '풀이 8쪽'·'풀이 참조' 같은 안내도 그대로 보여야 한다. */
+  function ansText(v) {
+    var s = String(v == null ? '' : v).trim();
+    if (!s) return '—';
+    return s;
+  }
+  /* 문항번호 정렬 — '9' < '10', '1' < '1-1' < '1-2' < '2', 서술형('서1')은 맨 뒤
+     (2026-11-28 2차: 올백 실전 모의고사가 20번 다음에 서술형 1~5번으로 이어진다) */
+  function noKey(x) {
+    var s = String(x == null ? '' : x).trim();
+    var m = /^서\s*(\d+)$/.exec(s);
+    if (m) return [100000 + parseInt(m[1], 10), 0];
+    var p = s.split('-');
+    var a0 = parseInt(p[0], 10);
+    if (isNaN(a0)) return [200000, 0];
+    var a1 = p.length > 1 ? parseInt(p[1], 10) : -1;
+    return [a0, isNaN(a1) ? -1 : a1];
+  }
+  function noSort(a, b) {
+    var x = noKey(a), y = noKey(b);
+    if (x[0] !== y[0]) return x[0] - y[0];
+    if (x[1] !== y[1]) return x[1] - y[1];
+    return String(a).localeCompare(String(b));
+  }
+  function today() {
+    var d = new Date();
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  }
+  function dayText(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+    if (!m) return iso || '';
+    var names = ['일', '월', '화', '수', '목', '금', '토'];
+    var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return m[1] + '.' + m[2] + '.' + m[3] + ' (' + names[d.getDay()] + ')';
+  }
+  /* '초3', '초3-1', '3학년', '중2', '중2-2' → 학년 토큰 '초3'/'중2'.
+     초등 학생은 명단에 '3학년'처럼 적혀 있어도 초1~초6으로 묶어 맨 앞에 세운다. */
+  function gradeToken(g) {
+    var s = String(g == null ? '' : g).trim();
+    if (!s) return '';
+    var m = /(초|중|고)\s*([1-6])/.exec(s);
+    if (m) return m[1] + m[2];
+    m = /([1-6])\s*학년/.exec(s);
+    return m ? '초' + m[1] : s;
+  }
+  function gradeOrder(g) {
+    var m = /(초|중|고)([1-6])/.exec(gradeToken(g));
+    if (!m) return 999;
+    var base = m[1] === '초' ? 0 : (m[1] === '중' ? 100 : 200);
+    return base + parseInt(m[2], 10);
+  }
+
+  /* ── 문제지(교재) 학년 필터 ──
+     교재 자체의 학년으로 목록을 줄인다(학생 학년과는 별개). 교재가 초1~초6이면
+     '초1 … 초6' 칩이 그대로 나오고, 학생 학년 칩은 '3학년'→'초3'으로 보여 준다. */
+  var BK_FILTER = {};          /* select(data-bkf)별 현재 학년 필터 ('' = 전체) */
+  var BK_SEQ = 0;
+  function bkFilter(sel, books, defaultGrade) {
+    if (!sel) return;
+    var row = sel.parentNode, host = (row && row.parentNode) ? row.parentNode : row;
+    var key = sel.getAttribute('data-bkf');
+    if (!key) { BK_SEQ++; key = 'f' + BK_SEQ; sel.setAttribute('data-bkf', key); }
+    var chips = document.getElementById('bkf-' + key);
+    if (!chips) {
+      chips = el('div', 'wb-chips');
+      chips.id = 'bkf-' + key;
+      chips.setAttribute('aria-label', '문제지 학년 선택');
+      if (host) host.insertBefore(chips, row);
+    }
+    var map = {}, seen = {}, list = [];
+    (books || []).forEach(function (b) {
+      if (!b) return;
+      var t = gradeToken(b.grade || b.token || '');
+      if (!t) return;
+      map[b.bookId] = t;
+      if (!seen[t]) { seen[t] = 0; list.push(t); }
+      seen[t]++;
+    });
+    var dflt = gradeToken(defaultGrade || '');
+    var cur = BK_FILTER[key];
+    if (cur === undefined) cur = (dflt && seen[dflt]) ? dflt : '';
+    if (cur && !seen[cur]) cur = '';              /* 그 학년 교재가 없어지면 전체로 */
+    BK_FILTER[key] = cur;
+    list.sort(function (a, b) { return gradeOrder(a) - gradeOrder(b) || a.localeCompare(b); });
+    chips.innerHTML = '';
+    if (list.length <= 1) { chips.classList.add('hide'); }
+    else {
+      chips.classList.remove('hide');
+      var mk = function (label, val, n) {
+        var c = btn('wb-chip' + (cur === val ? ' on' : ''));
+        c.appendChild(document.createTextNode(label));
+        if (n != null) c.appendChild(el('small', '', String(n)));
+        c.onclick = function () { BK_FILTER[key] = val; bkFilter(sel, books, defaultGrade); };
+        chips.appendChild(c);
+      };
+      mk('문제지 전체', '', null);
+      list.forEach(function (g) { mk(g, g, seen[g]); });
+    }
+    Array.prototype.slice.call(sel.options).forEach(function (o) {
+      if (!o.value) return;
+      var g = map[o.value] || '';
+      /* 지금 고른 교재는 필터가 달라도 감추지 않는다 — 입력하던 쪽이 조용히 지워지지 않게. */
+      var hide = !!(cur && g && g !== cur && o.value !== sel.value);
+      o.hidden = hide; o.disabled = hide;
+      try { o.style.display = hide ? 'none' : ''; } catch (e) { }
+    });
+    /* 목록에서 아예 사라진 교재만 선택을 비운다(필터와 학년이 달라도 고른 교재는 그대로 둔다). */
+    if (sel.value) {
+      var still = Array.prototype.some.call(sel.options, function (o) { return o.value === sel.value; });
+      if (!still) {
+        sel.value = '';
+        try { sel.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) { }
+      }
+    }
+  }
+  function attLoad(s) {
+    var o = {};
+    String(s || '').split(/[,\s]+/).forEach(function (x) {
+      var k = ATT_LABEL[x];
+      if (k) o[k] = true;
+    });
+    return o;
+  }
+  function attText(o) {
+    var out = [];
+    ATT.forEach(function (a) { if (o && o[a[0]]) out.push(a[1]); });
+    return out.join(',');
+  }
+  function attAny(o) { return !!(o && (o.guess || o.nosol || o.bad || o.check)); }
+  function nosOf(o) {
+    return Object.keys(o || {}).filter(function (k) { return o[k]; })
+      .sort(noSort);
+  }
+
+  function mount(root, cfg) {
+    cfg = cfg || {};
+    var S = {
+      mode: 'teacher',
+      teacher: load(LS_T) || null,
+      admin: '',
+      today: today(),
+      students: [], books: [], scope: '',
+      tab: 'wrong'
+    };
+
+    root.className = 'wb';
+    root.innerHTML = '';
+
+    /* ═══════════════ 열린 탭바 (2026-11-28 2차) ═══════════════
+       네이버 앱 같은 인앱 브라우저는 탭 전환 UI가 없어서, 학생·답안지를 새 탭으로 열어 두어도
+       다시 찾아갈 길이 없다. 그래서 화면 최상단에 지금 열어 둔 학생·답안지 목록을 직접 띄우고
+       누르면 그 창으로 바로 건너가게 한다(같은 이름의 창을 다시 써서 중복 탭이 생기지 않는다). */
+    var TABK = 'wmath_wbtabs_v1';
+    var tabsBar = el('div', 'wb-tabbar hide');
+    function tabsLoad() {
+      try { var v = JSON.parse(localStorage.getItem(TABK) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+    }
+    function tabsSave(list) {
+      try { localStorage.setItem(TABK, JSON.stringify((list || []).slice(-14))); } catch (e) { }
+    }
+    function curTabKey() {
+      var q = String(global.location ? global.location.search : '');
+      if (/[?&]mode=one/.test(q)) return 'one:' + qpX('sid') + ':' + qpX('book');
+      if (/[?&]mode=answers/.test(q)) return 'ans:' + qpX('bid');
+      if (/[?&]mode=paper/.test(q)) return 'paper:' + qpX('sid') + ':' + qpX('prid');
+      return 'teacher';
+    }
+    function qpX(name) {
+      var m = new RegExp('[?&]' + name + '=([^&]+)').exec(String(global.location ? global.location.search : ''));
+      return m ? decodeURIComponent(m[1]) : '';
+    }
+    function tabAdd(k, label, href) {
+      if (!k) return;
+      var list = tabsLoad().filter(function (x) { return x && x.k !== k; });
+      list.push({ k: k, label: String(label || '').slice(0, 24), href: href, at: Date.now() });
+      tabsSave(list);
+      paintTabs();
+    }
+    function tabDel(k) {
+      tabsSave(tabsLoad().filter(function (x) { return x && x.k !== k; }));
+      paintTabs();
+    }
+    function openNamed(href, k) {
+      var name = 'wb_' + String(k || 'x').replace(/[^A-Za-z0-9_-]/g, '_');
+      var w = null;
+      try { w = global.open(href, name); } catch (e) { }
+      if (w) { try { w.focus(); } catch (e) { } return true; }
+      /* 새 창이 막힌 브라우저(네이버 인앱 등)는 같은 창에서 연다 — 위 탭바로 돌아올 수 있다. */
+      var dirty = 0;
+      try { dirty = Object.keys(W.dirty || {}).length; } catch (e) { }
+      if (dirty && !global.confirm('이 브라우저는 새 탭이 막혀 있어 같은 창에서 엽니다.\n저장하지 않은 체크가 있으면 [변경된 쪽 한 번에 저장]을 먼저 눌러 주세요.\n이동할까요?')) return false;
+      global.location.href = href;
+      return true;
+    }
+    function paintTabs() {
+      if (!tabsBar) return;
+      var list = tabsLoad();
+      var cur = curTabKey();
+      tabsBar.innerHTML = '';
+      if (!list.length || /[?&]mode=student/.test(String(global.location ? global.location.search : ''))) {
+        tabsBar.classList.add('hide');
+        return;
+      }
+      tabsBar.classList.remove('hide');
+      tabsBar.appendChild(el('span', 'lb', '열린 탭'));
+      list.forEach(function (t) {
+        var a = document.createElement('a');
+        a.className = 'wb-tabb' + (t.k === cur ? ' cur' : '');
+        a.href = t.href || 'math-wrong.html';
+        a.title = t.label;
+        a.appendChild(el('span', '', t.label));
+        var x = el('i', '', '×');
+        x.title = '탭 목록에서 빼기';
+        x.onclick = function (ev) {
+          if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+          tabDel(t.k);
+        };
+        a.appendChild(x);
+        a.onclick = function (ev) {
+          if (ev) { ev.preventDefault(); }
+          if (t.k === cur) return;
+          openNamed(t.href, t.k);
+        };
+        tabsBar.appendChild(a);
+      });
+      if (root.firstChild !== tabsBar) root.insertBefore(tabsBar, root.firstChild);
+    }
+    paintTabs();
+
+    /* ═══════════════ 로그인 ═══════════════ */
+    var loginWrap = el('div', 'wb-login');
+    function paintLogin(msg) {
+      loginWrap.innerHTML = '';
+      var card = el('div', 'wb-login-card');
+      card.appendChild(el('div', 'wb-login-tt', '수학 선생님 확인'));
+      card.appendChild(el('div', 'wb-login-sub', '선생님 핀 4자리를 누르세요.'));
+      var inp = document.createElement('input');
+      inp.type = 'password';
+      inp.inputMode = 'numeric';
+      inp.autocomplete = 'off';
+      inp.className = 'wb-pin';
+      inp.maxLength = 4;
+      inp.setAttribute('aria-label', '선생님 핀');
+      inp.placeholder = '••••';
+      var row = el('div', 'wb-pad');
+      var bEnter = btn('wb-btn2 wb-enter', '들어가기');
+      var m = el('div', 'wb-status', '');
+      function submit() {
+        var pin = (inp.value || '').trim();
+        if (pin.length < 4) { m.textContent = '핀 4자리를 넣어 주세요.'; m.className = 'wb-status err'; return; }
+        m.textContent = '확인 중…'; m.className = 'wb-status';
+        bEnter.disabled = true;
+        srv('w62WbLogin', { pin: pin }).then(function (r) {
+          /* 2차(2026-11-28): 원장 계정은 로그인만으로 admin=true 를 받아 선생님 목록을 바로 연다 */
+          S.teacher = { name: r.teacher.name, slot: r.teacher.slot, pin: pin, scope: r.teacher.scope,
+                        admin: !!(r.teacher.admin) };
+          S.admin = '';
+          store(LS_T, S.teacher);
+          bEnter.disabled = false;
+          boot();
+        }).catch(function (e) {
+          bEnter.disabled = false;
+          m.textContent = e.message; m.className = 'wb-status err';
+          inp.value = '';
+        });
+      }
+      bEnter.onclick = submit;
+      inp.onkeydown = function (e) { if (e.key === 'Enter') submit(); };
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, '지움', 0, '들어가기'].forEach(function (k) {
+        var b = btn('wb-key' + (k === '들어가기' ? ' ok' : '') + (k === '지움' ? ' del' : ''), String(k));
+        b.onclick = function () {
+          if (k === '지움') { inp.value = inp.value.slice(0, -1); return; }
+          if (k === '들어가기') { submit(); return; }
+          if (inp.value.length < 4) inp.value += String(k);
+        };
+        row.appendChild(b);
+      });
+      card.appendChild(inp);
+      card.appendChild(row);
+      card.appendChild(bEnter);
+      if (msg) { m.textContent = msg; m.className = 'wb-status err'; }
+      card.appendChild(m);
+
+      card.appendChild(el('div', 'wb-split', '또는'));
+      var bStu = btn('wb-alt', '🎒 학생 — 틀린 문항 입력');
+      bStu.onclick = function () { openStudent(''); };
+      card.appendChild(bStu);
+      var bAdm = btn('wb-alt grey', '🔑 원장 설정 (선생님별 공개 범위)');
+      bAdm.onclick = function () { showAdminLogin(); };
+      card.appendChild(bAdm);
+
+      /* 원장 토큰 입력 */
+      var admBox = el('div', 'hide');
+      var admIn = document.createElement('input');
+      admIn.type = 'password';
+      admIn.className = 'wb-pin';
+      admIn.style.fontSize = '18px';
+      admIn.style.letterSpacing = '.2em';
+      admIn.placeholder = '관리자 토큰';
+      admIn.setAttribute('aria-label', '관리자 토큰');
+      var admBtn = btn('wb-btn2 wb-enter', '원장으로 열기');
+      admBtn.style.marginTop = '8px';
+      var admMsg = el('div', 'wb-status', '');
+      admBox.appendChild(admIn);
+      admBox.appendChild(admBtn);
+      admBox.appendChild(admMsg);
+      card.appendChild(admBox);
+      function showAdminLogin() {
+        admBox.classList.remove('hide');
+        admIn.focus();
+      }
+      admBtn.onclick = function () {
+        var tok = (admIn.value || '').trim();
+        if (!tok) { admMsg.textContent = '토큰을 넣어 주세요.'; admMsg.className = 'wb-status err'; return; }
+        admMsg.textContent = '확인 중…'; admMsg.className = 'wb-status';
+        admBtn.disabled = true;
+        srv('w62AdmScopes', { token: tok }).then(function () {
+          S.admin = tok;
+          S.teacher = { name: '원장', slot: 'ADMIN', admin: true };
+          admBtn.disabled = false;
+          boot('admin');
+        }).catch(function (e) {
+          admBtn.disabled = false;
+          admMsg.textContent = e.message; admMsg.className = 'wb-status err';
+        });
+      };
+
+      loginWrap.appendChild(card);
+    }
+
+    /* ═══════════════ 앱 껍데기 ═══════════════ */
+    var app = el('div', 'wb-app hide');
+
+    var bar = el('div', 'wb-bar');
+    var barLogo = el('img', 'wb-logo');
+    barLogo.src = 'logo_winners.png';
+    barLogo.alt = '위너스해법영수학원';
+    var barDate = el('div', 'wb-date', '');
+    var barWho = el('div', 'wb-who', '');
+    var barStu = btn('wb-mini', '🎒 학생 화면');
+    barStu.onclick = function () { openStudent(''); };
+    var barAns = btn('wb-ansbig', '📖 답안지 보기');
+    barAns.title = '학생을 고르지 않고 교재 답안지를 새 탭으로 엽니다(오프라인 책 채점용)';
+    barAns.onclick = function () { openAnswersTab(); };
+    var barOut = btn('wb-mini', '선생님 바꾸기');
+    barOut.onclick = function () {
+      S.teacher = null;
+      S.admin = '';
+      try { localStorage.removeItem(LS_T); } catch (e) { }
+      app.classList.add('hide'); loginWrap.classList.remove('hide'); paintLogin('');
+    };
+    bar.appendChild(barLogo);
+    bar.appendChild(barDate); bar.appendChild(barWho);
+    bar.appendChild(barAns); bar.appendChild(barStu); bar.appendChild(barOut);
+
+    var tabs = el('div', 'wb-tabs');
+    var tabDefs = [
+      ['wrong', '① 숙제 오답체크', '틀린 번호·태도'],
+      ['comment', '② 선생님 코멘트', '학생·날짜별'],
+      ['retest', '③ 오프라인 오답 출제', '틀린 문항만 다시'],
+      ['assign', '④ 숙제 배정', '학생·교재·범위'],
+      ['paper', '⑤ 오답지 답안입력', '생성된 오답지']
+    ];
+    var tabBtns = {};
+    tabDefs.forEach(function (t) {
+      var b = btn('wb-tab', t[1]);
+      b.appendChild(el('small', '', t[2]));
+      b.onclick = function () { setTab(t[0]); };
+      tabBtns[t[0]] = b;
+      tabs.appendChild(b);
+    });
+    var tabAdmin = btn('wb-tab admin', '🔑 원장 설정');
+    tabAdmin.appendChild(el('small', '', '선생님별 공개 범위'));
+    tabAdmin.onclick = function () { setTab('admin'); };
+    tabs.appendChild(tabAdmin);
+
+    var panels = el('div');
+    var panelEls = {};
+    ['wrong', 'comment', 'retest', 'assign', 'paper', 'admin'].forEach(function (k) {
+      panelEls[k] = el('div', k === 'wrong' ? '' : 'hide');
+      panels.appendChild(panelEls[k]);
+    });
+
+    app.appendChild(bar);
+
+    /* 📢 잔소리 예약 학생 — 사진 채점에서 '풀이 부족 / 글씨 확인 필요'가 나온 제출 모아보기.
+       교사·원장 화면에만 붙는다(학생 QR 화면은 app 자체가 숨는다). */
+    var warnBoard = null;
+    if (window.WINNERS_PHOTO && window.WINNERS_PHOTO.warnBoard) {
+      warnBoard = window.WINNERS_PHOTO.warnBoard({
+        subject: 'math',
+        onPick: function (it) { openWarnStudent(it); }
+      });
+      app.appendChild(warnBoard.el);
+    }
+
+    /* 잔소리 예약 행 → ① 숙제 오답체크에서 그 학생·교재를 바로 고른다. */
+    function openWarnStudent(it) {
+      if (!it || !it.sid) return;
+      setTab('wrong');
+      var s = (S.students || []).filter(function (x) { return String(x.id) === String(it.sid); })[0];
+      if (!s) {
+        wSay('학생 명단에서 ' + (it.student || it.sid) + ' 학생을 찾지 못했습니다. 공개 범위를 확인해 주세요.', true);
+        return;
+      }
+      var done = window.WINNERS_PHOTO && window.WINNERS_PHOTO.selectStudent
+        ? window.WINNERS_PHOTO.selectStudent(wPick.wrap, {
+            grade: s.grade || '미등록', name: s.name,
+            bookId: it.bookId, bookTitle: it.book
+          }) : false;
+      if (done === 'stu') {            /* 학생은 골랐고 교재 목록이 아직 — 잠깐 뒤 교재만 다시 */
+        setTimeout(function () {
+          window.WINNERS_PHOTO.selectStudent(wPick.wrap, {
+            grade: s.grade || '미등록', name: s.name, bookId: it.bookId, bookTitle: it.book
+          });
+        }, 600);
+      } else if (!done) {
+        wSay('화면에서 ' + s.name + ' 학생을 고르지 못했습니다. 학년·이름을 직접 눌러 주세요.', true);
+        return;
+      }
+      wSay(s.name + ' · ' + (it.book || '') + (it.page ? ' ' + it.page + '쪽' : '') +
+           ' — 사진 채점에서 ' +
+           (it.noSolNos && it.noSolNos.length ? '풀이 부족 ' + it.noSolNos.join(', ') + '번 ' : '') +
+           (it.checkNos && it.checkNos.length ? '확인 필요 ' + it.checkNos.join(', ') + '번' : '') +
+           (it.lowText ? '글씨 판독 불가' : ''));
+      try { wPick.wrap.scrollIntoView({ block: 'start' }); } catch (e) { }
+    }
+
+    app.appendChild(tabs);
+    app.appendChild(panels);
+
+    /* ═══════════════ 공통: 학년/학생/교재 고르기 ═══════════════ */
+    function newPicker(opt) {
+      opt = opt || {};
+      var P = { grade: null, student: null, students: {}, book: null };
+      var wrap = el('div', 'wb-pick');
+      var gc = el('div', 'wb-chips');
+      var sc = el('div', 'wb-chips stu');
+      var onlyRow = null;
+      if (opt.status !== false) {
+        onlyRow = el('div', 'wb-chips');
+        onlyRow.style.marginTop = '6px';
+        var onlyBtn = btn('wb-chip wb-only', '미채점 · 확인필요만 보기');
+        onlyBtn.onclick = function () {
+          P.only = !P.only;
+          paintStudents();
+          if (P.only) probeGrade();
+        };
+        onlyRow.appendChild(onlyBtn);
+        P.onlyBtn = onlyBtn;
+      }
+      wrap.appendChild(gc);
+      wrap.appendChild(sc);
+      if (onlyRow) wrap.appendChild(onlyRow);
+      var bookSel = null;
+      if (opt.book !== false) {
+        var bookRow = el('div', 'wb-book');
+        bookSel = document.createElement('select');
+        bookSel.setAttribute('aria-label', '교재 선택');
+        bookRow.appendChild(bookSel);
+        wrap.appendChild(bookRow);
+      }
+      function paintGrades() {
+        gc.innerHTML = '';
+        var seen = {}, list = [];
+        S.students.forEach(function (s) {
+          var g = s.grade || '미등록';
+          if (!seen[g]) { seen[g] = 0; list.push(g); }
+          seen[g]++;
+        });
+        list.sort(function (a, b) { return gradeOrder(a) - gradeOrder(b) || a.localeCompare(b); });
+        list.forEach(function (g) {
+          var b = btn('wb-chip' + (P.grade === g ? ' on' : ''));
+          b.appendChild(document.createTextNode(gradeToken(g) || g));
+          b.appendChild(el('small', '', String(seen[g])));
+          b.onclick = function () {
+            /* 2차(2026-11-28): 이미 고른 학년을 다시 눌렀을 때는 아무것도 지우지 않는다(no-op).
+               전에는 같은 칩을 다시 눌러도 학생·교재가 초기화돼 표가 사라졌다. */
+            if (P.grade === g) return;
+            P.grade = g;
+            if (!opt.multi) P.student = null;
+            paintGrades(); paintStudents();
+            probeGrade();
+            if (opt.onGrade) opt.onGrade(g);
+          };
+          gc.appendChild(b);
+        });
+        if (!list.length) gc.appendChild(el('span', 'wb-status', '볼 수 있는 학생이 없습니다. 원장님께 공개 범위를 확인해 주세요.'));
+      }
+      function gradeStudents(g) {
+        return S.students.filter(function (s) { return g === 'all' || (s.grade || '미등록') === g; });
+      }
+      /* 오늘 채점 상태를 미리 받아 둔다(✓ 표시·필터·TOP3에 함께 쓴다) */
+      function probeGrade() {
+        var ids = gradeStudents(P.grade).map(function (s) { return s.id; });
+        probeList(ids, function () { paintStudents(); });
+      }
+      function paintStudents() {
+        sc.innerHTML = '';
+        if (!P.grade) { if (opt.hint) sc.appendChild(el('span', 'wb-status', opt.hint)); return; }
+        if (P.onlyBtn) P.onlyBtn.classList.toggle('on', !!P.only);
+        var list = gradeStudents(P.grade);
+        if (P.only) {
+          var focus = [], rest = [];
+          list.forEach(function (s) {
+            var st = statOf(s.id);
+            if (!st || !st.done || st.check) focus.push(s); else rest.push(s);
+          });
+          list = focus.concat(rest);
+        }
+        /* 2026-11-28: 학생을 고르면 명단을 접어 문항 격자가 바로 보이게 한다(폰에서 특히) */
+        var collapsed = !!(P.student && !P.expand && !opt.multi);
+        if (collapsed) {
+          var open = btn('wb-chip', '👥 명단 열기 (' + list.length + ')');
+          open.onclick = function () { P.expand = true; paintStudents(); };
+          sc.appendChild(open);
+          list = [P.student];
+        }
+        list.forEach(function (s) {
+          var on = opt.multi ? !!P.students[s.id] : (P.student && P.student.id === s.id);
+          var st = statOf(s.id);
+          var hwMark = (HW_TODAY[s.id] || {}).mark || '';
+          var row = el('span', 'wb-stu-row');
+          var b = btn('wb-chip' + (on ? ' on' : '') + (st && st.done ? ' ok' : ''));
+          b.appendChild(document.createTextNode(s.name));
+          if (st && st.check) b.appendChild(el('span', 'wb-need', '확인'));
+          else if (st && st.done) b.appendChild(el('span', 'wb-ok', '✓'));
+          b.onclick = function () {
+            if (opt.multi) {
+              if (P.students[s.id]) delete P.students[s.id]; else P.students[s.id] = s;
+              paintStudents();
+              if (opt.onStudents) opt.onStudents();
+            } else {
+              P.student = s;
+              P.expand = false;
+              paintStudents();
+              if (opt.onStudent) opt.onStudent(s);
+              if (opt.newTab) openStudentTab(s);   /* 2026-11-28: 학생별 새 탭(탭 이름 = 학생 이름) */
+            }
+          };
+          row.appendChild(b);
+          /* 숙제 제출/미제출 원클릭 — 다시 누르면 해제 */
+          if (opt.hw && !opt.multi) {
+            [['O', '○', 'o'], ['T', '△', 't'], ['X', '×', 'x']].forEach(function (m) {
+              var q = btn('wb-hwq ' + m[2] + (hwMark === m[0] ? ' on' : ''), m[1]);
+              q.title = m[0] === 'O' ? '숙제 제출' : m[0] === 'T' ? '일부 제출' : '미제출 (오늘 수행력 0) — 다시 누르면 해제';
+              q.onclick = function (ev) {
+                if (ev && ev.stopPropagation) ev.stopPropagation();
+                markHw(s, hwMark === m[0] ? '' : m[0]);
+              };
+              row.appendChild(q);
+            });
+          }
+          sc.appendChild(row);
+        });
+        if (!list.length) sc.appendChild(el('span', 'wb-status', '이 학년에 학생이 없습니다.'));
+      }
+      function paintBooks() {
+        if (!bookSel) return;
+        bookSel.innerHTML = '';
+        var ph = document.createElement('option');
+        ph.value = '';
+        ph.textContent = S.books.length ? '교재 선택…' : '등록된 교재가 없습니다';
+        bookSel.appendChild(ph);
+        S.books.forEach(function (b) {
+          var o = document.createElement('option');
+          o.value = b.bookId;
+          o.textContent = b.title + (b.pages ? ' · ' + b.pages + 'p' : '');
+          bookSel.appendChild(o);
+        });
+        bkFilter(bookSel, S.books);
+        if (P.book) bookSel.value = P.book.bookId;
+      }
+      if (bookSel) {
+        bookSel.onchange = function () {
+          P.book = S.books.filter(function (b) { return b.bookId === bookSel.value; })[0] || null;
+          if (opt.onBook) opt.onBook(P.book);
+        };
+      }
+      return {
+        wrap: wrap, P: P, bookSel: bookSel,
+        paintGrades: paintGrades, paintStudents: paintStudents, paintBooks: paintBooks,
+        probeGrade: probeGrade,
+        /* 다른 화면(새 탭)에서 특정 학생을 바로 고를 때 */
+        selectStudent: function (s, bookId) {
+          if (!s) return false;
+          P.grade = s.grade || '미등록';
+          P.student = s;
+          P.expand = false;
+          paintGrades(); paintStudents();
+          if (opt.onStudent) opt.onStudent(s);
+          if (bookId && bookSel) {
+            var b = S.books.filter(function (x) { return x.bookId === bookId; })[0];
+            if (b) { P.book = b; bookSel.value = b.bookId; if (opt.onBook) opt.onBook(b); }
+          }
+          return true;
+        },
+        only: function (v) { P.only = !!v; paintStudents(); if (P.only) probeGrade(); }
+      };
+    }
+
+    /* ═══════════════ 공통: 오늘 채점 상태 (✓ · 필터 · TOP3 · 요약 카드) ═══════════════ */
+    /* 학생 1명당 1번만 서버에 물어본다(교재 상관없이 bookId=''):
+         pages[쪽] = { nos, state, at, src … }
+       → 오늘 저장했나(✓) · 확인필요 · 단골 오답 TOP3 · 또답 기록까지 한 번에 얻는다. */
+    var STAT = { bySid: {}, loading: {}, allAt: 0 };
+    var HW_TODAY = {};        /* 오늘 원클릭 숙제 체크 {학생ID: {mark, und}} */
+    /* 원클릭 숙제 체크 — ×는 수행력 0으로 서버가 저장한다(2026-11-28). */
+    function markHw(s, mark) {
+      var prev = (HW_TODAY[s.id] || {}).mark || '';
+      HW_TODAY[s.id] = { mark: mark, und: mark === 'O' ? '100' : mark === 'T' ? '50' : mark === 'X' ? '0' : '' };
+      wPick.paintStudents();
+      var req = { pin: pinArg(), admin: S.admin, studentId: s.id, studentName: s.name, mark: mark, date: S.today };
+      srv('w62WbHwMark', req).then(function (r) {
+        wSay((r && r.message) ? r.message : '숙제 체크를 저장했습니다.');
+        var st = STAT.bySid[s.id];
+        if (st) st.hwToday = mark;
+        wPick.paintStudents();
+      }).catch(function (e) {
+        HW_TODAY[s.id] = { mark: prev };
+        wPick.paintStudents();
+        wSay('숙제 체크를 저장하지 못했습니다: ' + e.message, true);
+      });
+    }
+    function hwSummary() {
+      var o = { yes: [], part: [], no: [], none: [] };
+      S.students.forEach(function (s) {
+        var m = (HW_TODAY[s.id] || {}).mark || '';
+        if (m === 'O') o.yes.push(s);
+        else if (m === 'T') o.part.push(s);
+        else if (m === 'X') o.no.push(s);
+        else o.none.push(s);
+      });
+      return o;
+    }
+    function todayStr() { return S.today || today(); }
+    function statOf(sid) {
+      var st = STAT ? STAT.bySid[sid] : null;
+      if (!st || st.day !== todayStr()) return null;
+      return st;
+    }
+    function loadStat(sid) {
+      if (!sid) return Promise.resolve(null);
+      var st = statOf(sid);
+      if (st) return Promise.resolve(st);
+      if (STAT.loading[sid]) return STAT.loading[sid];
+      var req = S.teacher && S.teacher.admin ? { admin: S.admin } : { pin: pinArg() };
+      req.studentId = sid; req.bookId = '';
+      STAT.loading[sid] = srv('w62WbState', req).then(function (r) {
+        var pages = (r && r.pages) || {};
+        var dayKey = todayStr().replace(/-/g, '');
+        var done = false, check = false, checkN = 0, byPg = [];
+        Object.keys(pages).forEach(function (pg) {
+          var p = pages[pg] || {};
+          if (String(p.state || '') === '확인필요') { check = true; checkN++; }
+          if (String(p.at || '').slice(0, 10).replace(/-/g, '') === dayKey) done = true;
+          if (p.nos && p.nos.length) {
+            byPg.push({ page: pg, n: p.nos.length, src: String(p.src || ''),
+                        state: String(p.state || ''), title: String(p.bookTitle || '') });
+          }
+        });
+        byPg.sort(function (a, b) {
+          return b.n - a.n || (parseInt(b.page, 10) || 0) - (parseInt(a.page, 10) || 0);
+        });
+        var out = { day: todayStr(), done: done, check: check, checkN: checkN,
+                    top: byPg.slice(0, 3), again: byPg.filter(function (x) { return /또답/.test(x.src); }),
+                    pages: pages };
+        STAT.bySid[sid] = out;
+        delete STAT.loading[sid];
+        return out;
+      }).catch(function () { delete STAT.loading[sid]; return null; });
+      return STAT.loading[sid];
+    }
+    /* 여러 명을 4개씩 나눠 물어본다(1명 끝나면 onEach) */
+    function probeList(ids, onEach) {
+      var list = (ids || []).slice(), i = 0, live = 0, out = [];
+      return new Promise(function (finish) {
+        if (!list.length) { finish(out); return; }
+        function next() {
+          if (i >= list.length && live === 0) { finish(out); return; }
+          while (live < 4 && i < list.length) {
+            (function (sid) {
+              live++;
+              loadStat(sid).then(function (st) {
+                if (st) out.push(st);
+                live--;
+                if (onEach) onEach(sid, st);
+                next();
+              });
+            })(list[i++]);
+          }
+        }
+        next();
+      });
+    }
+    function topText(sid) {
+      var st = statOf(sid);
+      if (!st || !st.top.length) return '';
+      return st.top.map(function (x) { return 'p.' + x.page + '(' + x.n + '문항)'; }).join(' · ');
+    }
+
+    /* ═══════════════ ① 숙제 오답체크 ═══════════════ */
+    var W = { pages: [], quick: {}, saved: {}, marks: {}, att: {}, from: '', to: '', hideDone: false,
+              busy: false, student: null, book: null, hw: '', perf: 60,
+              dirty: {}, sending: {}, again: false, margin: 'normal', lastPrint: [], pollTimer: null,
+              seq: 0, units: {}, minPage: 0, maxPage: 0, rowEls: {}, dropped: 0 };
+
+    var wHost = panelEls.wrong;
+    var LS_LAST = 'wmath_wb_last_v1';   /* 마지막으로 보던 학생·교재 (재로드·탭 복귀 시 복원) */
+    function saveLast() {
+      if (!W.student) return;
+      try { store(LS_LAST, { sid: W.student.id, bookId: W.book ? W.book.bookId : '', at: Date.now() }); } catch (e) { }
+    }
+    function restoreLast() {
+      var v = null;
+      try { v = load(LS_LAST) || null; } catch (e) { v = null; }
+      if (!v || !v.sid) return false;
+      var s = (S.students || []).filter(function (x) { return String(x.id) === String(v.sid); })[0];
+      if (!s) return false;
+      var bk = v.bookId || '';
+      var b = bk ? (S.books || []).filter(function (x) { return x.bookId === bk; })[0] : null;
+      if (b && wPick.bookSel) { wPick.P.book = b; wPick.bookSel.value = b.bookId; W.book = b; }
+      wPick.selectStudent(s, bk);
+      return true;
+    }
+    var wPick = newPicker({
+      hint: '학년 → 학생 → 교재 순서로 눌러 주세요.',
+      hw: true,
+      newTab: true,
+      onStudent: function (s) { paintMeta(s); saveLast(); if (W.book) loadPages(); else renderMatrix(); },
+      onGrade: function () {
+        /* P1-1: 학년을 바꾸면 이전 학생의 오답·교재·표를 바로 비운다
+           2차(2026-11-28): 교재 선택까지 초기화한다(이전 학년 교재·표가 남든 문제) */
+        W.seq++;
+        W.marks = {}; W.att = {}; W.saved = {}; W.dirty = {};
+        W.book = null; W.pages = []; W.quick = {}; W.units = {}; W.from = ''; W.to = '';
+        if (wPick) {
+          try { wPick.P.book = null; if (wPick.bookSel) wPick.bookSel.value = ''; } catch (e) { }
+        }
+        try { cornerRow.innerHTML = ''; cornerRow.classList.add('hide'); } catch (e) { }
+        try { lastPageEl.classList.add('hide'); } catch (e) { }
+        updateBatch();
+        paintMeta(null);
+      },
+      onBook: function (b) {
+        W.book = b || null;
+        W.seq++;
+        W.marks = {}; W.saved = {}; W.att = {}; W.quick = {}; W.pages = []; W.units = {};
+        saveLast();
+        if (b) loadPages(); else renderMatrix();
+      }
+    });
+    wHost.appendChild(wPick.wrap);
+
+    var metaBox = el('div', 'wb-meta');
+    var hwRow = el('div', 'wb-meta-row');
+    hwRow.appendChild(el('span', 'wb-meta-lb', '숙제여부'));
+    var hwChips = el('div', 'wb-chips');
+    var HW = [['○', '함'], ['△', '일부'], ['×', '안함'], ['숙제없음', '숙제없음']];
+    hwRow.appendChild(hwChips);
+    var perfRow = el('div', 'wb-meta-row');
+    perfRow.appendChild(el('span', 'wb-meta-lb', '숙제수행력'));
+    var perf = document.createElement('input');
+    perf.type = 'range'; perf.min = 0; perf.max = 100; perf.step = 5; perf.value = 60;
+    perf.className = 'wb-range';
+    perf.setAttribute('aria-label', '숙제수행력');
+    var perfVal = el('span', 'wb-und', '60%');
+    perfRow.appendChild(perf); perfRow.appendChild(perfVal);
+    metaBox.appendChild(hwRow); metaBox.appendChild(perfRow);
+    wHost.appendChild(metaBox);
+
+    var wTop = el('div', 'wb-top');
+    wTop.appendChild(el('span', 'wb-lbl', '채점범위'));
+    var inFrom = document.createElement('input');
+    inFrom.type = 'number'; inFrom.className = 'wb-num'; inFrom.setAttribute('aria-label', '시작 페이지');
+    var inTo = document.createElement('input');
+    inTo.type = 'number'; inTo.className = 'wb-num'; inTo.setAttribute('aria-label', '끝 페이지');
+    var applyBtn = btn('wb-btn2', '적용');
+    var hideLbl = el('label', 'wb-hide');
+    var hideChk = document.createElement('input');
+    hideChk.type = 'checkbox';
+    hideLbl.appendChild(hideChk);
+    hideLbl.appendChild(document.createTextNode('완료페이지 숨기기'));
+    var printBtn = btn('wb-btn2 print', '🖨 오프라인책 오답인쇄');
+    wTop.appendChild(inFrom);
+    wTop.appendChild(el('span', '', 'p ~'));
+    wTop.appendChild(inTo);
+    wTop.appendChild(el('span', '', 'p'));
+    var lastPageEl = el('span', 'wb-last hide', '');
+    wTop.appendChild(lastPageEl);
+    wTop.appendChild(applyBtn);
+    wTop.appendChild(hideLbl);
+    wTop.appendChild(printBtn);
+    wHost.appendChild(wTop);
+    var cornerRow = el('div', 'wb-corner hide');
+    wHost.appendChild(cornerRow);
+
+    /* ── WB+ 한 번에 저장 · 방금 틀린 것만 인쇄 · 또답 · 풀이여백 ── */
+    var wBatch = el('div', 'wb-batch');
+    var bAll = btn('wb-btn2', '💾 변경된 쪽 한 번에 저장');
+    var bQuick = btn('wb-btn2 print', '🖨 방금 틀린 것만 바로 인쇄');
+    var againChip = btn('wb-chip', '🔥 또답 체크');
+    againChip.title = '오답지에서 또 틀린 문항을 채점할 때 켜 두면 출처가 「또답」으로 기록됩니다';
+    var marginSel = document.createElement('select');
+    marginSel.className = 'wb-num';
+    marginSel.setAttribute('aria-label', '풀이 여백');
+    marginSel.innerHTML = '<option value="normal">풀이 여백: 보통</option><option value="wide">풀이 여백: 넓게</option>';
+    marginSel.style.minWidth = '160px';
+    marginSel.style.width = 'auto';
+    try { W.margin = load('wmath_wb_margin_v1') || 'normal'; } catch (e) { }
+    marginSel.value = W.margin;
+    var printState = el('span', 'wb-pstate hide');
+    wBatch.appendChild(bAll);
+    wBatch.appendChild(bQuick);
+    wBatch.appendChild(againChip);
+    wBatch.appendChild(marginSel);
+    wBatch.appendChild(printState);
+    wHost.appendChild(wBatch);
+    var top3Line = el('div', 'wb-top3 hide');
+    wHost.appendChild(top3Line);
+
+    var wStatus = el('div', 'wb-status', '학생을 고르면 교재의 페이지별 문항이 나옵니다.');
+    wHost.appendChild(wStatus);
+
+    var mx = el('div', 'wb-mx');
+    wHost.appendChild(mx);
+
+    function wSay(msg, isErr) {
+      wStatus.textContent = msg;
+      wStatus.className = 'wb-status' + (isErr ? ' err' : '');
+    }
+    /* 서버 응답이 8초 넘게 없을 때 안내(srv()가 부른다) */
+    global.WB_SLOW = function () {
+      try { wSay('서버 응답이 늦어지고 있어요. 잠시만 기다려 주세요…'); } catch (e) { }
+    };
+
+    function paintHw() {
+      hwChips.innerHTML = '';
+      HW.forEach(function (h) {
+        var b = btn('wb-chip' + (W.hw === h[0] ? ' on' : ''), h[0]);
+        b.title = h[1];
+        b.onclick = function () { W.hw = (W.hw === h[0] ? '' : h[0]); paintHw(); saveMeta(); };
+        hwChips.appendChild(b);
+      });
+    }
+    perf.oninput = function () { perfVal.textContent = perf.value + '%'; W.perf = Number(perf.value); };
+    perf.onchange = function () { saveMeta(); };
+
+    function saveMeta() {
+      if (!W.student) return;
+      var m = load(LS_M) || {};
+      m[W.student.id] = m[W.student.id] || {};
+      m[W.student.id][S.today] = { hw: W.hw || '', perf: W.perf };
+      store(LS_M, m);
+    }
+    function paintMeta(stu) {
+      /* P1-1(2026-11-28): 학생이 바뀌면 이전 학생의 오답·표·[저장]을 즉시 비우고 로딩 가림을 둔다.
+         늦게 온 응답은 아래 loadSeq 검사로 버리므로 오답이 다른 학생에게 섞여 저장되지 않는다. */
+      W.seq++;
+      W.student = stu || null;
+      W.marks = {}; W.att = {}; W.saved = {}; W.dirty = {}; updateBatch();
+      try { mx.innerHTML = ''; } catch (e) { }
+      if (stu) {
+        try { mx.appendChild(loadingBox(stu.name + ' 학생 불러오는 중…')); } catch (e) { }
+      }
+      var m = load(LS_M) || {};
+      var v = (m[stu && stu.id] || {})[S.today] || {};
+      W.hw = v.hw || '';
+      W.perf = typeof v.perf === 'number' ? v.perf : (typeof v.und === 'number' ? v.und : 60);
+      perf.value = W.perf;
+      perfVal.textContent = W.perf + '%';
+      paintHw();
+      paintTop3();
+      if (!stu) renderMatrix();
+      else loadStat(stu.id).then(function () { paintTop3(); wPick.paintStudents(); });
+    }
+    function loadingBox(msg) {
+      return el('div', 'wb-loading', msg || '불러오는 중…');
+    }
+    function paintTop3() {
+      if (!top3Line) return;
+      top3Line.classList.add('hide');
+      if (!W.student) return;
+      var st = statOf(W.student.id);
+      var parts = [];
+      var t = topText(W.student.id);
+      if (t) parts.push('단골 오답 TOP3: ' + t);
+      if (st && st.again && st.again.length) parts.push('🔥 또답 ' + st.again.length + '쪽');
+      if (!parts.length) return;
+      top3Line.textContent = parts.join('   ·   ');
+      top3Line.classList.remove('hide');
+    }
+
+    function loadPages() {
+      if (!W.book) { renderMatrix(); return Promise.resolve(); }
+      var seq = W.seq;
+      mx.innerHTML = '';
+      mx.appendChild(loadingBox('페이지·빠른 정답 불러오는 중…'));
+      wSay('페이지·빠른 정답을 불러오는 중…');
+      return srv('w62WbPages', { bookId: W.book.bookId, pin: pinArg(), admin: S.admin })
+        .then(function (r) {
+          if (seq !== W.seq) return;              /* 늦게 온 응답은 버린다 */
+          /* R4(2026-11-28): 한 쪽이 여러 행(유형별)으로 나뉜 교재는 행마다 고유 rowKey 로 보여 준다.
+             같은 쪽이라도 체크·저장이 섞이지 않게 DOM id 와 marks 키를 rowKey 기준으로 둔다. */
+          W.pages = (r.pages || []).map(function (p, i) {
+            var pg = String(p.page);
+            return {
+              page: pg,
+              key: String(p.rowKey || pg || ('r' + i)),
+              label: p.label || (pg + 'p'), unit: p.unit || '',
+              nos: (p.nos || []).map(function (n) { return String(n); }).sort(noSort)
+            };
+          });
+          W.quick = r.quick || {};
+          W.dropped = (r.dropped || []).length;
+          var nums = W.pages.map(function (p) { return parseInt(p.page, 10); }).filter(function (n) { return !isNaN(n); });
+          if (nums.length) {
+            var mn = Math.min.apply(null, nums), mxp = Math.max.apply(null, nums);
+            W.minPage = mn; W.maxPage = mxp;
+            /* 2026-11-28: 페이지 검색창 열에 「마지막 168쪽」 표시 */
+            if (lastPageEl) { lastPageEl.textContent = '마지막 ' + mxp + '쪽'; lastPageEl.classList.remove('hide'); }
+            /* 직전에 보던 구간(from~to)을 학생·교재별로 자동 복원 */
+            var memo = rangeMemo(W.student && W.student.id, W.book.bookId);
+            inFrom.value = (memo && memo.from) ? memo.from : mn;
+            inTo.value = (memo && memo.to) ? memo.to : mxp;
+            W.from = inFrom.value; W.to = inTo.value;
+          }
+          W.units = {};
+          buildCornerChips();
+          var tot = W.pages.reduce(function (a, p) { return a + p.nos.length; }, 0);
+          var declared = Number((W.book && W.book.items) || 0);
+          if (declared && tot < declared) {
+            /* N1(2026-11-28): 구조에 문항이 빠져 있으면 조용히 넘기지 않는다 */
+            wSay((W.book.title || '') + ' · ' + W.pages.length + '쪽 · ' + tot + '문항'
+              + ' — 교재 전체 ' + declared + '문항 중 ' + (declared - tot) + '문항이 구조에 없습니다(자동 채점·인쇄는 있는 문항만).', true);
+          } else {
+            wSay((W.book.title || '') + ' · ' + W.pages.length + '쪽 · ' + tot + '문항'
+              + (W.dropped ? ' · 문항 없는 ' + W.dropped + '쪽은 뺐습니다' : ''));
+          }
+          return reloadState();
+        }).catch(function (e) { if (seq === W.seq) { wSay(e.message, true); renderMatrix(); } });
+    }
+    /* 페이지 구간 기억 — 학생·교재별 마지막 검색 구간(로컬 저장) */
+    var LS_PG = 'wmath_wb_pagerange_v1';
+    function rangeMemo(sid, bid) {
+      var all = load(LS_PG) || {};
+      return all[(sid || '-') + '|' + (bid || '-')] || null;
+    }
+    function saveRangeMemo() {
+      if (!W.book) return;
+      var all = load(LS_PG) || {};
+      all[(W.student && W.student.id || '-') + '|' + W.book.bookId] = { from: inFrom.value, to: inTo.value, at: today() };
+      store(LS_PG, all);
+    }
+    /* 교재 코너(구간) 다중 선택 — 이미 받은 시트 데이터로만 거른다(서버 호출 없음) */
+    function buildCornerChips() {
+      if (!cornerRow) return;
+      cornerRow.innerHTML = '';
+      var units = [];
+      W.pages.forEach(function (p) { if (p.unit && units.indexOf(p.unit) < 0) units.push(p.unit); });
+      if (units.length < 2) { cornerRow.classList.add('hide'); W.units = {}; return; }
+      cornerRow.classList.remove('hide');
+      cornerRow.appendChild(el('span', 'wb-lbl', '코너'));
+      var none = Object.keys(W.units).length === 0;
+      var all = btn('wb-chip' + (none ? ' on' : ''), '전체');
+      all.onclick = function () { W.units = {}; buildCornerChips(); renderMatrix(); };
+      cornerRow.appendChild(all);
+      units.forEach(function (u) {
+        var lb = cornerLabel(u);
+        var b = btn('wb-chip' + (W.units[u] ? ' on' : ''), lb);
+        b.title = u;
+        b.onclick = function () {
+          if (W.units[u]) delete W.units[u]; else W.units[u] = 1;
+          buildCornerChips(); renderMatrix();
+        };
+        cornerRow.appendChild(b);
+      });
+    }
+    function reloadState() {
+      if (!W.student || !W.book) { renderMatrix(); return Promise.resolve(); }
+      var seq = W.seq;
+      return srv('w62WbState', { studentId: W.student.id, bookId: W.book.bookId, pin: pinArg(), admin: S.admin })
+        .then(function (r) {
+          if (seq !== W.seq) return;            /* 학생·교재가 바뀌었으면 버린다 */
+          W.saved = (r && r.pages) || {};
+          W.marks = {}; W.att = {};
+          Object.keys(W.saved).forEach(function (pg) {
+            var s = W.saved[pg];
+            var set = {};
+            (s.nos || []).forEach(function (n) { set[String(n)] = true; });
+            /* 같은 쪽 여러 행 → 저장된 번호를 각 행의 번호와 교집합해서 나눠 담는다 */
+            W.pages.filter(function (p) { return p.page === pg; }).forEach(function (p) {
+              var m = {};
+              p.nos.forEach(function (n) { if (set[n]) m[n] = true; });
+              W.marks[p.key] = m;
+              W.att[p.key] = attLoad((s && s.att) || (s && s.guess === 'Y' ? '찍음' : ''));
+              if (s && s.state === '확인필요') W.att[p.key].check = true;
+            });
+          });
+          renderMatrix();
+        }).catch(function (e) { if (seq === W.seq) wSay(e.message, true); });
+    }
+    function quickOf(page, no) {
+      var q = W.quick[String(page)];
+      if (!q) return '';
+      var v = q[String(no)];
+      /* Q1(2026-11-28): 구조는 '01', 정답은 '1' 처럼 적힌 경우를 모두 찾아 본다. */
+      if ((v === undefined || v === null || v === '') && /^\d+$/.test(String(no))) {
+        var n = String(parseInt(no, 10));
+        if (Object.prototype.hasOwnProperty.call(q, n)) v = q[n];
+      }
+      return v == null ? '' : v;
+    }
+    function filtered() {
+      var f = parseInt(W.from, 10), t = parseInt(W.to, 10);
+      var sel = Object.keys(W.units || {});
+      return W.pages.filter(function (p) {
+        var n = parseInt(p.page, 10);
+        if (!isNaN(f) && !isNaN(n) && n < f) return false;
+        if (!isNaN(t) && !isNaN(n) && n > t) return false;
+        if (sel.length && !W.units[p.unit]) return false;   /* 코너 다중 선택 필터 */
+        if (W.hideDone && W.saved[p.page]) return false;
+        return true;
+      });
+    }
+    function renderMatrix() {
+      mx.innerHTML = '';
+      W.rowEls = {};
+      if (!W.student) { mx.appendChild(el('div', 'wb-empty', '학년 → 학생 → 교재 순서로 눌러 주세요.')); return; }
+      if (!W.book) { mx.appendChild(el('div', 'wb-empty', '교재를 골라 주세요.')); return; }
+      if (!W.pages.length) {
+        mx.appendChild(el('div', 'wb-empty',
+          '이 교재의 페이지 정보가 아직 없습니다.\n학원 PC 콘솔에서 교재를 등록하면 자동으로 채워집니다.'));
+        return;
+      }
+      var rows = filtered();
+      if (!rows.length) {
+        /* 2차(2026-11-28): [적용]을 눌렀는데 표가 사라진 것처럼 보이지 않도록 이유와 복구 버튼을 같이 보여 준다 */
+        var selU = Object.keys(W.units || {});
+        var box = el('div', 'wb-empty');
+        var why = selU.length ? ('코너 필터 「' + selU.join(', ') + '」')
+          : (W.hideDone ? '완료페이지 숨기기' : ('채점범위 ' + (W.from || '?') + '~' + (W.to || '?') + 'p'));
+        box.appendChild(el('div', '', (selU.length || !W.hideDone)
+          ? ('이 범위에 보일 페이지가 없습니다.\n(' + why + ' 때문에 0쪽입니다)')
+          : '이 범위의 페이지는 모두 저장되었습니다.'));
+        if (selU.length) {
+          var bAll2 = btn('wb-btn2', '코너 전체로 보기');
+          bAll2.style.marginTop = '10px';
+          bAll2.onclick = function () { W.units = {}; buildCornerChips(); renderMatrix(); };
+          box.appendChild(bAll2);
+        }
+        if (W.hideDone) {
+          var bHide = btn('wb-btn2 ghost', '완료 숨기기 끄기');
+          bHide.style.marginTop = '10px';
+          bHide.onclick = function () { W.hideDone = false; if (hideChk) hideChk.checked = false; renderMatrix(); };
+          box.appendChild(bHide);
+        }
+        mx.appendChild(box);
+        return;
+      }
+      /* 2차: 같은 쪽이 여러 행(유형별)으로 나뉜 교재는 빠른정답을 그 쪽 첫 줄에만 한 번 보여 준다 */
+      var firstOf = {}, merged = {};
+      rows.forEach(function (p) {
+        if (!firstOf[p.page]) firstOf[p.page] = p;
+        merged[p.page] = (merged[p.page] || []).concat(p.nos || []);
+      });
+      Object.keys(merged).forEach(function (pg) {
+        var seenN = {}, out = [];
+        merged[pg].sort(noSort).forEach(function (n) { if (!seenN[n]) { seenN[n] = 1; out.push(n); } });
+        merged[pg] = out;
+      });
+
+      var lastUnit = null;
+      rows.forEach(function (p) {
+        var unit = p.unit || '';
+        if (unit && unit !== lastUnit) {
+          mx.appendChild(el('div', 'wb-mu', shortUnit(unit)));
+          lastUnit = unit;
+        }
+        mx.appendChild(quickCell(p, firstOf[p.page] === p ? merged[p.page] : null));
+        mx.appendChild(pageRow(p));
+      });
+    }
+    /* 코너 이름이 길면 괄호 설명을 떼어 한 줄에 담는다(원래 이름은 title 로 보여 준다) */
+    function cornerLabel(u) {
+      var s = String(u || '').trim();
+      var m = /^(.*?)\s*\([^)]*\)\s*(\d+)?\s*$/.exec(s);
+      if (m && m[1]) return m[1].trim() + (m[2] ? ' ' + m[2] : '');
+      return s;
+    }
+    function shortUnit(u) {
+      var s = cornerLabel(u);
+      return s.length > 34 ? s.slice(0, 33) + '…' : s;
+    }
+    /* 빠른정답 페이지 번호 클릭 → 오른쪽 그 페이지 줄로 이동(가운데) + 잠깐 하이라이트 */
+    function jumpToRow(page) {
+      var tr = (W.rowEls && W.rowEls[page]) || document.getElementById('wbrow-' + page);
+      if (!tr) return;
+      tr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      tr.classList.remove('flash');
+      void tr.offsetWidth;            /* 같은 줄을 다시 눌러도 다시 표시되게 */
+      tr.classList.add('flash');
+      setTimeout(function () { tr.classList.remove('flash'); }, 1500);
+    }
+    function quickCell(p, nosArr) {
+      if (nosArr === null) {
+        /* 같은 쪽이 여러 행으로 나뉜 경우 — 두 번째 줄부터는 빠른정답을 다시 그리지 않는다 */
+        var cont = el('div', 'wb-mq cont');
+        cont.appendChild(el('span', '', '↳ ' + p.label + ' 같은 쪽 이어서 — 빠른 정답은 위에 있습니다'));
+        return cont;
+      }
+      var line = el('div', 'wb-mq');
+      var a = el('a', '', p.label);
+      a.href = '#wbrow-' + String(p.key || p.page).replace(/#/g, '_');
+      a.title = p.label + ' 문항 줄로 이동';
+      a.onclick = function (ev) { ev.preventDefault(); jumpToRow(p.page); };
+      line.appendChild(a);
+      var box = el('div', 'wb-q-nos');
+      (nosArr || p.nos).forEach(function (no) {
+        var q = quickOf(p.page, no);
+        /* 정답이 그림인 문항은 눌러서 그 그림을 볼 수 있게 버튼으로 만든다(ans-img.js). */
+        var fig = !!(window.WINNERS_ANSIMG && WINNERS_ANSIMG.isFigure(q));
+        var chip = el(fig ? 'button' : 'span', 'wb-q' + (q ? '' : ' none') + (fig ? ' img' : ''));
+        if (fig) {
+          chip.type = 'button';
+          chip.title = p.label + ' ' + no + '번 정답 그림 보기';
+          chip.onclick = (function (pg, num) {
+            return function () { WINNERS_ANSIMG.open(W.book && W.book.bookId, pg, num, W.book && W.book.title); };
+          })(p.page, no);
+        }
+        chip.appendChild(el('b', '', no));
+        chip.appendChild(document.createTextNode(' ' + ansText(q)));
+        box.appendChild(chip);
+      });
+      if (!(nosArr || p.nos).length) box.appendChild(el('span', 'wb-note', '문항 정보가 없습니다'));
+      line.appendChild(box);
+      return line;
+    }
+    function pageRow(p) {
+      var tr = el('div', 'wb-mr');
+      var domId = 'wbrow-' + String(p.key).replace(/#/g, '_');
+      tr.id = domId;
+      tr.setAttribute('data-page', p.page);
+      if (!W.rowEls[p.page]) W.rowEls[p.page] = tr;
+      var saved = W.saved[p.page];
+      if (saved) tr.classList.add('done');
+
+      var pg = el('div', 'wb-pg');
+      pg.appendChild(document.createTextNode(p.label));
+      if (saved) {
+        var byStudent = /학생/.test(String(saved.src || ''));
+        pg.appendChild(el('span', 'st' + (byStudent ? ' stu' : ''), byStudent ? '학생' : (saved.state === '확인필요' ? '확인' : '완료')));
+      }
+      tr.appendChild(pg);
+
+      var list = el('div', 'wb-nos');
+      var mark = W.marks[p.key] || (W.marks[p.key] = {});
+      p.nos.forEach(function (n) {
+        var on = !!mark[n];
+        var b = el('button', 'wb-o' + (on ? ' on' : ''));
+        b.type = 'button';
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        b.appendChild(el('span', 'n', n));
+        b.appendChild(el('span', 'c', on ? '✕' : '○'));
+        b.onclick = function () {
+          if (mark[n]) delete mark[n]; else mark[n] = true;
+          var nowOn = !!mark[n];
+          b.classList.toggle('on', nowOn);
+          b.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
+          b.querySelector('.c').textContent = nowOn ? '✕' : '○';
+          tr.classList.remove('done');
+          updateScore();
+          markDirty(p.key);
+        };
+        list.appendChild(b);
+      });
+      tr.appendChild(list);
+
+      var attBox = el('div', 'wb-att');
+      var att = W.att[p.key] || (W.att[p.key] = {});
+      ATT.forEach(function (a) {
+        var b = btn('' + (att[a[0]] ? 'on' : ''), a[1]);
+        b.setAttribute('data-k', a[0]);
+        b.onclick = function () {
+          if (att[a[0]]) delete att[a[0]]; else att[a[0]] = true;
+          b.classList.toggle('on', !!att[a[0]]);
+          tr.classList.remove('done');
+          markDirty(p.key);
+        };
+        attBox.appendChild(b);
+      });
+      tr.appendChild(attBox);
+
+      var sc = el('div', 'wb-sc');
+      tr.appendChild(sc);
+
+      var sv = el('div', 'wb-sv');
+      var saveBtn = btn('wb-save', saved ? (saved.state === '확인필요' ? '확인필요' : '저장됨') : '저장');
+      if (saved) saveBtn.classList.add('ok');
+      if (!p.nos.length) {
+        /* 2026-11-28: 구조에 문항이 없는 쪽은 저장할 것이 없다 — 버튼을 막아 오저장을 막는다 */
+        saveBtn.textContent = '문항없음';
+        saveBtn.disabled = true;
+        saveBtn.title = '이 쪽은 구조 시트에 문항 번호가 없습니다(교재 등록 확인 필요)';
+      }
+      saveBtn.onclick = function () { savePage(p, saveBtn); };
+      sv.appendChild(saveBtn);
+      tr.appendChild(sv);
+
+      function updateScore() {
+        var n = nosOf(mark).length;
+        sc.textContent = (n ? n : '-') + '/' + p.nos.length;
+        sc.classList.toggle('warn', n > 0);
+      }
+      updateScore();
+      return tr;
+    }
+
+    /* 저장 직후 그 줄 배지를 바로 바꿔 준다: 완료 / 확인 (2026-11-26) */
+    function markRowBadge(page, confirm) {
+      var rows = mx.querySelectorAll('[data-page="' + String(page).replace(/"/g, '') + '"]');
+      Array.prototype.forEach.call(rows, function (tr) {
+        var pg = tr.querySelector('.wb-pg');
+        if (!pg) return;
+        var st = pg.querySelector('.st');
+        if (!st) { st = el('span', 'st'); pg.appendChild(st); }
+        st.textContent = confirm ? '확인' : '완료';
+      });
+    }
+    /* 같은 쪽이 여러 행으로 나뉜 경우 — 그 쪽의 모든 행 번호를 합쳐서 저장한다(한 행 저장이 다른 행을 지우지 않게) */
+    function pageRows(pg) {
+      return W.pages.filter(function (x) { return x.page === pg; });
+    }
+    function pageNosUnion(pg) {
+      var out = [];
+      pageRows(pg).forEach(function (x) {
+        nosOf(W.marks[x.key]).forEach(function (n) { if (out.indexOf(n) < 0) out.push(n); });
+      });
+      return out.sort(noSort);
+    }
+    function pageAttUnion(pg) {
+      var o = {};
+      pageRows(pg).forEach(function (x) {
+        var a = W.att[x.key] || {};
+        Object.keys(a).forEach(function (k) { if (a[k]) o[k] = k; });
+      });
+      return o;
+    }
+    /* 2026-11-28 ① 낙관적 UI: 누르면 바로 저장됨으로 보이고 서버 전송은 뒤에서 한다. 실패할 때만 경고·재시도 */
+    function sendSave(body, retries) {
+      return srv('w62WbSavePage', body).catch(function (e) {
+        if (retries > 0) {
+          return new Promise(function (res) { setTimeout(res, 900); })
+            .then(function () { return srv('w62WbSavePage', body); });
+        }
+        throw e;
+      });
+    }
+    function savePage(p, btnEl) {
+      if (!W.student || !W.book) return;
+      /* 2차(2026-11-28): 저장 연타로 같은 쪽이 두 번 기록되지 않게 줄별 잠금 */
+      if (W.sending[p.key]) { wSay(p.label + ' 저장 중입니다… 잠시만 기다려 주세요.'); return; }
+      var nos = pageNosUnion(p.page);
+      var att = pageAttUnion(p.page);
+      var attStr = attText(att);
+      var confirm = !!att.check;
+      var src = W.again ? '또답' : '숙제관리';
+      var before = W.saved[p.page];
+      W.saved[p.page] = { nos: nos, at: '', state: confirm ? '확인필요' : (nos.length ? '대기' : '페이지완료'),
+                          att: attStr, src: src };
+      pageRows(p.page).forEach(function (x) { delete W.dirty[x.key]; });
+      updateBatch();
+      markRowBadge(p.page, confirm);
+      if (btnEl) { btnEl.textContent = '저장 중…'; btnEl.classList.add('ok'); btnEl.disabled = true; }
+      wSay(p.label + ' 저장 중…');
+      var body = {
+        pin: pinArg(), admin: S.admin,
+        studentId: W.student.id, studentName: W.student.name,
+        bookId: W.book.bookId, bookTitle: W.book.title,
+        page: p.page, nos: nos, attitude: attStr, state: '',
+        hw: W.hw || '', und: W.perf, date: S.today,
+        src: src, note: W.again ? '또답' : ''
+      };
+      var sid = W.student.id, bk = W.book;
+      W.sending[p.key] = 1;
+      /* 실패하면 서버가 이미 받았을 수 있어 자동 재전송하지 않는다(중복 저장 방지) — 선생님이 [다시] 로 보낸다. */
+      sendSave(body, 0).then(function (r) {
+        delete W.sending[p.key];
+        if (btnEl) { btnEl.textContent = '저장됨'; btnEl.disabled = false; }
+        if (W.saved[p.page]) W.saved[p.page].at = (r && r.at) || '';
+        if (W.student && W.student.id !== sid) return;      /* 그 사이 다른 학생으로 바뀌었으면 화면만 그대로 */
+        wSay(p.label + ' 저장 완료 · ' + (nos.length ? '오답 ' + nos.join(', ') + '번' : '오답 없음(완료)')
+          + (attStr ? ' · 태도 ' + attStr : ''));
+        var st = statOf(sid);
+        if (st) { st.done = true; }
+        else { STAT.bySid[sid] = { day: todayStr(), done: true, check: false, checkN: 0, top: [], again: [], pages: {} }; }
+        if (confirm && st) { st.check = true; st.checkN = Math.max(st.checkN || 0, 1); }
+        wPick.paintStudents();
+        paintTop3();
+        if (W.hideDone && !confirm) renderMatrix();
+      }).catch(function (e) {
+        delete W.sending[p.key];
+        if (before !== undefined) W.saved[p.page] = before; else delete W.saved[p.page];
+        pageRows(p.page).forEach(function (x) { W.dirty[x.key] = 1; });
+        updateBatch();
+        if (btnEl) { btnEl.textContent = '저장 실패 · 다시'; btnEl.classList.remove('ok'); btnEl.disabled = false; }
+        wSay(p.label + ' 저장 실패: ' + ((e && e.message) || '연결 오류') + ' — 쪽의 [다시] 또는 [변경된 쪽 한 번에 저장]으로 보내 주세요.', true);
+      });
+    }
+
+    /* ── 변경된 쪽 모아 저장 / 방금 틀린 것만 인쇄 / 인쇄 상태 폴링 ── */
+    function markDirty(pg) { W.dirty[pg] = 1; updateBatch(); }
+    function updateBatch() {
+      var n = Object.keys(W.dirty).length;
+      if (!bAll) return;
+      bAll.textContent = n ? ('💾 변경된 쪽 한 번에 저장 (' + n + '쪽)') : '💾 변경된 쪽 한 번에 저장';
+      bAll.disabled = !n || W.busy;
+    }
+    againChip.onclick = function () {
+      W.again = !W.again;
+      againChip.classList.toggle('on', W.again);
+      wSay(W.again ? '또답 체크 켜짐 — 이제 저장하는 쪽은 출처가 「또답」으로 기록됩니다.'
+                   : '또답 체크 꺼짐 — 보통 숙제 채점으로 기록됩니다.');
+    };
+    marginSel.onchange = function () {
+      W.margin = marginSel.value === 'wide' ? 'wide' : 'normal';
+      store('wmath_wb_margin_v1', W.margin);
+    };
+    function pagesExprOf(pages) {
+      var nums = (pages || []).map(function (x) { return parseInt(x, 10); })
+        .filter(function (n) { return !isNaN(n); }).sort(function (a, b) { return a - b; });
+      if (!nums.length) return '';
+      if (nums.length === 1) return String(nums[0]);
+      var cont = true;
+      for (var i = 1; i < nums.length; i++) if (nums[i] !== nums[i - 1] + 1) { cont = false; break; }
+      return cont ? (nums[0] + '-' + nums[nums.length - 1]) : nums.join(',');
+    }
+    function saveAll() {
+      var keys = Object.keys(W.dirty);
+      if (!keys.length) { wSay('변경된 쪽이 없습니다.'); return Promise.resolve(0); }
+      if (!W.student || !W.book) { wSay('학생과 교재를 먼저 골라 주세요.', true); return Promise.resolve(0); }
+      W.busy = true; if (bAll) { bAll.disabled = true; bAll.textContent = '저장 중…'; }
+      var sid = W.student.id;
+      /* rowKey → 쪽 번호로 묶어서 한 쪽당 한 번만 보낸다(같은 쪽 다중 행 대비) */
+      var touched = [];
+      keys.forEach(function (k) {
+        var p = W.pages.filter(function (x) { return x.key === k; })[0];
+        if (p && touched.indexOf(p.page) < 0) touched.push(p.page);
+      });
+      var items = touched.map(function (pg) {
+        var att = pageAttUnion(pg);
+        return { page: pg, nos: pageNosUnion(pg), attitude: attText(att), state: '',
+                 hw: W.hw || '', und: W.perf, src: W.again ? '또답' : '숙제관리',
+                 note: W.again ? '또답' : '' };
+      });
+      if (bAll) bAll.textContent = '저장 중… (' + items.length + '쪽)';
+      /* ③ 서버에서 한 번의 잠금·한 번의 쓰기로 처리(쪽마다 왕복하던 시간 제거) */
+      return srv('w62WbSavePagesBatch', {
+        pin: pinArg(), admin: S.admin,
+        studentId: W.student.id, studentName: W.student.name,
+        bookId: W.book.bookId, bookTitle: W.book.title,
+        pages: items, date: S.today
+      }).then(function (r) {
+        (r.saved || []).forEach(function (s) {
+          var it = items.filter(function (x) { return x.page === s.page; })[0] || {};
+          W.saved[s.page] = { nos: it.nos || [], at: r.at || '', state: s.state || '',
+                              att: it.attitude || '', src: it.src };
+          pageRows(s.page).forEach(function (x) { delete W.dirty[x.key]; });
+        });
+        W.busy = false; updateBatch();
+        var st = statOf(sid);
+        if (st) { st.done = true; }
+        else { STAT.bySid[sid] = { day: todayStr(), done: true, check: false, checkN: 0, top: [], again: [], pages: {} }; }
+        wPick.paintStudents();
+        paintTop3();
+        renderMatrix();
+        var nSaved = (r && typeof r.count === 'number' && r.count > 0) ? r.count
+          : ((r && r.saved && r.saved.length) || items.length);
+        wSay(nSaved + '쪽 저장 완료' + (W.again ? ' · 🔥 또답으로 기록' : ''));
+        return nSaved;
+      }).catch(function (e) {
+        W.busy = false; updateBatch();
+        wSay('일괄 저장 실패: ' + e.message + ' — 잠시 뒤 다시 눌러 주세요.', true);
+        return 0;
+      });
+    }
+    bAll.onclick = function () { saveAll(); };
+
+    /* 방금 틀린 것만 바로 인쇄 — 탭 이동 없이 */
+    var qdlg = el('div', 'wb-modal hide');
+    root.appendChild(qdlg);
+    bQuick.onclick = function () {
+      if (!W.student || !W.book) { wSay('학생과 교재를 먼저 골라 주세요.', true); return; }
+      var src = {}, dirty = Object.keys(W.dirty);
+      if (dirty.length) {
+        dirty.forEach(function (k) {
+          var p = W.pages.filter(function (x) { return x.key === k; })[0];
+          if (p) src[p.page] = pageNosUnion(p.page);
+        });
+      } else {
+        W.pages.forEach(function (p) {
+          var a = pageNosUnion(p.page);
+          if (a.length) src[p.page] = a;
+        });
+      }
+      var pages = Object.keys(src).filter(function (pg) { return src[pg].length; });
+      if (!pages.length) { wSay('방금 체크한 X 문항이 없습니다. 틀린 번호를 먼저 눌러 주세요.', true); return; }
+      pages.sort(function (a, b) { return (parseInt(a, 10) || 0) - (parseInt(b, 10) || 0); });
+      var total = pages.reduce(function (a, pg) { return a + src[pg].length; }, 0);
+      qdlg.innerHTML = '';
+      qdlg.classList.remove('hide');
+      var box = el('div', 'wb-modal-box');
+      box.appendChild(el('div', 'wb-modal-tt', '🖨 방금 틀린 것만 바로 인쇄'));
+      box.appendChild(el('div', 'wb-modal-sub',
+        pages.map(function (pg) { return pg + 'p ' + src[pg].join(','); }).join(' / ')
+        + ' — 모두 ' + total + '문항'));
+      box.appendChild(el('div', 'wb-modal-sub',
+        '학원 PC가 이 문항들만 모아 오답 재시험지를 만들어 인쇄합니다. (오프라인 오답 출제 탭은 그대로 있습니다.)'));
+      var row = el('div', 'wb-modal-row');
+      row.appendChild(el('span', 'wb-lbl', '풀이 여백'));
+      var mRow = el('div', 'wb-chips tight');
+      ['normal', 'wide'].forEach(function (k) {
+        var b = btn('wb-chip' + (W.margin === k ? ' on' : ''), k === 'wide' ? '넓게' : '보통');
+        b.onclick = function () {
+          W.margin = k;
+          Array.prototype.forEach.call(mRow.children, function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          marginSel.value = k;
+          store('wmath_wb_margin_v1', k);
+        };
+        mRow.appendChild(b);
+      });
+      row.appendChild(mRow);
+      box.appendChild(row);
+      var foot = el('div', 'wb-modal-foot');
+      var bNo = btn('wb-btn2 ghost', '닫기');
+      bNo.onclick = function () { qdlg.classList.add('hide'); };
+      var bYes = btn('wb-btn2', '인쇄 요청');
+      bYes.onclick = function () {
+        bYes.disabled = true; bYes.textContent = '보내는 중…';
+        var prep = Object.keys(W.dirty).length ? saveAll() : Promise.resolve(0);
+        prep.then(function () {
+          var nosAll = [];
+          pages.forEach(function (pg) { nosAll = nosAll.concat(src[pg]); });
+          return srv('w62WbPrintRequest', {
+            pin: pinArg(), admin: S.admin,
+            studentId: W.student.id, studentName: W.student.name,
+            bookId: W.book.bookId, bookTitle: W.book.title,
+            pages: pagesExprOf(pages), nos: nosAll, byPage: src,
+            note: '방금틀린것' + (W.margin === 'wide' ? ' 여백넓게' : '')
+          });
+        }).then(function (r) {
+          qdlg.classList.add('hide');
+          wSay('인쇄 요청 접수 · ' + r.message);
+          startPoll([r.id]);
+        }).catch(function (e) {
+          bYes.disabled = false; bYes.textContent = '인쇄 요청';
+          wSay(e.message, true);
+        });
+      };
+      foot.appendChild(bNo); foot.appendChild(bYes);
+      box.appendChild(foot);
+      qdlg.appendChild(box);
+      qdlg.onclick = function (e) { if (e.target === qdlg) qdlg.classList.add('hide'); };
+    };
+
+    /* 인쇄 상태 실시간(대기 → 인쇄 중 → 완료) — 10초 간격 */
+    function startPoll(ids) {
+      ids = (ids || []).filter(Boolean);
+      if (!ids.length) return;
+      W.lastPrint = ids;
+      printState.classList.remove('hide');
+      printState.className = 'wb-pstate wait';
+      printState.textContent = '🖨 인쇄 상태: 대기';
+      if (W.pollTimer) clearInterval(W.pollTimer);
+      var stopAt = Date.now() + 10 * 60 * 1000;
+      function tick() {
+        srv('w62WbPrintList', { pin: pinArg(), admin: S.admin }).then(function (r) {
+          var rows = (r && r.rows) || [];
+          var mine = rows.filter(function (x) { return ids.indexOf(x.id) >= 0; });
+          if (!mine.length) { return; }
+          var st = mine.map(function (x) { return String(x.state || '').toLowerCase(); });
+          var label = st.every(function (x) { return x === 'done'; }) ? '완료'
+            : st.some(function (x) { return x === 'error'; }) ? '오류'
+              : st.some(function (x) { return x === 'processing' || x === 'printing'; }) ? '인쇄 중'
+                : '대기';
+          printState.textContent = '🖨 인쇄 상태: ' + label + ' (' + mine.length + '건)';
+          printState.className = 'wb-pstate ' + (label === '완료' ? 'ok' : (label === '오류' ? 'err' : 'wait'));
+          if (label === '완료' || label === '오류' || Date.now() > stopAt) {
+            clearInterval(W.pollTimer); W.pollTimer = null;
+            if (label === '완료') rPrintListSafe();
+          }
+        }).catch(function () { });
+      }
+      tick();
+      W.pollTimer = setInterval(tick, 10000);
+    }
+    function rPrintListSafe() { try { if (S.tab === 'retest') rPrintList(); } catch (e) { } }
+
+    /* ── 오늘 할 일 요약 카드 · 카톡 복사용 ── */
+    var CLINIC_EXEC = 'https://script.google.com/macros/s/AKfycbzUFYFZq7XonMiAYMaAzY4lzVWFc6L3uuqGAH3DgUPURoFRMzG_OrxNqY6dMViWo1bB/exec';
+    var todayCard = el('div', 'wb-today');
+    var tc = { need: 0, needNames: [], print: 0, printNames: [], clinic: null, clinicNames: [] };
+    var bNeed = btn('need', '');
+    var bWait = btn('wait', '');
+    var bClinic = btn('clinic', '');
+    var bCopy = btn('', '📋 카톡 복사용');
+    todayCard.appendChild(el('b', 't', '오늘 할 일'));
+    todayCard.appendChild(bNeed);
+    todayCard.appendChild(bWait);
+    todayCard.appendChild(bClinic);
+    todayCard.appendChild(bCopy);
+    paintToday();
+    try { app.insertBefore(todayCard, tabs); } catch (e) { app.appendChild(todayCard); }
+    function paintToday() {
+      bNeed.textContent = '확인필요 ' + (tc.need === 0 ? '0건' : tc.need + '건');
+      bWait.textContent = '오답 인쇄 대기 ' + tc.print + '명';
+      bClinic.textContent = '클리닉 미제출 ' + (tc.clinic == null ? '–' : tc.clinic + '명');
+    }
+    function clinicStatus() {
+      var key = '';
+      try { key = localStorage.getItem('clinic.teacherKey') || ''; } catch (e) { }
+      if (!key) return Promise.resolve(null);
+      return fetch(CLINIC_EXEC, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ api: 'status', key: key, date: todayStr() }),
+        redirect: 'follow', cache: 'no-store'
+      }).then(function (r) { return r.text(); }).then(function (t) {
+        try { return JSON.parse(t); } catch (e) { return null; }
+      }).catch(function () { return null; });
+    }
+    function nameOf(id) {
+      var s = S.students.filter(function (x) { return x.id === id; })[0];
+      return s ? s.name : id;
+    }
+    function refreshToday() {
+      paintToday();
+      var ids = S.students.map(function (s) { return s.id; });
+      if (ids.length) {
+        probeList(ids, function (sid, st) {
+          if (st && st.checkN) tc.need += st.checkN;
+          paintToday();
+        }).then(function () {
+          tc.needNames = ids.filter(function (sid) { var st = statOf(sid); return st && st.check; }).map(nameOf);
+          paintToday();
+        });
+      }
+      srv('w62WbPrintList', { pin: pinArg(), admin: S.admin }).then(function (r) {
+        var rows = (r && r.rows) || [];
+        var names = [];
+        rows.forEach(function (x) {
+          var st = String(x.state || '').toLowerCase();
+          if (st !== 'pending' && st !== 'processing' && st !== 'printing') return;
+          if (x.student && names.indexOf(x.student) < 0) names.push(x.student);
+        });
+        tc.print = names.length; tc.printNames = names;
+        paintToday();
+      }).catch(function () { });
+      clinicStatus().then(function (r) {
+        if (!r || r.ok === false || !r.students) { tc.clinic = null; paintToday(); return; }
+        var names = [];
+        r.students.forEach(function (s) {
+          var need = (s.hw_assigned || 0) > 0 || (s.app_mode === 'homework' ? (s.hw_assigned || 0) > 0 : !!s.today_kind);
+          if (need && !(s.submitted > 0)) names.push(s.name);
+        });
+        tc.clinic = names.length; tc.clinicNames = names;
+        paintToday();
+      });
+    }
+    bNeed.onclick = function () {
+      setTab('wrong');
+      wPick.only(true);
+      try { wPick.wrap.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { }
+      wSay('미채점 · 확인필요 학생만 위로 모았습니다. 학년을 누르면 명단이 나옵니다.');
+    };
+    bWait.onclick = function () {
+      setTab('retest');
+      rPrintList();
+      try { rList.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { }
+    };
+    bClinic.onclick = function () { try { global.open('clinic-teacher.html', '_blank'); } catch (e) { } };
+    bCopy.onclick = function () {
+      var d = todayStr().slice(5, 10).replace('-', '/');
+      var lines = ['[위너스] ' + d + ' 오늘 확인'];
+      lines.push('· 확인필요 ' + tc.need + '건'
+        + (tc.needNames.length ? ' — ' + tc.needNames.join(', ') : ''));
+      lines.push('· 오답 인쇄 대기 ' + tc.print + '명'
+        + (tc.printNames.length ? ' — ' + tc.printNames.join(', ') : ''));
+      lines.push('· 클리닉 미제출 ' + (tc.clinic == null ? '-' : tc.clinic + '명')
+        + (tc.clinicNames.length ? ' — ' + tc.clinicNames.join(', ') : ''));
+      var text = lines.join('\n');
+      function ok() { bCopy.textContent = '✅ 복사됨'; setTimeout(function () { bCopy.textContent = '📋 카톡 복사용'; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, function () { legacyCopy(text); ok(); });
+      } else { legacyCopy(text); ok(); }
+    };
+    function legacyCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) { }
+      document.body.removeChild(ta);
+    }
+
+    /* [적용] — 기존에는 코너 필터를 그대로 둔 채 범위만 바꿔, 선택한 코너가 범위 밖이면 표가 0행이 되어 사라졌다.
+       2차(2026-11-28): [적용]을 누를 때마다 코너를 전부 해제하고 다시 그 코너 칩을 만든다. */
+    applyBtn.onclick = function () {
+      W.from = inFrom.value; W.to = inTo.value;
+      W.units = {};
+      saveRangeMemo();
+      try { buildCornerChips(); } catch (e) { }
+      renderMatrix();
+    };
+    inFrom.onchange = applyBtn.onclick;
+    inTo.onchange = applyBtn.onclick;
+    hideChk.onchange = function () { W.hideDone = !!hideChk.checked; renderMatrix(); };
+    hideChk.onchange = function () { W.hideDone = hideChk.checked; renderMatrix(); };
+
+    /* 인쇄 요청 창 */
+    var dlg = el('div', 'wb-modal hide');
+    root.appendChild(dlg);
+    printBtn.onclick = function () { openPrint(); };
+    function openPrint() {
+      if (!W.student || !W.book) { wSay('학생과 교재를 먼저 골라 주세요.', true); return; }
+      dlg.innerHTML = '';
+      dlg.classList.remove('hide');
+      var box = el('div', 'wb-modal-box');
+      box.appendChild(el('div', 'wb-modal-tt', '오프라인책 오답인쇄'));
+      box.appendChild(el('div', 'wb-modal-sub',
+        '학원 PC가 10초마다 확인해 이 학생의 오답으로 재시험지를 만들어 인쇄합니다. '
+        + '문항 위에 문제지 이름 · 페이지 · 문항번호가 찍힙니다.'));
+      var rng = el('div', 'wb-modal-row');
+      rng.appendChild(el('span', 'wb-lbl', '쪽수'));
+      var inp = document.createElement('input');
+      inp.className = 'wb-modal-in';
+      inp.placeholder = '전체 또는 65-90 / 65,80';
+      inp.value = (W.from && W.to && W.from !== W.to) ? (W.from + '-' + W.to) : '';
+      rng.appendChild(inp);
+      box.appendChild(rng);
+      var totalMarks = Object.keys(W.marks).reduce(function (a, k) { return a + nosOf(W.marks[k]).length; }, 0);
+      box.appendChild(el('div', 'wb-modal-sub',
+        '지금 화면 범위: ' + (W.from || '?') + 'p ~ ' + (W.to || '?') + 'p · 체크한 오답 ' + totalMarks + '문항'));
+      var byPage = {};
+      Object.keys(W.marks).forEach(function (pg) {
+        var arr = nosOf(W.marks[pg]);
+        if (arr.length) byPage[pg] = arr;
+      });
+      var foot = el('div', 'wb-modal-foot');
+      var bNo = btn('wb-btn2 ghost', '닫기');
+      bNo.onclick = function () { dlg.classList.add('hide'); };
+      var bYes = btn('wb-btn2', '인쇄 요청');
+      bYes.onclick = function () {
+        bYes.disabled = true;
+        bYes.textContent = '보내는 중…';
+        var nos = [];
+        Object.keys(byPage).forEach(function (pg) { nos = nos.concat(byPage[pg]); });
+        srv('w62WbPrintRequest', {
+          pin: pinArg(), admin: S.admin,
+          studentId: W.student.id, studentName: W.student.name,
+          bookId: W.book.bookId, bookTitle: W.book.title,
+          pages: (inp.value || '').trim(), nos: nos, byPage: byPage, note: 'webapp'
+        }).then(function (r) {
+          dlg.classList.add('hide');
+          wSay('인쇄 요청 접수 · ' + r.message);
+          startPoll([r.id]);
+        }).catch(function (e) {
+          bYes.disabled = false; bYes.textContent = '인쇄 요청';
+          wSay(e.message, true);
+        });
+      };
+      foot.appendChild(bNo); foot.appendChild(bYes);
+      box.appendChild(foot);
+      dlg.appendChild(box);
+      dlg.onclick = function (e) { if (e.target === dlg) dlg.classList.add('hide'); };
+    }
+
+    /* ═══════════════ ② 선생님 코멘트 ═══════════════ */
+    var C = { student: null };
+    var cHost = panelEls.comment;
+    var cCard = el('div', 'wb-card');
+    cCard.appendChild(el('div', 'wb-h2', '선생님 코멘트 쓰기'));
+    var cPick = newPicker({
+      book: false,
+      hint: '학년 → 학생을 눌러 주세요.',
+      onStudent: function (s) { C.student = s; cLoad(s); }
+    });
+    cCard.appendChild(cPick.wrap);
+    var cRow = el('div', 'wb-row');
+    cRow.style.marginTop = '8px';
+    var cDateWrap = el('div', 'wb-f');
+    cDateWrap.style.flex = '0 0 150px';
+    cDateWrap.appendChild(el('span', '', '날짜'));
+    var cDate = document.createElement('input');
+    cDate.type = 'date';
+    cDate.className = 'wb-in';
+    cDate.value = S.today;
+    cDateWrap.appendChild(cDate);
+    cRow.appendChild(cDateWrap);
+    cCard.appendChild(cRow);
+    var cText = document.createElement('textarea');
+    cText.className = 'wb-ta';
+    cText.placeholder = '숙제 태도·틀린 부분·다음 시간 준비 등 (학생·날짜별로 저장됩니다)';
+    cText.style.marginTop = '8px';
+    cCard.appendChild(cText);
+    var cBar = el('div', 'wb-bar-b');
+    var cSave = btn('wb-btn2', '코멘트 저장');
+    var cCount = el('span', 'wb-count', '');
+    cBar.appendChild(cSave);
+    cBar.appendChild(cCount);
+    cCard.appendChild(cBar);
+    var cMsg = el('div', 'wb-note hide');
+    cCard.appendChild(cMsg);
+    cHost.appendChild(cCard);
+
+    var cListCard = el('div', 'wb-card');
+    cListCard.appendChild(el('div', 'wb-h2', '코멘트 기록'));
+    var cList = el('div', 'wb-list');
+    cListCard.appendChild(cList);
+    cHost.appendChild(cListCard);
+
+    cText.oninput = function () { cCount.textContent = cText.value.length + '자'; };
+    cSave.onclick = function () {
+      if (!C.student) { cMsg.textContent = '학생을 먼저 골라 주세요.'; cMsg.className = 'wb-note err'; cMsg.classList.remove('hide'); return; }
+      var text = cText.value.trim();
+      if (!text) { cMsg.textContent = '코멘트를 적어 주세요.'; cMsg.className = 'wb-note err'; cMsg.classList.remove('hide'); return; }
+      cSave.disabled = true;
+      srv('w62WbCommentSave', {
+        pin: pinArg(), admin: S.admin, studentId: C.student.id, date: cDate.value || S.today, text: text
+      }).then(function (r) {
+        cSave.disabled = false;
+        cText.value = ''; cCount.textContent = '';
+        cMsg.textContent = r.message;
+        cMsg.className = 'wb-note ok';
+        cMsg.classList.remove('hide');
+        cLoad(C.student);
+      }).catch(function (e) {
+        cSave.disabled = false;
+        cMsg.textContent = e.message;
+        cMsg.className = 'wb-note err';
+        cMsg.classList.remove('hide');
+      });
+    };
+    function cLoad(stu) {
+      if (!stu) {
+        cList.innerHTML = '';
+        cList.appendChild(el('div', 'wb-status', '학생을 고르면 그 학생의 코멘트가 나옵니다.'));
+        return;
+      }
+      srv('w62WbCommentList', { pin: pinArg(), admin: S.admin, studentId: stu.id, limit: 40 })
+        .then(function (r) {
+          cList.innerHTML = '';
+          var rows = r.rows || [];
+          if (!rows.length) { cList.appendChild(el('div', 'wb-status', stu.name + ' 코멘트가 아직 없습니다.')); return; }
+          rows.forEach(function (x) {
+            var it = el('div', 'wb-item');
+            var head = el('div');
+            head.appendChild(el('b', '', String(x.date || '').slice(0, 10)));
+            head.appendChild(el('span', 'mut', ' · ' + (x.teacher || '') + ' · ' + String(x.at || '').slice(0, 16)));
+            it.appendChild(head);
+            it.appendChild(el('div', 'txt', x.text || ''));
+            cList.appendChild(it);
+          });
+        }).catch(function (e) {
+          cList.innerHTML = '';
+          cList.appendChild(el('div', 'wb-note err', e.message));
+        });
+    }
+    cList.appendChild(el('div', 'wb-status', '학생을 고르면 그 학생의 코멘트가 나옵니다.'));
+
+    /* ═══════════════ ③ 오프라인 오답 출제 ═══════════════ */
+    var R = { student: null, data: null, sel: {}, only: '' };
+    var rHost = panelEls.retest;
+    var rCard = el('div', 'wb-card');
+    rCard.appendChild(el('div', 'wb-h2', '오프라인 오답 출제'));
+    rCard.appendChild(el('div', 'wb-note',
+      '학생이 저장한 틀린 문항(선생님 채점 · 고등 학생 자가 입력)을 모아, 고른 문항만 재시험지로 다시 냅니다. '
+      + '인쇄는 학원 PC가 하고, 각 문항 위에 「문제지 이름 · 페이지 · 문항번호」가 찍힙니다.'));
+    var rPick = newPicker({
+      book: false,
+      hint: '학년 → 학생을 눌러 주세요.',
+      onStudent: function (s) { R.student = s; rLoad(s); }
+    });
+    rPick.wrap.style.marginTop = '8px';
+    rCard.appendChild(rPick.wrap);
+    var rFilter = el('div', 'wb-chips');
+    rFilter.style.margin = '8px 0 4px';
+    [['', '전체 오답'], ['again', '🔥 또틀린 문제만']].forEach(function (f) {
+      var b = btn('wb-chip' + (R.only === f[0] ? ' on' : ''), f[1]);
+      b.onclick = function () {
+        R.only = f[0];
+        Array.prototype.forEach.call(rFilter.children, function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+        if (R.student) rLoad(R.student);
+      };
+      rFilter.appendChild(b);
+    });
+    rCard.appendChild(rFilter);
+    var rBody = el('div');
+    rCard.appendChild(rBody);
+    var rBar = el('div', 'wb-bar-b');
+    var rGo = btn('wb-btn2 print', '선택 문항 재출제');
+    rGo.style.marginLeft = '0';
+    var rCount = el('span', 'wb-count', '');
+    rBar.appendChild(rGo); rBar.appendChild(rCount);
+    rCard.appendChild(rBar);
+    var rMsg = el('div', 'wb-note hide');
+    rCard.appendChild(rMsg);
+    rHost.appendChild(rCard);
+
+    var rListCard = el('div', 'wb-card');
+    rListCard.appendChild(el('div', 'wb-h2', '최근 인쇄 요청'));
+    var rList = el('div');
+    rListCard.appendChild(rList);
+    rHost.appendChild(rListCard);
+    rList.appendChild(el('div', 'wb-status', '—'));
+
+    function rSay(msg, cls) {
+      rMsg.textContent = msg;
+      rMsg.className = 'wb-note' + (cls ? ' ' + cls : '');
+      rMsg.classList.remove('hide');
+    }
+    function rLoad(stu) {
+      if (!stu) { rBody.innerHTML = ''; rCount.textContent = ''; return; }
+      rBody.innerHTML = '';
+      rBody.appendChild(el('div', 'wb-status', '불러오는 중…'));
+      srv('w62WbWrongAll', { pin: pinArg(), admin: S.admin, studentId: stu.id }).then(function (r) {
+        R.data = r;
+        R.sel = {};
+        rBody.innerHTML = '';
+        var books = r.books || [];
+        if (!books.length) {
+          rBody.appendChild(el('div', 'wb-status', stu.name + ' 님은 저장된 오답이 없습니다.'));
+          rCount.textContent = '';
+          return;
+        }
+        var shownPages = 0;
+        books.forEach(function (b, bi) {
+          var pages = (b.pages || []).filter(function (pg) {
+            if (R.only === 'again') return /또답/.test(String(pg.src || ''));
+            return true;
+          });
+          if (!pages.length) return;
+          shownPages += pages.length;
+          var cnt = pages.reduce(function (a, pg) { return a + (pg.nos || []).length; }, 0);
+          var it = el('div', 'wb-item');
+          var head = el('div');
+          head.appendChild(el('b', '', b.title || b.bookId));
+          head.appendChild(el('span', 'mut', ' · 오답 ' + cnt + '문항 · ' + pages.length + '쪽'));
+          it.appendChild(head);
+          pages.forEach(function (pg) {
+            var row = el('div', 'wb-item');
+            row.style.background = '#fff';
+            row.style.marginTop = '4px';
+            var ph = el('div');
+            var lab = el('b', '', pg.page + 'p');
+            ph.appendChild(lab);
+            if (pg.state === '확인필요') ph.appendChild(el('span', 'mut', ' · 확인필요'));
+            if (/또답/.test(String(pg.src || ''))) ph.appendChild(el('span', 'mut', ' · 🔥 또답'));
+            if (/학생/.test(String(pg.src || ''))) ph.appendChild(el('span', 'mut', ' · 학생 입력'));
+            row.appendChild(ph);
+            var box = el('div', 'wb-pgsel');
+            if (!pg.nos.length) {
+              box.appendChild(el('span', 'mut', '문항 없음(확인필요)'));
+            }
+            pg.nos.forEach(function (no) {
+              var key = pg.page + ':' + no;
+              var on = !(R.sel[key] === false);
+              var lb = el('label', 'wb-ck' + (on ? ' on' : ''));
+              var cb = document.createElement('input');
+              cb.type = 'checkbox';
+              cb.checked = on;
+              cb.onchange = function () {
+                R.sel[key] = cb.checked;
+                lb.classList.toggle('on', cb.checked);
+                rTally();
+              };
+              lb.appendChild(cb);
+              lb.appendChild(document.createTextNode(String(no)));
+              box.appendChild(lb);
+            });
+            row.appendChild(box);
+            it.appendChild(row);
+          });
+          rBody.appendChild(it);
+        });
+        if (!shownPages) {
+          rBody.appendChild(el('div', 'wb-status', R.only === 'again'
+            ? '아직 「또답」으로 기록된 쪽이 없습니다. ① 숙제 오답체크에서 🔥 또답 체크를 켜고 저장하면 여기에 모입니다.'
+            : stu.name + ' 님은 저장된 오답이 없습니다.'));
+          rCount.textContent = '';
+          return;
+        }
+        rTally();
+      }).catch(function (e) {
+        rBody.innerHTML = '';
+        rBody.appendChild(el('div', 'wb-note err', e.message));
+      });
+    }
+    function rSelected() {
+      var out = {};
+      if (!R.data) return out;
+      (R.data.books || []).forEach(function (b) {
+        var pages = {};
+        b.pages.forEach(function (pg) {
+          if (R.only === 'again' && !/또답/.test(String(pg.src || ''))) return;
+          pg.nos.forEach(function (no) {
+            var key = pg.page + ':' + no;
+            if (R.sel[key] === false) return;
+            if (!pages[pg.page]) pages[pg.page] = [];
+            pages[pg.page].push(no);
+          });
+        });
+        var keys = Object.keys(pages);
+        if (keys.length) out[b.bookId || '?'] = { book: b, pages: pages };
+      });
+      return out;
+    }
+    function rTally() {
+      var sel = rSelected(), n = 0;
+      Object.keys(sel).forEach(function (k) {
+        Object.keys(sel[k].pages).forEach(function (p) { n += sel[k].pages[p].length; });
+      });
+      rCount.textContent = n ? n + '문항 선택' : '0문항';
+      return n;
+    }
+    function pagesExpr(pages) {
+      var nums = Object.keys(pages).map(function (x) { return parseInt(x, 10); })
+        .filter(function (n) { return !isNaN(n); }).sort(function (a, b) { return a - b; });
+      if (!nums.length) return '';
+      var cont = true;
+      for (var i = 1; i < nums.length; i++) if (nums[i] !== nums[i - 1] + 1) { cont = false; break; }
+      if (nums.length === 1) return String(nums[0]);
+      return cont ? (nums[0] + '-' + nums[nums.length - 1]) : nums.join(',');
+    }
+    rGo.onclick = function () {
+      if (!R.student) { rSay('학생을 먼저 골라 주세요.', 'err'); return; }
+      var sel = rSelected();
+      var books = Object.keys(sel);
+      if (!books.length) { rSay('재출제할 문항을 하나 이상 골라 주세요.', 'err'); return; }
+      rGo.disabled = true;
+      var jobs = books.map(function (bid) {
+        var b = sel[bid];
+        var nos = [];
+        Object.keys(b.pages).forEach(function (p) { nos = nos.concat(b.pages[p]); });
+        var bd = b.book;
+        return srv('w62WbPrintRequest', {
+          pin: pinArg(), admin: S.admin,
+          studentId: R.student.id, studentName: R.student.name,
+          bookId: bd.bookId || '', bookTitle: bd.title || '',
+          pages: pagesExpr(b.pages), nos: nos, byPage: b.pages, note: '오답출제'
+        });
+      });
+      Promise.all(jobs).then(function (rs) {
+        rGo.disabled = false;
+        rSay(rs.map(function (x) { return x.message; }).join(' / '), 'ok');
+        rPrintList();
+      }).catch(function (e) {
+        rGo.disabled = false;
+        rSay(e.message, 'err');
+      });
+    };
+    function rPrintList() {
+      srv('w62WbPrintList', { pin: pinArg(), admin: S.admin }).then(function (r) {
+        rList.innerHTML = '';
+        var rows = r.rows || [];
+        if (!rows.length) { rList.appendChild(el('div', 'wb-status', '아직 인쇄 요청이 없습니다.')); return; }
+        var t = el('table', 'wb-tbl');
+        var th = document.createElement('tr');
+        ['요청', '학생', '교재', '쪽수', '상태'].forEach(function (x) { th.appendChild(el('th', '', x)); });
+        t.appendChild(th);
+        rows.forEach(function (x) {
+          var tr = document.createElement('tr');
+          tr.appendChild(el('td', '', String(x.at || '').slice(5, 16)));
+          tr.appendChild(el('td', '', x.student || ''));
+          tr.appendChild(el('td', '', x.book || ''));
+          tr.appendChild(el('td', '', String(x.pages || '').replace(/^'/, '')));
+          tr.appendChild(el('td', '', x.state || ''));
+          t.appendChild(tr);
+        });
+        rList.appendChild(t);
+      }).catch(function () { });
+    }
+
+    /* ═══════════════ ④ 숙제 배정 ═══════════════ */
+    var A = { picked: {} };
+    var aHost = panelEls.assign;
+    var aCard = el('div', 'wb-card');
+    aCard.appendChild(el('div', 'wb-h2', '숙제 배정'));
+    aCard.appendChild(el('div', 'wb-note', '학생(여러 명 선택 가능) · 교재 · 범위를 골라 배정합니다.'));
+    var aPick = newPicker({
+      multi: true,
+      hint: '학년 → 학생을 눌러 주세요. (여러 명 선택 가능)',
+      onStudents: function () { A.picked = aPick.P.students; aTally(); }
+    });
+    aPick.wrap.style.marginTop = '8px';
+    aCard.appendChild(aPick.wrap);
+
+    var aRow = el('div', 'wb-row');
+    aRow.style.marginTop = '8px';
+    function field(label, node, flex) {
+      var f = el('div', 'wb-f');
+      if (flex) f.style.flex = flex;
+      f.appendChild(el('span', '', label));
+      f.appendChild(node);
+      return f;
+    }
+    var aFrom = document.createElement('input');
+    aFrom.className = 'wb-in'; aFrom.type = 'number'; aFrom.placeholder = '시작쪽';
+    var aTo = document.createElement('input');
+    aTo.className = 'wb-in'; aTo.type = 'number'; aTo.placeholder = '끝쪽';
+    var aDue = document.createElement('input');
+    aDue.className = 'wb-in'; aDue.type = 'date';
+    var aMemo = document.createElement('input');
+    aMemo.className = 'wb-in'; aMemo.placeholder = '메모 (안 써도 됨)';
+    aRow.appendChild(field('시작쪽', aFrom, '0 0 100px'));
+    aRow.appendChild(field('끝쪽', aTo, '0 0 100px'));
+    aRow.appendChild(field('마감일', aDue, '0 0 160px'));
+    aCard.appendChild(aRow);
+    var aMemoRow = el('div', 'wb-row');
+    aMemoRow.style.marginTop = '8px';
+    aMemoRow.appendChild(field('메모', aMemo, '1 1 220px'));
+    aCard.appendChild(aMemoRow);
+
+    if (aPick.bookSel) {
+      var aBookOrig = aPick.bookSel.onchange;
+      aPick.bookSel.onchange = function () {
+        aBookOrig();
+        if (aPick.P.book) {
+          aFrom.value = '1';
+          aTo.value = String(aPick.P.book.pages || '');
+        }
+      };
+    }
+
+    var aBar = el('div', 'wb-bar-b');
+    var aSave = btn('wb-btn2', '배정 저장');
+    var aCount = el('span', 'wb-count', '0명');
+    aBar.appendChild(aSave); aBar.appendChild(aCount);
+    aCard.appendChild(aBar);
+    var aMsg = el('div', 'wb-note hide');
+    aCard.appendChild(aMsg);
+    aHost.appendChild(aCard);
+
+    var aListCard = el('div', 'wb-card');
+    aListCard.appendChild(el('div', 'wb-h2', '최근 배정'));
+    var aList = el('div');
+    aListCard.appendChild(aList);
+    aHost.appendChild(aListCard);
+    aList.appendChild(el('div', 'wb-status', '—'));
+
+    function aTally() {
+      aCount.textContent = Object.keys(A.picked || {}).length + '명';
+    }
+    function aSay(msg, cls) {
+      aMsg.textContent = msg;
+      aMsg.className = 'wb-note' + (cls ? ' ' + cls : '');
+      aMsg.classList.remove('hide');
+    }
+    aSave.onclick = function () {
+      var ids = Object.keys(A.picked || {});
+      if (!ids.length) { aSay('배정할 학생을 골라 주세요.', 'err'); return; }
+      if (!aPick.P.book) { aSay('교재를 골라 주세요.', 'err'); return; }
+      aSave.disabled = true;
+      srv('w62WbAssignSave', {
+        pin: pinArg(), admin: S.admin, studentIds: ids,
+        bookId: aPick.P.book.bookId, bookTitle: aPick.P.book.title,
+        from: aFrom.value, to: aTo.value, due: aDue.value, memo: aMemo.value
+      }).then(function (r) {
+        aSave.disabled = false;
+        aSay(r.message, 'ok');
+        aLoadList();
+      }).catch(function (e) {
+        aSave.disabled = false;
+        aSay(e.message, 'err');
+      });
+    };
+    function aLoadList() {
+      srv('w62WbAssignList', { pin: pinArg(), admin: S.admin, limit: 40 }).then(function (r) {
+        aList.innerHTML = '';
+        var rows = r.rows || [];
+        if (!rows.length) { aList.appendChild(el('div', 'wb-status', '아직 배정한 숙제가 없습니다.')); return; }
+        var t = el('table', 'wb-tbl');
+        var th = document.createElement('tr');
+        ['배정', '학생', '교재', '범위', '마감', '메모'].forEach(function (x) { th.appendChild(el('th', '', x)); });
+        t.appendChild(th);
+        rows.forEach(function (x) {
+          var tr = document.createElement('tr');
+          tr.appendChild(el('td', '', String(x.at || '').slice(5, 16)));
+          tr.appendChild(el('td', '', x.student || ''));
+          tr.appendChild(el('td', '', x.book || ''));
+          tr.appendChild(el('td', '', (x.from || '') + (x.to ? ' ~ ' + x.to : '') + 'p'));
+          tr.appendChild(el('td', '', x.due || ''));
+          tr.appendChild(el('td', '', x.memo || ''));
+          t.appendChild(tr);
+        });
+        aList.appendChild(t);
+      }).catch(function () { });
+    }
+
+    /* ═══════════════ 원장 설정 ═══════════════ */
+    var G = { token: '', teachers: [], grades: [] };
+    var gHost = panelEls.admin;
+    var gCard = el('div', 'wb-card');
+    gCard.appendChild(el('div', 'wb-h2', '선생님별 공개 범위'));
+    gCard.appendChild(el('div', 'wb-note',
+      '체크한 학년의 학생·교재만 그 선생님 화면에 보입니다. 아무것도 체크하지 않으면 「전체」입니다. '
+      + '저장하면 그 선생님 핀으로 들어온 기기에 바로 적용됩니다.'));
+    var gTokRow = el('div', 'wb-row');
+    gTokRow.style.marginTop = '8px';
+    var gTok = document.createElement('input');
+    gTok.type = 'password';
+    gTok.className = 'wb-in';
+    gTok.placeholder = '관리자 토큰 입력';
+    gTok.style.flex = '1 1 220px';
+    var gOpen = btn('wb-btn2', '불러오기');
+    gTokRow.appendChild(gTok);
+    gTokRow.appendChild(gOpen);
+    gCard.appendChild(gTokRow);
+    var gMsg = el('div', 'wb-note hide');
+    gCard.appendChild(gMsg);
+    var gBody = el('div');
+    gCard.appendChild(gBody);
+    gHost.appendChild(gCard);
+
+    function gSay(msg, cls) {
+      gMsg.textContent = msg;
+      gMsg.className = 'wb-note' + (cls ? ' ' + cls : '');
+      gMsg.classList.remove('hide');
+    }
+    gOpen.onclick = function () { gLoad((gTok.value || S.admin || '').trim()); };
+    /* 2차(2026-11-28): 원장 핀으로 들어온 경우 토큰 없이 바로 선생님 목록을 불러온다 */
+    function gLoad(tok) {
+      var usePin = (!tok && S.teacher && S.teacher.admin && S.teacher.pin) ? S.teacher.pin : '';
+      if (!tok && !usePin) { gSay('관리자 토큰(또는 원장 핀)을 넣고 [불러오기]를 눌러 주세요.', 'err'); return; }
+      srv('w62AdmScopes', { token: tok, pin: usePin }).then(function (r) {
+        G.token = tok; S.admin = tok;
+        G.teachers = r.teachers || []; G.grades = r.grades || [];
+        gSay('선생님 ' + G.teachers.length + '명을 불러왔습니다. (원장 ' + (S.teacher && S.teacher.admin ? '핀 로그인' : '토큰') + ')');
+        gPaint();
+      }).catch(function (e) { gSay(e.message, 'err'); });
+    }
+    function gPaint() {
+      gBody.innerHTML = '';
+      var t = el('table', 'wb-tbl');
+      var th = document.createElement('tr');
+      ['슬롯', '이름 / 핀', '볼 수 있는 학년', '저장'].forEach(function (x) { th.appendChild(el('th', '', x)); });
+      t.appendChild(th);
+      G.teachers.forEach(function (tc) {
+        var tr = document.createElement('tr');
+        tr.appendChild(el('td', '', tc.slot));
+        var td1 = el('td');
+        var nmIn = document.createElement('input');
+        nmIn.className = 'wb-in';
+        nmIn.value = tc.name;
+        nmIn.style.minHeight = '34px';
+        nmIn.style.width = '110px';
+        nmIn.setAttribute('aria-label', tc.slot + ' 선생님 이름');
+        td1.appendChild(nmIn);
+        td1.appendChild(el('div', 'mut', '핀 ' + (tc.pin || '(없음)')
+          + (tc.active ? '' : ' · 미사용')));
+        tr.appendChild(td1);
+        var td2 = el('td');
+        var box = el('div', 'wb-gchips');
+        var picked = {};
+        (tc.scopes || []).forEach(function (x) { picked[x] = true; });
+        var allBtn = btn('wb-gc' + (!tc.scopes || !tc.scopes.length ? ' on' : ''), '전체');
+        var chips = [];
+        G.grades.forEach(function (g) {
+          var b = btn('wb-gc' + (picked[g] ? ' on' : ''), g);
+          b.onclick = function () {
+            if (picked[g]) delete picked[g]; else picked[g] = true;
+            paint();
+          };
+          chips.push({ g: g, b: b });
+        });
+        function paint() {
+          chips.forEach(function (c) { c.b.classList.toggle('on', !!picked[c.g]); });
+          allBtn.classList.toggle('on', !Object.keys(picked).length);
+        }
+        allBtn.onclick = function () { picked = {}; paint(); };
+        box.appendChild(allBtn);
+        chips.forEach(function (c) { box.appendChild(c.b); });
+        td2.appendChild(box);
+        tr.appendChild(td2);
+        var td3 = el('td');
+        var sv = btn('wb-btn2', '범위 저장');
+        sv.onclick = function () {
+          sv.disabled = true;
+          srv('w62AdmSetScopes', {
+            token: G.token, pin: (S.teacher && S.teacher.pin) || '',
+            items: [{ slot: tc.slot, scopes: Object.keys(picked) }]
+          }).then(function (r) {
+            sv.disabled = false;
+            var got = (r.saved && r.saved[0] && r.saved[0].scope) || '전체';
+            gSay(tc.slot + ' ' + tc.name + ' → ' + got, 'ok');
+            tc.scopes = Object.keys(picked);
+          }).catch(function (e) {
+            sv.disabled = false;
+            gSay(e.message, 'err');
+          });
+        };
+        td3.appendChild(sv);
+        /* 2차(2026-11-28): 이름·핀 저장(핀 4자리). 원장 핀으로도 가능 */
+        var pinIn = document.createElement('input');
+        pinIn.type = 'text';
+        pinIn.inputMode = 'numeric';
+        pinIn.maxLength = 4;
+        pinIn.value = tc.pin || '';
+        pinIn.placeholder = '핀4자리';
+        pinIn.className = 'wb-in';
+        pinIn.style.width = '88px';
+        pinIn.style.minHeight = '34px';
+        pinIn.style.marginTop = '4px';
+        pinIn.setAttribute('aria-label', tc.slot + ' 핀 4자리');
+        var svPin = btn('wb-btn2 ghost', '핀 저장');
+        svPin.style.marginTop = '4px';
+        svPin.onclick = function () {
+          var v = String(pinIn.value || '').trim();
+          if (v && !/^\d{4}$/.test(v)) { gSay('핀은 숫자 4자리입니다.', 'err'); return; }
+          svPin.disabled = true;
+          srv('w62AdmSetTeachers', {
+            token: G.token, pin: (S.teacher && S.teacher.pin) || '',
+            teachers: [{ slot: tc.slot, name: String(nmIn.value || tc.name).trim(), pin: v,
+                         use: tc.active ? 'Y' : 'N', note: tc.note || '', scope: tc.scope || '전체' }]
+          }).then(function (r) {
+            svPin.disabled = false;
+            var got = (r.saved && r.saved[0]) || {};
+            tc.pin = String(got.pin || v).replace(/^'/, '');
+            tc.name = got.name || nmIn.value;
+            gSay(tc.slot + ' ' + tc.name + ' 저장 — 핀 ' + (tc.pin || '(없음)'), 'ok');
+            gPaint();
+          }).catch(function (e) {
+            svPin.disabled = false;
+            gSay(e.message, 'err');
+          });
+        };
+        td3.appendChild(pinIn);
+        td3.appendChild(svPin);
+        tr.appendChild(td3);
+        t.appendChild(tr);
+      });
+      gBody.appendChild(t);
+      if (!G.teachers.length) gBody.appendChild(el('div', 'wb-note', '선생님 목록이 비어 있습니다. 학원 PC에서 시트 WINNERS_수학선생님_v1 을 확인해 주세요.'));
+    }
+
+    /* ═══════════════ ⑤ 오답지 답안입력 (2026-11-28) ═══════════════ */
+    var pTab = panelEls.paper;
+    var pPick = newPicker({
+      hint: '학생을 고르면 그 학생 이름으로 만든 오답지가 나옵니다.',
+      book: false, status: false,
+      onStudent: function (s) { pLoadPapers(s); }
+    });
+    pTab.appendChild(pPick.wrap);
+    var pMsg = el('div', 'wb-status', '학생을 고르면 오답지 목록이 나옵니다.');
+    var pList = el('div', 'wb-list');
+    pTab.appendChild(pMsg);
+    pTab.appendChild(pList);
+
+    function pLoadPapers(s) {
+      if (!s) return;
+      pMsg.className = 'wb-status';
+      pMsg.textContent = '오답지 목록을 불러오는 중…';
+      pList.innerHTML = '';
+      srv('w62WbPaperList', { pin: pinArg(), admin: S.admin, studentId: s.id }).then(function (r) {
+        var rows = r.rows || [];
+        if (!rows.length) {
+          pMsg.textContent = s.name + ' 이름으로 만든 오답지가 아직 없습니다. (③ 오프라인 오답 출제 → 인쇄 요청하면 여기에 쌓입니다.)';
+          return;
+        }
+        pMsg.textContent = s.name + ' · 오답지 ' + rows.length + '건 — [답안입력]을 누르면 새 탭에서 열립니다(탭 이름: ' + s.name + ' 오답지).';
+        rows.forEach(function (it) {
+          var row = el('div', 'wb-item');
+          row.appendChild(el('b', '', (it.book || it.bookId || '교재')));
+          row.appendChild(el('span', 'mut', '  ' + (it.pages || '전체') + '쪽 · ' + (it.at || '')
+            + (it.state ? ' · ' + it.state : '')));
+          var go = btn('wb-btn2', '답안입력');
+          go.onclick = function () { openPaperTab(it, s); };
+          row.appendChild(go);
+          pList.appendChild(row);
+        });
+      }).catch(function (e) {
+        pMsg.className = 'wb-status err';
+        pMsg.textContent = e.message;
+      });
+    }
+
+    function teacherReq() {
+      return S.admin ? { admin: S.admin } : { pin: pinArg() };
+    }
+    function ensureRoster() {
+      if (S.books && S.books.length) return Promise.resolve(true);
+      if (!S.teacher || (!S.teacher.pin && !S.admin)) return Promise.resolve(false);
+      return srv('w62WbRoster', teacherReq()).then(function (r) {
+        S.students = r.students || [];
+        S.books = r.books || [];
+        if (r.today) S.today = r.today;
+        HW_TODAY = r.hw || {};
+        return true;
+      }).catch(function () { return false; });
+    }
+    /* 새 탭에서 열기 — 학생 채점 / 답안지 / 오답지 답안입력 (열린 탭바에도 기록) */
+    function openStudentTab(s) {
+      if (!s) return;
+      var q = 'mode=one&sid=' + encodeURIComponent(s.id) + '&name=' + encodeURIComponent(s.name || '');
+      if (W.book) q += '&book=' + encodeURIComponent(W.book.bookId);
+      var href = 'math-wrong.html?' + q;
+      var k = 'one:' + s.id + ':' + (W.book ? W.book.bookId : '');
+      tabAdd(k, s.name + ' 채점', href);
+      if (openNamed(href, k)) wSay(s.name + ' 학생을 새 탭에서 열었습니다. (탭 이름 = ' + s.name + ' · 위 「열린 탭」으로 언제든 전환)');
+    }
+    function openAnswersTab() {
+      var q = 'mode=answers' + (W.book ? '&bid=' + encodeURIComponent(W.book.bookId) : '');
+      var href = 'math-wrong.html?' + q;
+      var k = 'ans:' + (W.book ? W.book.bookId : '');
+      tabAdd(k, '📖 ' + (W.book ? W.book.title : '답안지'), href);
+      if (openNamed(href, k)) wSay('답안지를 새 탭에서 열었습니다. (탭 이름 = 교재명 · 위 「열린 탭」으로 복귀)');
+    }
+    function openPaperTab(it, s) {
+      var q = 'mode=paper&sid=' + encodeURIComponent(s.id) + '&prid=' + encodeURIComponent(it.id || '');
+      if (it.bookId) q += '&bid=' + encodeURIComponent(it.bookId);
+      var href = 'math-wrong.html?' + q;
+      var k = 'paper:' + s.id + ':' + (it.id || '');
+      tabAdd(k, s.name + ' 오답지', href);
+      if (!openNamed(href, k)) pMsg.textContent = '새 탭을 열지 못했습니다. 위 「열린 탭」에서 다시 눌러 주세요.';
+    }
+
+    /* '8-9' / '65,80' 같은 쪽수 문자열 → {8:1,9:1} */
+    function pageSetOf(expr) {
+      var s = String(expr || '').replace(/^'/, '').replace(/\s+/g, '');
+      if (!s) return null;
+      var out = {};
+      s.split(',').forEach(function (part) {
+        var m = /^(\d+)-(\d+)$/.exec(part);
+        if (m) { for (var i = parseInt(m[1], 10); i <= parseInt(m[2], 10); i++) out[String(i)] = 1; }
+        else if (/^\d+$/.test(part)) out[String(parseInt(part, 10))] = 1;
+      });
+      return Object.keys(out).length ? out : null;
+    }
+
+    /* ═══════════════ 교사용 답안지 탭 (?mode=answers) ═══════════════ */
+    function openAnswersPage(bid) {
+      loginWrap.classList.add('hide'); app.classList.add('hide'); stuWrap.classList.add('hide');
+      root.innerHTML = '';
+      var head = el('div', 'wb-bar');
+      head.appendChild(el('div', 'wb-date', '📖 교재 답안지'));
+      var back = btn('wb-mini', '← 선생님 화면');
+      back.onclick = function () { global.location.href = 'math-wrong.html'; };
+      head.appendChild(back);
+      root.appendChild(head);
+      var bar2 = el('div', 'wb-ansbar');
+      bar2.appendChild(el('span', 'wb-lbl', '교재'));
+      var sel = document.createElement('select');
+      sel.setAttribute('aria-label', '교재 선택');
+      bar2.appendChild(sel);
+      bar2.appendChild(el('span', 'wb-lbl', '쪽수'));
+      var inp = document.createElement('input');
+      inp.type = 'number'; inp.className = 'wb-num'; inp.placeholder = '67';
+      inp.setAttribute('aria-label', '페이지 바로가기');
+      bar2.appendChild(inp);
+      var go = btn('wb-btn2', '이동');
+      bar2.appendChild(go);
+      var lastEl = el('span', 'wb-last hide', '');
+      bar2.appendChild(lastEl);
+      root.appendChild(bar2);
+      var st = el('div', 'wb-status', '교재를 고르면 답안지가 나옵니다. (O/X 체크 없이 답만 보는 화면입니다)');
+      root.appendChild(st);
+      var host = el('div', 'wb-mx');
+      root.appendChild(host);
+      var D = { pages: [], quick: {}, book: null };
+
+      function render() {
+        host.innerHTML = '';
+        if (!D.pages.length) {
+          host.appendChild(el('div', 'wb-empty', '교재를 고르면 쪽별 답안지가 나옵니다.'));
+          return;
+        }
+        var seenAns = {};
+        D.pages.forEach(function (p) {
+          if (seenAns[p.page]) return;      /* 같은 쪽이 여러 행이면 답안지는 한 번만 */
+          seenAns[p.page] = 1;
+          var row = el('div', 'wb-anspg');
+          row.id = 'ans-' + p.page;
+          row.appendChild(el('b', '', p.label));
+          var box = el('div', 'wb-q-nos');
+          if (!p.nos.length) box.appendChild(el('span', 'wb-note', '문항 정보가 없습니다'));
+          p.nos.forEach(function (no) {
+            var q = (D.quick[p.page] || {})[no];
+            if ((q === undefined || q === '') && /^\d+$/.test(no)) q = (D.quick[p.page] || {})[String(parseInt(no, 10))];
+            q = q == null ? '' : q;
+            var fig = !!(window.WINNERS_ANSIMG && WINNERS_ANSIMG.isFigure(q));
+            var chip = el(fig ? 'button' : 'span', 'wb-q' + (q ? '' : ' none') + (fig ? ' img' : ''));
+            if (fig) {
+              chip.type = 'button';
+              chip.title = p.label + ' ' + no + '번 정답 그림 보기';
+              chip.onclick = (function (pg, num) {
+                return function () { WINNERS_ANSIMG.open(D.book.bookId, pg, num, D.book.title); };
+              })(p.page, no);
+            }
+            chip.appendChild(el('b', '', no));
+            chip.appendChild(document.createTextNode(' ' + ansText(q)));
+            box.appendChild(chip);
+          });
+          row.appendChild(box);
+          host.appendChild(row);
+        });
+      }
+      function loadBook(id) {
+        if (!id) return;
+        st.className = 'wb-status';
+        st.textContent = '답안지를 불러오는 중…';
+        srv('w62WbPages', { bookId: id, pin: pinArg(), admin: S.admin }).then(function (r) {
+          D.pages = (r.pages || []).map(function (p) {
+            return { page: String(p.page), label: p.label || (p.page + 'p'),
+                     nos: (p.nos || []).map(function (n) { return String(n); }) };
+          });
+          D.quick = r.quick || {};
+          D.book = (r.book || {});
+          document.title = (D.book.title || '답안지');
+          tabAdd('ans:' + (D.book.bookId || id), '📖 ' + (D.book.title || '답안지'),
+                 'math-wrong.html?mode=answers&bid=' + encodeURIComponent(id));
+          var nums = D.pages.map(function (p) { return parseInt(p.page, 10); }).filter(function (n) { return !isNaN(n); });
+          if (nums.length) {
+            lastEl.textContent = '마지막 ' + Math.max.apply(null, nums) + '쪽';
+            lastEl.classList.remove('hide');
+          }
+          var cnt = D.pages.reduce(function (a, p) { return a + p.nos.length; }, 0);
+          st.textContent = (D.book.title || '') + ' · ' + D.pages.length + '쪽 · ' + cnt + '문항 (답안 조회 전용)';
+          render();
+        }).catch(function (e) {
+          st.className = 'wb-status err';
+          st.textContent = e.message;
+        });
+      }
+      go.onclick = function () {
+        var n = String(parseInt(inp.value, 10) || '');
+        var row = n ? document.getElementById('ans-' + n) : null;
+        if (!row) { st.className = 'wb-status err'; st.textContent = '그 쪽이 없습니다.'; return; }
+        row.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        row.classList.add('flash');
+        setTimeout(function () { row.classList.remove('flash'); }, 1400);
+      };
+      inp.onkeydown = function (e) { if (e.key === 'Enter') go.onclick(); };
+      sel.onchange = function () { loadBook(sel.value); };
+
+      ensureRoster().then(function (ok) {
+        if (!ok) {
+          st.className = 'wb-status err';
+          st.textContent = '선생님 화면에서 핀으로 먼저 들어와 주세요(같은 브라우저에서 한 번만).';
+          return;
+        }
+        sel.innerHTML = '';
+        var ph = document.createElement('option');
+        ph.value = ''; ph.textContent = '교재 선택…';
+        sel.appendChild(ph);
+        S.books.forEach(function (b) {
+          var o = document.createElement('option');
+          o.value = b.bookId; o.textContent = b.title + (b.pages ? ' · ' + b.pages + 'p' : '');
+          sel.appendChild(o);
+        });
+        if (bid) { sel.value = bid; loadBook(bid); }
+        paintTabs();
+      });
+    }
+
+    /* ═══════════════ 오답지 답안입력 탭 (?mode=paper) ═══════════════ */
+    function openPaperPage(sid, prid, bid) {
+      loginWrap.classList.add('hide'); app.classList.add('hide'); stuWrap.classList.add('hide');
+      root.innerHTML = '';
+      var P = { student: null, bookId: bid || '', paper: null, pages: [], quick: {}, saved: {}, marks: {}, busy: false };
+      var head = el('div', 'wb-bar');
+      head.appendChild(el('div', 'wb-date', '오답지 답안입력'));
+      var back = btn('wb-mini', '← 선생님 화면');
+      back.onclick = function () { global.location.href = 'math-wrong.html'; };
+      head.appendChild(back);
+      root.appendChild(head);
+      var st = el('div', 'wb-status', '불러오는 중…');
+      root.appendChild(st);
+      var quickRow = el('div', 'wb-ansbar');
+      quickRow.appendChild(el('span', 'wb-lbl', '간편 입력'));
+      var qPage = document.createElement('input');
+      qPage.type = 'number'; qPage.className = 'wb-num'; qPage.placeholder = '쪽';
+      var qNos = document.createElement('input');
+      qNos.type = 'text'; qNos.className = 'wb-num'; qNos.style.width = '150px'; qNos.placeholder = '틀린 번호 (예: 3 5 8)';
+      var qAdd = btn('wb-btn2', '표시');
+      quickRow.appendChild(qPage); quickRow.appendChild(qNos); quickRow.appendChild(qAdd);
+      root.appendChild(quickRow);
+      var host = el('div', 'wb-mx');
+      root.appendChild(host);
+      var bSaveAll = btn('wb-btn2', '💾 전체 저장');
+      root.appendChild(bSaveAll);
+
+      function render() {
+        host.innerHTML = '';
+        if (!P.pages.length) {
+          host.appendChild(el('div', 'wb-empty', P.student ? '이 오답지의 교재 정보가 없습니다.' : '학생을 찾지 못했습니다.'));
+          return;
+        }
+        P.pages.forEach(function (p) {
+          var tr = el('div', 'wb-mr');
+          tr.id = 'wbrow-' + p.page;
+          if (P.saved[p.page]) tr.classList.add('done');
+          var pg = el('div', 'wb-pg');
+          pg.appendChild(document.createTextNode(p.label));
+          if (P.saved[p.page]) pg.appendChild(el('span', 'st', '저장'));
+          tr.appendChild(pg);
+          var list = el('div', 'wb-nos');
+          var mark = P.marks[p.page] || (P.marks[p.page] = {});
+          p.nos.forEach(function (n) {
+            var on = !!mark[n];
+            var b = el('button', 'wb-o' + (on ? ' on' : ''));
+            b.type = 'button';
+            b.appendChild(el('span', 'n', n));
+            b.appendChild(el('span', 'c', on ? '✕' : '○'));
+            b.onclick = function () {
+              if (mark[n]) delete mark[n]; else mark[n] = true;
+              var nowOn = !!mark[n];
+              b.classList.toggle('on', nowOn);
+              b.querySelector('.c').textContent = nowOn ? '✕' : '○';
+              tr.classList.remove('done');
+            };
+            list.appendChild(b);
+          });
+          tr.appendChild(list);
+          var sv = el('div', 'wb-sv');
+          var sb = btn('wb-save', P.saved[p.page] ? '저장됨' : '저장');
+          if (P.saved[p.page]) sb.classList.add('ok');
+          sb.onclick = function () { saveP(p, sb); };
+          sv.appendChild(sb);
+          tr.appendChild(sv);
+          host.appendChild(tr);
+        });
+      }
+      function saveP(p, btnEl) {
+        if (!P.student || P.busy) return;
+        P.busy = true;
+        var nos = nosOf(P.marks[p.page]);
+        P.saved[p.page] = { nos: nos };
+        if (btnEl) { btnEl.textContent = '저장됨'; btnEl.classList.add('ok'); }
+        st.className = 'wb-status';
+        st.textContent = p.label + ' 저장 중…';
+        srv('w62WbSavePage', {
+          pin: pinArg(), admin: S.admin,
+          studentId: P.student.id, studentName: P.student.name,
+          bookId: P.bookId, bookTitle: (P.paper && P.paper.book) || '',
+          page: p.page, nos: nos, attitude: '', state: '', hw: '', und: '',
+          date: S.today, src: '오답지', note: '오답지 ' + (P.paper ? P.paper.id : '')
+        }).then(function () {
+          P.busy = false;
+          st.textContent = p.label + ' 저장 완료 · ' + (nos.length ? '틀린 번호 ' + nos.join(', ') : '틀린 번호 없음');
+        }).catch(function (e) {
+          P.busy = false;
+          st.className = 'wb-status err';
+          st.textContent = p.label + ' 저장 실패: ' + e.message;
+        });
+      }
+      qAdd.onclick = function () {
+        var pg = String(parseInt(qPage.value, 10) || '');
+        if (!pg) { st.className = 'wb-status err'; st.textContent = '쪽 번호를 넣어 주세요.'; return; }
+        var m = P.marks[pg] || (P.marks[pg] = {});
+        String(qNos.value || '').split(/[,\s]+/).forEach(function (x) {
+          var t = String(x).trim();
+          if (/^\d{1,3}(-\d{1,2})?$/.test(t)) m[t] = true;
+        });
+        render();
+        var row = document.getElementById('wbrow-' + pg);
+        if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        st.className = 'wb-status';
+        st.textContent = pg + '쪽에 ' + Object.keys(m).join(', ') + '번을 표시했습니다.';
+      };
+      bSaveAll.onclick = function () {
+        var list = P.pages.filter(function (p) { return P.marks[p.page] && Object.keys(P.marks[p.page]).length; });
+        if (!list.length) { st.textContent = '표시한 문항이 없습니다.'; return; }
+        var i = 0;
+        (function next() {
+          if (i >= list.length) { st.textContent = '저장 완료'; return; }
+          saveP(list[i++], null);
+          setTimeout(next, 400);
+        })();
+      };
+
+      ensureRoster().then(function (ok) {
+        if (!ok) { st.className = 'wb-status err'; st.textContent = '선생님 화면에서 핀으로 먼저 들어와 주세요.'; return; }
+        P.student = (S.students || []).filter(function (x) { return String(x.id) === String(sid); })[0] || null;
+        if (!P.student) { st.className = 'wb-status err'; st.textContent = '학생 명단에서 찾지 못했습니다.'; return; }
+        document.title = P.student.name + ' 오답지';
+        tabAdd('paper:' + P.student.id + ':' + (prid || ''), P.student.name + ' 오답지',
+               'math-wrong.html?mode=paper&sid=' + encodeURIComponent(sid) + '&prid=' + encodeURIComponent(prid || '') + (bid ? '&bid=' + encodeURIComponent(bid) : ''));
+        paintTabs();
+        st.textContent = P.student.name + ' 오답지 불러오는 중…';
+        return srv('w62WbPaperList', { pin: pinArg(), admin: S.admin, studentId: sid }).then(function (r) {
+          var rows = r.rows || [];
+          P.paper = rows.filter(function (x) { return String(x.id) === String(prid); })[0] || rows[0] || null;
+          if (!P.paper) { st.textContent = P.student.name + ' 이름으로 만든 오답지가 없습니다.'; return; }
+          P.bookId = P.paper.bookId || P.bookId;
+          if (!P.bookId) { st.textContent = '오답지에 교재 정보가 없습니다.'; return; }
+          return srv('w62WbPages', { bookId: P.bookId, pin: pinArg(), admin: S.admin }).then(function (pr) {
+            var all = (pr.pages || []).map(function (p) {
+              return { page: String(p.page), label: p.label || (p.page + 'p'),
+                       nos: (p.nos || []).map(function (n) { return String(n); }) };
+            });
+            P.quick = pr.quick || {};
+            var want = pageSetOf(P.paper.pages);
+            P.pages = want ? all.filter(function (p) { return want[p.page]; }) : all;
+            var seen2 = {};
+            P.pages = P.pages.filter(function (p) {
+              if (seen2[p.page]) return false;
+              seen2[p.page] = 1;
+              return true;
+            });
+            return srv('w62WbState', { studentId: sid, bookId: P.bookId, pin: pinArg(), admin: S.admin }).then(function (sr) {
+              P.saved = sr.pages || {};
+              Object.keys(P.saved).forEach(function (pg) {
+                var m = {};
+                (P.saved[pg].nos || []).forEach(function (n) { m[String(n)] = true; });
+                P.marks[pg] = m;
+              });
+              st.textContent = (P.paper.book || '') + ' · ' + (P.paper.pages || '전체') + '쪽 오답지 — 틀린 번호를 누르고 [저장]하세요. (중간저장 가능)';
+              render();
+            });
+          });
+        });
+      }).catch(function (e) {
+        st.className = 'wb-status err';
+        st.textContent = e.message;
+      });
+    }
+
+    /* ═══════════════ 학생 화면 ═══════════════ */
+    var St = { on: false, grade: null, student: null, book: null, pages: [], saved: {}, marks: {}, busy: false };
+    /* QR로 들어온 경우: s.html?id=ST0012&k=xxxxxxxx → 이름 선택 없이 그 학생으로 고정 */
+    var ST_Q = String(global.location ? global.location.search : '');
+    var ST_SID = (function () { var m = /[?&]sid=([^&]+)/.exec(ST_Q); return m ? decodeURIComponent(m[1]) : ''; })();
+    var ST_K = (function () { var m = /[?&]k=([^&]+)/.exec(ST_Q); return m ? decodeURIComponent(m[1]) : ''; })();
+    var stuWrap = el('div', 'wb-stu hide');
+    root.appendChild(stuWrap);
+    var stuHead = el('div', 'wb-stu-hd');
+    stuHead.appendChild(el('div', 'wb-stu-tt', '수학 숙제 — 틀린 문항 입력'));
+    var stuSub = el('div', 'wb-stu-sub',
+      '이름을 고르고, 페이지마다 틀린 문제 번호를 눌러 저장하세요. 선생님 화면에 바로 보입니다.');
+    stuHead.appendChild(stuSub);
+    var stuWho = el('div', 'wb-stu-who hide');
+    stuHead.appendChild(stuWho);
+    var stuBack = btn('wb-mini', '선생님 화면으로');
+    stuBack.style.marginTop = '8px';
+    stuBack.onclick = function () { closeStudent(); };
+    stuHead.appendChild(stuBack);
+    stuWrap.appendChild(stuHead);
+    var stuBan = el('div', 'wb-stu-ban hide');
+    var stuCheer = el('div', 'wb-cheer hide');
+    stuWrap.appendChild(stuBan);
+    stuWrap.appendChild(stuCheer);
+
+    var stuPickHost = el('div');
+    stuWrap.appendChild(stuPickHost);
+    var stuStatus = el('div', 'wb-status', '학년 → 이름 → 교재 순서로 눌러 주세요.');
+    stuWrap.appendChild(stuStatus);
+    var stuPhoto = el('div', 'wb-photo hide');
+    stuWrap.appendChild(stuPhoto);
+    var stuMx = el('div', 'wb-mx');
+    stuWrap.appendChild(stuMx);
+
+    /* 📸 사진으로 자동 채점 — 교재를 고르면 카드가 뜬다. */
+    function paintStuPhoto() {
+      if (!window.WINNERS_PHOTO || !window.WINNERS_PHOTO.build) { stuPhoto.classList.add('hide'); return; }
+      if (!ST_SID || !ST_K) { stuPhoto.classList.add('hide'); return; }
+      if (!St.book) { stuPhoto.classList.add('hide'); return; }
+      stuPhoto.classList.remove('hide');
+      if (stuPhoto.getAttribute('data-book') === St.book.bookId) return;
+      stuPhoto.setAttribute('data-book', St.book.bookId);
+      stuPhoto.innerHTML = '';
+      stuPhoto.appendChild(window.WINNERS_PHOTO.build({
+        subject: 'math', sid: ST_SID, k: ST_K,
+        bookId: function () { return St.book ? St.book.bookId : ''; },
+        bookTitle: function () { return St.book ? St.book.title : ''; },
+        onDone: function () { stSay('사진을 올렸습니다. 잠시 뒤 자동 채점되어 선생님 화면에 뜹니다.'); }
+      }));
+    }
+
+    var stuPick = null;
+    function buildStudentPicker() {
+      stuPickHost.innerHTML = '';
+      var P = { grade: null, student: null, book: null };
+      var wrap = el('div', 'wb-pick');
+      var gc = el('div', 'wb-chips');
+      var sc = el('div', 'wb-chips');
+      var bookRow = el('div', 'wb-book');
+      var bookSel = document.createElement('select');
+      bookSel.setAttribute('aria-label', '교재 선택');
+      wrap.appendChild(gc); wrap.appendChild(sc); wrap.appendChild(bookRow);
+      bookRow.appendChild(bookSel);
+      stuPickHost.appendChild(wrap);
+
+      function paintGrades() {
+        gc.innerHTML = '';
+        var seen = {}, list = [];
+        S.students.forEach(function (s) {
+          var g = s.grade || '미등록';
+          if (!seen[g]) { seen[g] = 0; list.push(g); }
+          seen[g]++;
+        });
+        list.sort(function (a, b) { return gradeOrder(a) - gradeOrder(b) || a.localeCompare(b); });
+        list.forEach(function (g) {
+          var b = btn('wb-chip' + (P.grade === g ? ' on' : ''));
+          b.appendChild(document.createTextNode(gradeToken(g) || g));
+          b.appendChild(el('small', '', String(seen[g])));
+          b.onclick = function () { P.grade = g; P.student = null; paintGrades(); paintStudents(); };
+          gc.appendChild(b);
+        });
+        if (!list.length) gc.appendChild(el('span', 'wb-status', '학생 명단이 아직 없습니다.'));
+      }
+      function paintStudents() {
+        sc.innerHTML = '';
+        if (!P.grade) return;
+        S.students.filter(function (s) { return (s.grade || '미등록') === P.grade; }).forEach(function (s) {
+          var b = btn('wb-chip' + (P.student && P.student.id === s.id ? ' on' : ''), s.name);
+          b.onclick = function () {
+            P.student = s;
+            St.student = s;
+            stuPick.paintStudents();
+            stLoadState();
+          };
+          sc.appendChild(b);
+        });
+      }
+      function paintBooks() {
+        bookSel.innerHTML = '';
+        var ph = document.createElement('option');
+        ph.value = ''; ph.textContent = S.books.length ? '교재 선택…' : '등록된 교재가 없습니다';
+        bookSel.appendChild(ph);
+        S.books.forEach(function (b) {
+          var o = document.createElement('option');
+          o.value = b.bookId;
+          o.textContent = b.title + (b.pages ? ' · ' + b.pages + 'p' : '');
+          bookSel.appendChild(o);
+        });
+        bkFilter(bookSel, S.books);
+        if (P.book) bookSel.value = P.book.bookId;
+      }
+      bookSel.onchange = function () {
+        P.book = S.books.filter(function (b) { return b.bookId === bookSel.value; })[0] || null;
+        St.book = P.book;
+        if (P.book) stLoadPages(); else stuMx.innerHTML = '';
+      };
+      stuPick = { P: P, paintGrades: paintGrades, paintStudents: paintStudents, paintBooks: paintBooks, bookSel: bookSel };
+      paintGrades(); paintStudents(); paintBooks();
+    }
+
+    function openStudent(preBook) {
+      St.on = true;
+      St.prev = { students: S.students, books: S.books, scope: S.scope };
+      app.classList.add('hide');
+      loginWrap.classList.add('hide');
+      stuWrap.classList.remove('hide');
+      stuStatus.className = 'wb-status';
+      stuStatus.textContent = '불러오는 중…';
+      if (ST_SID) { openStudentLocked(preBook); return; }
+      stuBack.classList.remove('hide');
+      srv('w62StRoster').then(function (r) {
+        if (r && r.needQr) {
+          stuPickHost.innerHTML = '';
+          stuBack.classList.add('hide');
+          stuWho.classList.add('hide');
+          stuStatus.textContent = '선생님께 받은 QR을 찍으면 바로 내 이름으로 열립니다.';
+          stuMx.innerHTML = '';
+          stuMx.appendChild(el('div', 'wb-empty', 'QR을 찍으면 교재 선택 → 틀린 문제 번호 저장까지 바로 할 수 있어요.'));
+          return;
+        }
+        S.students = r.students || [];
+        S.books = r.books || [];
+        buildStudentPicker();
+        stuStatus.textContent = S.students.length
+          ? '학년 → 이름 → 교재 순서로 눌러 주세요.'
+          : '학생 명단이 아직 없습니다. 선생님께 말씀해 주세요.';
+        if (preBook) {
+          var b = S.books.filter(function (x) { return x.bookId === preBook; })[0];
+          if (b) {
+            bkRevealPick(stuPick, b);
+            stuPick.P.book = b; St.book = b;
+            stuPick.bookSel.value = b.bookId;
+          }
+        }
+      }).catch(function (e) {
+        stuStatus.textContent = e.message;
+        stuStatus.className = 'wb-status err';
+      });
+    }
+
+    /* QR 잠금 화면 — 학생 이름·학년 배지 + 교재 고르기만. 학년·이름 고르기는 없다. */
+    function openStudentLocked(preBook) {
+      stuBack.classList.add('hide');
+      stuSub.textContent = '페이지마다 틀린 문제 번호를 눌러 저장하세요. 선생님 화면에 바로 보입니다.';
+      srv('w62StInfo', { sid: ST_SID, k: ST_K }).then(function (r) {
+        var stu = r.student || {};
+        St.student = { id: stu.id, name: stu.name, grade: stu.grade, token: stu.grade };
+        S.books = r.books || [];
+        if (r.today) { S.today = r.today; }
+        stuWho.textContent = (stu.name || '') + ' 학생 · ' + (stu.grade || '');
+        stuWho.classList.remove('hide');
+        buildLockedPicker();
+        stuStatus.textContent = S.books.length
+          ? '교재를 고르면 페이지가 나옵니다.'
+          : '등록된 교재가 없습니다. 선생님께 말씀해 주세요.';
+        if (preBook) pickBook(preBook);
+        loadStuAssign(St.student);
+      }).catch(function (e) {
+        stuStatus.textContent = e.message;
+        stuStatus.className = 'wb-status err';
+        stuMx.innerHTML = '';
+      });
+    }
+    /* 학년 필터가 가리고 있는 교재(배정 교재·이전 교재)를 골라야 할 때 — 그 교재 학년으로 필터를 바꾼다. */
+    function bkRevealPick(pick, book) {
+      if (!pick || !pick.bookSel || !book) return;
+      var sel = pick.bookSel;
+      var key = sel.getAttribute('data-bkf') || '';
+      var t = gradeToken(book.grade || '');
+      if (key && t && BK_FILTER[key] && BK_FILTER[key] !== t) {
+        BK_FILTER[key] = t;
+        pick.paintBooks();
+      }
+    }
+    function pickBook(bookId) {
+      var b = S.books.filter(function (x) { return x.bookId === bookId; })[0];
+      if (!b || !stuPick) return false;
+      bkRevealPick(stuPick, b);
+      stuPick.P.book = b; St.book = b;
+      stuPick.bookSel.value = b.bookId;
+      stLoadPages();
+      return true;
+    }
+    /* 📌 오늘 숙제 범위 안내 — 배정(④ 숙제 배정)이 있으면 머리에 띄우고 그 교재를 자동 선택.
+       서버에 학생용 배정 함수(w62StAssign)가 아직 없으면 조용히 넘어간다(화면을 막지 않는다). */
+    function loadStuAssign(stu) {
+      if (!stu || !stu.id) return;
+      srv('w62StAssign', { sid: stu.id, k: ST_K }).then(function (r) {
+        var a = r && r.assign;
+        if (!a) return;
+        var parts = ['📌 오늘 숙제: ' + (a.book || a.bookTitle || '')];
+        var rng = [a.from, a.to].filter(function (x) { return String(x || '').trim(); });
+        if (rng.length) parts.push((rng.length > 1 ? rng[0] + '~' + rng[1] : rng[0]) + 'p');
+        if (a.due) parts.push('(' + a.due + ' 마감)');
+        stuBan.textContent = parts.join(' ');
+        stuBan.classList.remove('hide');
+        if (a.bookId) pickBook(a.bookId);
+      }).catch(function () { });
+    }
+    function sayCheer(wrongCount) {
+      /* 2026-11-27 수정: 교재 전체 문항 수(907 등)가 아니라, 학생이 실제로 저장한 기록만 센다. */
+      var saved = 0, pagesDone = 0;
+      Object.keys(St.saved || {}).forEach(function (k) {
+        pagesDone++;
+        saved += (St.saved[k] && St.saved[k].nos ? St.saved[k].nos.length : 0);
+      });
+      var prev = 0;
+      try { prev = Number(localStorage.getItem('wmath_stu_prev_wrong') || 0) || 0; } catch (e) { }
+      var line = saved > 0
+        ? '오늘 ' + saved + '문항 완료! '
+        : (pagesDone > 0 ? '오늘 ' + pagesDone + '쪽 저장 완료! ' : '오늘 0문항 완료! ');
+      if (prev > 0 && saved < prev) line += '지난번보다 오답이 줄었어요 👏';
+      else if (!saved) line += '틀린 문제 없이 깔끔해요! 👏';
+      else line += '내일 또 하면 더 좋아져요 👏';
+      try { localStorage.setItem('wmath_stu_prev_wrong', String(saved)); } catch (e) { }
+      stuCheer.textContent = line;
+      stuCheer.classList.remove('hide');
+    }
+    function buildLockedPicker() {
+      stuPickHost.innerHTML = '';
+      var P = { grade: null, student: St.student, book: null };
+      var wrap = el('div', 'wb-pick');
+      var bookRow = el('div', 'wb-book');
+      var bookSel = document.createElement('select');
+      bookSel.setAttribute('aria-label', '교재 선택');
+      bookRow.appendChild(bookSel);
+      wrap.appendChild(bookRow);
+      stuPickHost.appendChild(wrap);
+      function paintBooks() {
+        bookSel.innerHTML = '';
+        var ph = document.createElement('option');
+        ph.value = ''; ph.textContent = S.books.length ? '교재 선택…' : '등록된 교재가 없습니다';
+        bookSel.appendChild(ph);
+        S.books.forEach(function (b) {
+          var o = document.createElement('option');
+          o.value = b.bookId;
+          o.textContent = b.title + (b.pages ? ' · ' + b.pages + 'p' : '');
+          bookSel.appendChild(o);
+        });
+        bkFilter(bookSel, S.books, (St.student && St.student.grade) || '');
+        if (P.book) bookSel.value = P.book.bookId;
+      }
+      bookSel.onchange = function () {
+        P.book = S.books.filter(function (b) { return b.bookId === bookSel.value; })[0] || null;
+        St.book = P.book;
+        St.pages = []; St.saved = {}; St.marks = {};
+        if (P.book) stLoadPages(); else stuMx.innerHTML = '';
+      };
+      stuPick = { P: P, paintGrades: function () { }, paintStudents: function () { },
+                  paintBooks: paintBooks, bookSel: bookSel };
+      paintBooks();
+    }
+    function closeStudent() {
+      St.on = false;
+      stuWrap.classList.add('hide');
+      if (St.prev) { S.students = St.prev.students || []; S.books = St.prev.books || []; S.scope = St.prev.scope || ''; }
+      if (S.teacher && (S.teacher.pin || S.admin)) {
+        boot(S.tab);
+      } else {
+        loginWrap.classList.remove('hide');
+        paintLogin('');
+      }
+    }
+    function stSay(msg, isErr) {
+      stuStatus.textContent = msg;
+      stuStatus.className = 'wb-status' + (isErr ? ' err' : '');
+    }
+    function stLoadPages() {
+      if (!St.book) return Promise.resolve();
+      stSay('문제 번호를 불러오는 중…');
+      return srv('w62StPages', { bookId: St.book.bookId }).then(function (r) {
+        St.pages = (r.pages || []).map(function (p) {
+          return { page: String(p.page), label: p.label || (p.page + 'p'), unit: p.unit || '',
+                   nos: (p.nos || []).map(function (n) { return String(n); }) };
+        });
+        St.marks = {}; St.saved = {};
+        stSay((St.book.title || '') + ' · ' + St.pages.length + '쪽');
+        paintStuPhoto();
+        if (St.student) return stLoadState();
+        stRender();
+      }).catch(function (e) { stSay(e.message, true); });
+    }
+    function stLoadState() {
+      if (!St.student || !St.book) { stRender(); return Promise.resolve(); }
+      return srv('w62StState', { sid: St.student.id, k: ST_K, bookId: St.book.bookId }).then(function (r) {
+        St.saved = r.pages || {};
+        St.marks = {};
+        Object.keys(St.saved).forEach(function (pg) {
+          var m = {};
+          (St.saved[pg].nos || []).forEach(function (n) { m[String(n)] = true; });
+          St.marks[pg] = m;
+        });
+        stRender();
+      }).catch(function (e) { stSay(e.message, true); });
+    }
+    function stRender() {
+      stuMx.innerHTML = '';
+      if (!St.student) { stuMx.appendChild(el('div', 'wb-empty', '학년 → 이름을 먼저 눌러 주세요.')); return; }
+      if (!St.book) { stuMx.appendChild(el('div', 'wb-empty', '교재를 골라 주세요.')); return; }
+      if (!St.pages.length) { stuMx.appendChild(el('div', 'wb-empty', '이 교재의 페이지 정보가 아직 없습니다.')); return; }
+      var ht = el('div', 'wb-mh');
+      ht.appendChild(el('span', 'sp', '페이지'));
+      ht.appendChild(el('span', '', '틀린 문제 번호를 누르세요'));
+      stuMx.appendChild(ht);
+      var lastUnit = null;
+      St.pages.forEach(function (p) {
+        if (p.unit && p.unit !== lastUnit) { stuMx.appendChild(el('div', 'wb-mu', p.unit)); lastUnit = p.unit; }
+        var tr = el('div', 'wb-mr');
+        var saved = St.saved[p.page];
+        if (saved) tr.classList.add('done');
+        var pg = el('div', 'wb-pg');
+        pg.appendChild(document.createTextNode(p.label));
+        if (saved) pg.appendChild(el('span', 'st', '저장됨'));
+        tr.appendChild(pg);
+        var list = el('div', 'wb-nos');
+        var mark = St.marks[p.page] || (St.marks[p.page] = {});
+        p.nos.forEach(function (n) {
+          var on = !!mark[n];
+          var b = el('button', 'wb-o' + (on ? ' on' : ''));
+          b.type = 'button';
+          b.appendChild(el('span', 'n', n));
+          b.appendChild(el('span', 'c', on ? '✕' : '○'));
+          b.onclick = function () {
+            if (mark[n]) delete mark[n]; else mark[n] = true;
+            var nowOn = !!mark[n];
+            b.classList.toggle('on', nowOn);
+            b.querySelector('.c').textContent = nowOn ? '✕' : '○';
+          };
+          list.appendChild(b);
+        });
+        tr.appendChild(list);
+        var sv = el('div', 'wb-sv');
+        var sb = btn('wb-save', saved ? '저장됨' : '저장');
+        if (saved) sb.classList.add('ok');
+        sb.onclick = function () { stSave(p, sb); };
+        sv.appendChild(sb);
+        tr.appendChild(sv);
+        stuMx.appendChild(tr);
+      });
+    }
+    function stSave(p, btnEl) {
+      if (St.busy) return;
+      St.busy = true;
+      btnEl.disabled = true;
+      var old = btnEl.textContent;
+      btnEl.textContent = '저장중';
+      var nos = nosOf(St.marks[p.page]);
+      srv('w62StSavePage', {
+        sid: St.student.id, k: ST_K,
+        bookId: St.book.bookId, bookTitle: St.book.title,
+        page: p.page, nos: nos, date: S.today
+      }).then(function (r) {
+        St.saved[p.page] = { nos: nos };
+        btnEl.textContent = '저장됨';
+        btnEl.classList.add('ok');
+        btnEl.disabled = false;
+        stSay(p.label + ' 저장 완료 · ' + (nos.length ? '틀린 문제 ' + nos.join(', ') + '번' : '틀린 문제 없음'));
+        sayCheer(nos.length);
+        var pgEl = btnEl.closest ? btnEl.closest('.wb-mr') : null;
+        if (pgEl) {
+          pgEl.classList.add('done');
+          var lab = pgEl.querySelector('.wb-pg');
+          if (lab && !lab.querySelector('.st')) lab.appendChild(el('span', 'st', '저장됨'));
+        }
+      }).catch(function (e) {
+        btnEl.textContent = old;
+        btnEl.disabled = false;
+        stSay(e.message, true);
+      }).then(function () { St.busy = false; });
+    }
+
+    /* ═══════════════ 탭·부트 ═══════════════ */
+    function pinArg() { return S.teacher && S.teacher.pin ? S.teacher.pin : ''; }
+
+    function setTab(k) {
+      S.tab = k;
+      Object.keys(panelEls).forEach(function (x) { panelEls[x].classList.toggle('hide', x !== k); });
+      Object.keys(tabBtns).forEach(function (x) { tabBtns[x].classList.toggle('on', x === k); });
+      tabAdmin.classList.toggle('on', k === 'admin');
+      if (k === 'retest') { rPrintList(); if (R.student) rLoad(R.student); }
+      if (k === 'assign') aLoadList();
+      if (k === 'admin') {
+        /* 토큰이 있을 때만 자동으로 불러온다. 빈 칸이면 안내만 (빨간 오류 먼저 띄우지 않음). */
+        var tk = (S.admin || (gTok && gTok.value) || '').trim();
+        if (!G.teachers.length && tk) gLoad(tk);
+        else if (!G.teachers.length) {
+          gMsg.textContent = '관리자 토큰을 넣고 [불러오기]를 누르면 선생님별 공개 범위가 나옵니다.';
+          gMsg.className = 'wb-note';
+          gMsg.classList.remove('hide');
+        }
+      }
+    }
+
+    function boot(startTab) {
+      app.classList.remove('hide');
+      loginWrap.classList.add('hide');
+      stuWrap.classList.add('hide');
+      barWho.textContent = S.teacher.admin ? '원장' : (S.teacher.name + ' 선생님');
+      barDate.textContent = dayText(S.today);
+      setTab(startTab || 'wrong');
+      var req = S.teacher.admin ? { admin: S.admin } : { pin: S.teacher.pin };
+      return srv('w62WbRoster', req).then(function (r) {
+        S.students = r.students || [];
+        S.books = r.books || [];
+        S.scope = r.scope || '';
+        HW_TODAY = r.hw || {};
+        if (r.today) { S.today = r.today; barDate.textContent = dayText(S.today); }
+        if (S.scope && S.scope !== '전체' && !S.teacher.admin) {
+          barWho.textContent = S.teacher.name + ' 선생님 · ' + S.scope;
+        }
+        wPick.paintGrades(); wPick.paintStudents(); wPick.paintBooks();
+        cPick.paintGrades(); cPick.paintStudents();
+        rPick.paintGrades(); rPick.paintStudents();
+        aPick.paintGrades(); aPick.paintStudents(); aPick.paintBooks();
+        pPick.paintGrades(); pPick.paintStudents();
+        renderMatrix();
+        /* 2차(2026-11-28): 새로 고치거나 다른 탭에서 돌아와도 보던 학생·교재로 다시 열기 */
+        if (!/[?&]mode=/.test(String(global.location ? global.location.search : '')) && !W.student) {
+          try { restoreLast(); } catch (e) { }
+        }
+        wSay(S.books.length ? '학년 → 학생 → 교재 순서로 눌러 주세요.' : '등록된 교재가 없습니다. 학원 PC 콘솔에서 교재를 등록해 주세요.');
+        /* 2차(2026-11-28): 원장 계정은 [원장 설정]을 열면 선생님 목록이 바로 뜨게 미리 불러온다 */
+        if (S.teacher.admin && !G.teachers.length) { try { gLoad(''); } catch (e) { } }
+        if (startTab === 'admin' && S.admin) gLoad(S.admin);
+        refreshToday();
+        if (warnBoard) warnBoard.reload();
+      }).catch(function (e) {
+        if (/핀|AUTH|선생님/.test(e.message)) {
+          S.teacher = null;
+          try { localStorage.removeItem(LS_T); } catch (x) { }
+          app.classList.add('hide'); loginWrap.classList.remove('hide'); paintLogin(e.message);
+          return;
+        }
+        wSay(e.message, true);
+      });
+    }
+
+    root.appendChild(loginWrap);
+    root.appendChild(app);
+
+    paintLogin('');
+    app.classList.add('hide');
+    if (S.teacher && S.teacher.pin) boot('wrong');
+
+    /* ── 주소별 화면 (2026-11-28) ──
+       ?mode=student  학생 자가 입력(QR)
+       ?mode=one&sid= 학생 한 명 채점(새 탭, 탭 이름 = 학생 이름)
+       ?mode=answers  교재 답안지 조회(새 탭, 탭 이름 = 교재명)
+       ?mode=paper    오답지 답안입력(새 탭, 탭 이름 = '학생이름 오답지') */
+    function qp(name) {
+      var m = new RegExp('[?&]' + name + '=([^&]+)').exec(ST_Q);
+      return m ? decodeURIComponent(m[1]) : '';
+    }
+    if (/[?&]mode=student/.test(ST_Q)) {
+      openStudent(qp('book'));
+    } else if (/[?&]mode=answers/.test(ST_Q)) {
+      openAnswersPage(qp('bid'));
+    } else if (/[?&]mode=paper/.test(ST_Q)) {
+      openPaperPage(qp('sid'), qp('prid'), qp('bid'));
+    } else if (/[?&]mode=one/.test(ST_Q)) {
+      (function () {
+        var sid = qp('sid'), nm = qp('name'), bk = qp('book');
+        if (nm) document.title = nm;
+        /* 2차(2026-11-28): 태블릿·인앱 브라우저에서 명단이 늦게 떠도 45초까지 기다린다(12초 → 45초) */
+        var tries = 150;
+        var waited = 0;
+        (function pick() {
+          var s = (S.students || []).filter(function (x) { return String(x.id) === String(sid); })[0];
+          if (s) {
+            document.title = s.name;
+            setTab('wrong');
+            wPick.selectStudent(s, bk);
+            tabAdd('one:' + s.id + ':' + (bk || ''), s.name + ' 채점',
+                   'math-wrong.html?mode=one&sid=' + encodeURIComponent(s.id) + '&name=' + encodeURIComponent(s.name || '')
+                   + (bk ? '&book=' + encodeURIComponent(bk) : ''));
+            /* 이 학생 상태(오늘 완료·확인필요)를 명단보다 먼저 받아 ON다 */
+            loadStat(s.id).then(function () { try { wPick.paintStudents(); paintTop3(); } catch (e) { } });
+            if (!bk) wSay(s.name + ' 학생 — 교재를 고르면 채점 표가 나옵니다. (탭 이름 = ' + s.name + ')');
+            return;
+          }
+          waited += 300;
+          if (tries-- > 0) {
+            if (waited % 3000 === 0) wSay((nm || '학생') + ' 명단 불러오는 중… (' + Math.round(waited / 1000) + '초)');
+            setTimeout(pick, 300);
+          } else {
+            wSay('학생 명단을 불러오지 못했습니다. 선생님 화면에서 핀을 다시 넣고 열어 주세요.', true);
+          }
+        })();
+      })();
+    }
+  }
+
+  global.WB = { mount: mount };
+})(typeof window !== 'undefined' ? window : this);
+
+WB.mount(document.getElementById('wbRoot'), {});
+</script>
+</body></html>

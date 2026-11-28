@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script>window.WINNERS_BRIDGE={mode:"clinic",exec:"https://script.google.com/macros/s/AKfycbzUFYFZq7XonMiAYMaAzY4lzVWFc6L3uuqGAH3DgUPURoFRMzG_OrxNqY6dMViWo1bB/exec"};</script>
+<script src="bridge.js?v=8"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>위너스 클리닉 · 선생님</title>
+<style>
+:root{--g:#1f6f4a;--mint:#e8f5ee;--ink:#17211c;--sub:#5d6b63;--line:#e2e8e4;--warn:#c2410c;--warnbg:#fff4ec;--bg:#f4f7f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.logo{width:36px;height:36px;border-radius:11px;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:800}
+.logo-img{height:32px;width:auto;max-width:132px;object-fit:contain;flex:0 0 auto}
+@media (max-width:520px){.logo-img{height:28px;max-width:110px}}
+h1{font-size:18px;margin:0}
+.sub{color:var(--sub);font-size:12.5px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 1px 2px rgba(20,40,30,.03)}
+.card h2{font-size:15px;margin:0 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--mint);color:var(--g)}
+.pill.warn{background:var(--warnbg);color:var(--warn)} .pill.gray{background:#f1f4f2;color:var(--sub)}
+.pill.blue{background:#e8effa;color:#1d4ed8} .pill.gold{background:#fff7e0;color:#a16207}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+button{font-family:inherit;cursor:pointer}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:800;background:var(--g);color:#fff}
+.btn.ghost{background:#fff;color:var(--g);border:1.5px solid var(--g)}
+.btn.small{padding:8px 11px;font-size:12.5px;border-radius:9px}
+.btn.warn{background:var(--warn)}
+.btn:disabled{opacity:.5}
+select,input[type=text],input[type=number],input[type=password]{padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;background:#fff;font-family:inherit}
+label.f{font-size:12px;color:var(--sub);display:block;margin:10px 0 5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.stu{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.scard{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;cursor:pointer;transition:.15s}
+.scard.on{border-color:var(--g);box-shadow:0 0 0 3px var(--mint)}
+.scard b{font-size:14px}
+.scard .m{font-size:12px;color:var(--sub);margin-top:3px;line-height:1.45}
+.kingrow{margin-top:8px;border-top:1px dashed var(--line);padding-top:7px;font-size:12px;display:flex;align-items:center;gap:6px;color:#a16207;font-weight:700}
+.kingrow input{width:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:700;font-size:12px;background:#fafcfb}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.units{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.uchip{border:1px solid var(--line);border-radius:9px;padding:7px 10px;font-size:12.5px;background:#fff}
+.uchip.on{border-color:var(--g);background:var(--mint);color:var(--g);font-weight:700}
+.wd{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.wd button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 11px;font-size:13px;font-weight:700;color:var(--sub)}
+.wd button.on{background:var(--g);border-color:var(--g);color:#fff}
+.order{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.oitem{background:#f7faf8;border:1px dashed #c8d6cd;border-radius:9px;padding:7px 10px;font-size:12.5px;display:flex;gap:8px;align-items:center}
+.oitem button{border:0;background:0;color:var(--warn);font-weight:800}
+.subjitem{border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:8px;background:#fbfdfc}
+.subjitem b{font-size:13.5px}
+.subjitem .m{font-size:12px;color:var(--sub);margin-top:3px;line-height:1.5}
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--sub)}
+.tabs button.on{background:var(--g);color:#fff;border-color:var(--g)}
+.muted{color:var(--sub);font-size:12.5px;line-height:1.55}
+.warnbox{background:var(--warnbg);border:1px solid #f6d7c4;color:#7c2d12;border-radius:12px;padding:11px 13px;font-size:12.5px;line-height:1.5}
+.okbox{background:#eefaf1;border:1px solid #cdebd7;color:#14532d;border-radius:12px;padding:11px 13px;font-size:12.5px;line-height:1.5}
+.msg{background:#f7faf8;border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:12.5px;margin-top:6px;white-space:pre-wrap}
+.hide{display:none!important}
+.sp{display:inline-block;width:16px;height:16px;border:2.5px solid #dfe7e2;border-top-color:var(--g);border-radius:50%;animation:s .8s linear infinite;vertical-align:-3px}
+@keyframes s{to{transform:rotate(360deg)}}
+.pending{border:1px solid #f3dcae;background:#fffdf6;border-radius:14px;padding:13px;margin-top:10px}
+.pending h3{margin:0 0 4px;font-size:14px}
+.alert{position:sticky;top:0;z-index:20;background:#fff7e6;border:1px solid #f3dcae;color:#7c4a12;border-radius:14px;padding:12px 40px 12px 14px;font-size:13.5px;line-height:1.55;margin:0 0 10px;box-shadow:0 2px 8px rgba(20,40,30,.06)}
+.alert .x{position:absolute;top:8px;right:8px;border:0;background:0;font-size:18px;line-height:1;color:#a16207;padding:4px 6px}
+.notibar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.reject{border:1px solid #f0d7d7;background:#fffafa;border-radius:12px;padding:12px;margin-top:8px}
+.reject .note{margin-top:8px;background:#fff1f1;border:1px solid #f3d0d0;border-radius:10px;padding:9px 11px;font-size:13px;color:#7c2d2d;line-height:1.5}
+/* v1.8 — 학년 버튼·모드/과목 칩·교재 스크롤 */
+.chipbtn{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:800;color:var(--sub)}
+.chipbtn.on{background:var(--g);border-color:var(--g);color:#fff}
+.chipbtn.hw.on{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+.chipbtn.gray.on{background:#5d6b63;border-color:#5d6b63;color:#fff}
+.gdbar{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;margin-bottom:8px;-webkit-overflow-scrolling:touch}
+.gdbar button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:800;color:var(--sub);white-space:nowrap}
+.gdbar button.on{background:var(--g);border-color:var(--g);color:#fff}
+.hscroll{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:#fbfdfc;padding:8px}
+.hscroll button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:8px 11px;font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap}
+.hscroll button.on{background:var(--mint);border-color:var(--g);color:var(--g);font-weight:800}
+.hscroll .empty{border:0;background:0;color:var(--sub);font-size:12.5px;white-space:nowrap}
+/* v1.9 — 올린 교재 목록은 위아래(세로)로 넘긴다 */
+.vscroll{display:flex;flex-direction:column;gap:6px;overflow-y:auto;max-height:190px;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:#fbfdfc;padding:8px}
+.vscroll button{width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:9px 11px;font-size:12.5px;font-weight:700;color:var(--ink);white-space:normal;line-height:1.4}
+.vscroll button.on{background:var(--mint);border-color:var(--g);color:var(--g);font-weight:800}
+.vscroll .empty{border:0;background:0;color:var(--sub);font-size:12.5px}
+/* v2.0 — 학생 삭제(목록에서 빼기)·숨긴 학생 되돌리기 */
+.delbtn{border:1px solid #f0d7d7;background:#fff;color:#b91c1c;border-radius:8px;padding:3px 8px;font-size:11.5px;font-weight:800;line-height:1.4}
+.delbtn:hover{background:#fff5f5}
+.hiddenrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px dashed var(--line);border-radius:10px;padding:8px 10px;margin-top:6px;background:#fbfcfb}
+.hiddenrow b{font-size:13px}
+#stuMsg{margin-top:10px}
+#stuMsg .msg{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <img class="logo-img" src="logo_winners.png" alt="위너스해법영수학원" width="132" height="41">
+  <div style="flex:1">
+    <h1>위너스 클리닉 · 선생님</h1>
+    <div class="sub">과목별 요일 배분 · 시험범위/서술형 제외 → 주간 계획표 저장 · 숙제 배정·제출 · 자기주도 계획 승인 · 제출 현황</div>
+  </div>
+</header>
+
+<div class="card hide" id="keyCard">
+  <h2>교사 키</h2>
+  <div class="muted">선생님 화면은 교사 키를 넣어야 열립니다. 한 번 넣으면 이 기기에 저장됩니다.</div>
+  <div class="row" style="margin-top:10px">
+    <input type="password" id="keyInput" placeholder="교사 키" style="flex:1;min-width:200px">
+    <button class="btn" onclick="saveKey()">열기</button>
+  </div>
+  <div id="keyErr" class="muted"></div>
+</div>
+
+<div id="app" class="hide">
+  <div class="notibar">
+    <span class="muted" id="notiState">화면 알림</span>
+    <button class="btn ghost small" id="notiBtn" onclick="askNotifyTeacher()">알림 켜기</button>
+    <span class="muted">앱을 열어 두면 새 자기주도 계획·제출 사진을 40초마다 확인해 배너·소리로 알려 드립니다. <b>문자·메일은 보내지 않습니다(0건).</b></span>
+  </div>
+  <div id="alertBar" class="alert hide"></div>
+  <div class="tabs">
+    <button class="on" data-tab="plan" onclick="tab('plan')">계획표 만들기</button>
+    <button data-tab="approve" onclick="tab('approve')">자기주도 승인 <span id="pendBadge"></span></button>
+    <button data-tab="hw" onclick="tab('hw')">숙제 배정·제출</button>
+    <button data-tab="status" onclick="tab('status')">오늘 현황</button>
+    <button data-tab="notice" onclick="tab('notice')">알림 대상</button>
+    <button data-tab="wrong" onclick="tab('wrong')">오답 목록</button>
+    <button data-tab="book" onclick="tab('book')">📚 새 교재 올리기</button>
+  </div>
+
+  <section id="tab-plan">
+    <div class="card">
+      <h2>1. 학생 선택 <span class="pill" id="stuCount">-</span> <span class="pill gold">👑 = 자기주도왕</span> <span class="pill blue">숙제+클리닉 = 둘 다</span>
+        <button class="btn ghost small" style="float:right" onclick="copyTodayMsg()">📋 카톡 복사용</button></h2>
+      <div class="gdbar" id="gradeBar"></div>
+      <div class="stu" id="studentList"></div>
+      <div id="stuMsg"></div>
+      <div id="hiddenBox"></div>
+      <div class="row" style="margin-top:14px;gap:8px;flex-wrap:wrap">
+        <input type="text" id="newName" placeholder="학생 이름" style="width:130px">
+        <input type="text" id="newPin" placeholder="4자리 핀" style="width:100px" inputmode="numeric">
+        <input type="text" id="newGrade" list="gradeOpts" placeholder="학년 (예: 중2)" style="width:110px">
+        <datalist id="gradeOpts"></datalist>
+        <span class="muted">앱:</span>
+        <button class="chipbtn" id="nmCl" onclick="toggleNewMode('clinic')">클리닉</button>
+        <button class="chipbtn hw" id="nmMa" onclick="toggleNewMode('math')">숙제: 수학</button>
+        <button class="chipbtn hw" id="nmEn" onclick="toggleNewMode('eng')">숙제: 영어</button>
+        <button class="btn ghost small" onclick="addStudent()">＋ 학생 추가</button>
+        <span class="muted" id="addStuMsg"></span>
+      </div>
+      <div class="muted" style="margin-top:6px">[클리닉]·[숙제: 수학]·[숙제: 영어]는 서로 따로 켜고 끌 수 있습니다 — 셋 다, 클리닉만, 수학+영어만, 클리닉+영어 같은 조합이 모두 됩니다. <b>셋 다 끄면 '배정 없음'으로 저장</b>됩니다(숙제를 쉬는 학생). 퇴원·안 다니는 학생은 카드의 <b>[삭제]</b>로 목록에서 빼면 됩니다(기록은 남기고 숨김).</div>
+    </div>
+
+    <div class="card">
+      <h2>2. 과목 담기 <span class="pill gray">과목마다 요일·범위를 따로</span></h2>
+      <div class="grid">
+        <div>
+          <label class="f">주 시작(월요일 · 아무 날짜나 넣어도 월요일로 맞춥니다)</label>
+          <input type="text" id="week" placeholder="2026-11-30" style="width:100%">
+          <label class="f">과목</label>
+          <select id="subject" style="width:100%" onchange="loadBooks()"></select>
+          <label class="f">교재(진도)</label>
+          <select id="book" style="width:100%" onchange="loadUnits()"></select>
+        </div>
+        <div>
+          <label class="f">단원 <span class="muted">누른 순서대로 · 구조 없는 교재는 쪽수로</span></label>
+          <div class="units" id="unitList"></div>
+          <div class="muted" id="unitOrder" style="margin-top:4px"></div>
+          <label class="f" id="pagesLabel">쪽수 직접 입력 <span class="muted">비우면 위 단원 사용</span></label>
+          <input type="text" id="pages" placeholder="예: 101~120, 130~140" style="width:100%">
+          <label class="f">하루 분량(쪽)</label>
+          <input type="number" id="perDay" value="5" min="1" max="20" style="width:100%">
+        </div>
+        <div>
+          <label class="f">시험기간(시험대비교재 병행)</label>
+          <select id="examBook" style="width:100%" onchange="fillExamRange()"></select>
+          <label class="f">시험범위 · 진도교재 쪽 <span class="muted">비우면 전체</span></label>
+          <input type="text" id="examRange" placeholder="예: 101~155" style="width:100%">
+          <label class="f">이미 푼 쪽 빼기 <span class="muted">예: 141,146,148</span></label>
+          <input type="text" id="examExclude" placeholder="예: 141,146,148" style="width:100%">
+          <label class="f">시험범위 · 시험대비교재 쪽 <span class="muted">비우면 전체</span></label>
+          <input type="text" id="examRangeExam" placeholder="예: 45~85" style="width:100%">
+          <label class="f" style="display:flex;align-items:center;gap:6px">
+            <input type="checkbox" id="skipEssay" style="width:auto"> ☐ 서술형 문제 빼고 계획
+          </label>
+        </div>
+      </div>
+
+      <label class="f">공부 요일 <span class="muted">비우면 남은 날에 자동 배분 · 일요일도 고를 수 있습니다(고르지 않으면 복습일)</span></label>
+      <div class="wd" id="wdList"></div>
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn ghost" onclick="addSubject()">＋ 이 과목 담기</button>
+        <span class="muted" id="addMsg"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. 이번 주 계획 <span class="pill" id="subjCount">0과목</span></h2>
+      <div id="subjList"><div class="muted">아직 담은 과목이 없습니다. 위에서 과목·단원·요일을 고르고 <b>＋ 이 과목 담기</b>를 눌러 주세요.<br>한 과목만 할 때는 담지 않고 바로 아래 <b>계획표 생성</b>을 눌러도 됩니다.</div></div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn" onclick="generate()">계획표 생성</button>
+        <button class="btn ghost" onclick="savePlan()" id="saveBtn" disabled>학생 앱에 저장</button>
+        <span class="muted" id="genMsg"></span>
+      </div>
+    </div>
+
+    <div class="card hide" id="planOut">
+      <h2>4. 계획표 확인 <span class="pill" id="planStat"></span></h2>
+      <table id="planTable"></table>
+      <div class="muted" id="carryNote" style="margin-top:8px"></div>
+      <div class="muted" id="saveMsg" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <section id="tab-approve" class="hide">
+    <div class="card">
+      <div class="between"><h2>👑 자기주도 계획 승인 대기 <span class="pill warn" id="pendCount">0</span></h2>
+        <button class="btn ghost small" onclick="loadPending()">새로고침</button></div>
+      <div class="muted" style="margin-bottom:10px">학생이 직접 짜서 올린 계획입니다. 내용을 보고 <b>승인(확정)</b>하면 그 학생의 주간 계획으로 즉시 바뀝니다.
+        <b>수정 요청</b>은 메모가 학생 화면에 그대로 보입니다. 수정 요청을 보낸 계획은 아래 <b>수정 요청 보낸 내역</b>에 남습니다(배지 숫자는 검사 대기만 셉니다).</div>
+      <div id="pendingOut"><div class="muted">불러오는 중…</div></div>
+    </div>
+    <div class="card" id="rejectedCard" style="display:none">
+      <div class="between"><h2>📝 수정 요청 보낸 내역 <span class="pill warn" id="rejCount">0</span></h2>
+        <span class="muted">최근 순 · 학생이 다시 올리면 검사 대기로 올라갑니다</span></div>
+      <div id="rejectedOut"></div>
+    </div>
+  </section>
+
+  <section id="tab-hw" class="hide">
+    <div class="card">
+      <div class="between"><h2>숙제 내주기 <span class="pill gray">오프라인 책 · 전체 학생</span></h2>
+        <span class="muted">숙제제출 학생은 이 숙제·사진 화면만, 숙제+클리닉 학생은 계획표 화면에 이 숙제 카드가 함께 보입니다.</span></div>
+      <div class="grid">
+        <div>
+          <label class="f">날짜 (비우면 오늘)</label>
+          <input type="text" id="hwDate" style="width:100%" placeholder="예: 2026-11-25">
+          <label class="f">과목 <span class="muted">영어·수학 둘 다 고를 수 있습니다 (안 고르면 학생 과목)</span></label>
+          <div class="row" style="gap:6px">
+            <button class="chipbtn gray" id="hwsEn" onclick="hwToggleSubject('영어')">영어</button>
+            <button class="chipbtn gray" id="hwsMa" onclick="hwToggleSubject('수학')">수학</button>
+          </div>
+          <label class="f">교재 학년 <span class="muted">학생 학년과 상관없이 고를 수 있습니다 (중2 학생에게 중3 교재 가능)</span></label>
+          <div class="hscroll" id="hwGradeBar"></div>
+          <label class="f">내가 올린 교재 <span class="muted">위아래로 넘겨 보세요</span></label>
+          <div class="vscroll" id="hwBookBar"></div>
+          <label class="f">교재·책 이름 <span class="muted">위에서 고르면 채워집니다 · 직접 써도 됩니다</span></label>
+          <input type="text" id="hwBook" style="width:100%" placeholder="예: 쌈 중2-2, 체크체크 역사1">
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <label class="f">쪽수 <span class="muted">비워도 됩니다</span></label>
+              <input type="text" id="hwPages" style="width:100%" placeholder="예: 45~48 (선택)">
+            </div>
+            <div>
+              <label class="f">사진 장수 <span class="muted">비워도 됩니다</span></label>
+              <input type="number" id="hwPhotos" style="width:100%" min="1" max="20" placeholder="예: 2 (선택)">
+            </div>
+          </div>
+          <label class="f">할 일 / 메모</label>
+          <input type="text" id="hwTask" style="width:100%" placeholder="예: 문제 1~20번 풀고 채점">
+        </div>
+        <div>
+          <label class="f">학생 <span class="muted">여러 명 고를 수 있습니다</span></label>
+          <div class="gdbar" id="hwStuGradeBar"></div>
+          <div id="hwStuList" style="max-height:240px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px"></div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn ghost small" onclick="hwPickAll(true)">이 학년 전체 선택</button>
+            <button class="btn ghost small" onclick="hwPickAll(false)">선택 해제</button>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="btn" onclick="assignHw()">숙제 내주기</button><span class="muted" id="hwMsg"></span></div>
+    </div>
+    <div class="card">
+      <div class="between"><h2>그날 숙제 · 제출 현황 <span class="pill gray" id="hwDateLabel"></span></h2>
+        <button class="btn ghost small" onclick="loadHw()">새로고침</button></div>
+      <div class="muted" style="margin-bottom:10px">사진은 드라이브 「WINNERS_클리닉_자료」 > 「제출사진」에 쌓입니다. 사진 보기를 누르면 그 장이 열립니다.
+        채점은 사진 자동 채점 엔진이 나중에 기록합니다 — 엔진 전에는 <b>채점 대기</b>, 틀린 답·풀이식이 없으면 <b>확인 필요 / 풀이 부족</b> 배지가 붙습니다.</div>
+      <table id="hwTable"></table>
+    </div>
+    <div id="gradePanel"></div>
+  </section>
+
+  <section id="tab-status" class="hide">
+    <div class="card">
+      <div class="between"><h2>오늘 제출 현황 <span class="pill gray" id="statusDate"></span></h2>
+        <span class="row" style="gap:6px"><button class="btn ghost small" onclick="copyTodayMsg()">📋 카톡 복사용</button>
+        <button class="btn ghost small" onclick="loadStatus()">새로고침</button></span></div>
+      <table id="statusTable"></table>
+    </div>
+  </section>
+
+  <section id="tab-notice" class="hide">
+    <div class="card">
+      <div class="between"><h2>완료·독촉 알림 대상</h2>
+        <button class="btn ghost small" onclick="loadNotices()">목록 만들기</button></div>
+      <div class="warnbox" style="margin-bottom:12px">이 화면은 <b>보낼 대상 목록</b>만 만듭니다. 실제 알자 문자·메일 발송은 <b>0건</b>입니다.
+        학생이 클리닉을 끝내거나 자기주도 계획을 올리면 <b>이 앱의 알림(상단 배너·소리·브라우저 알림)</b>으로만 알립니다 — 권유리 선생님께 가는 문자·메일도 없습니다.
+        저녁 8시 미제출 명단은 <b>알림</b> 시트에 기록만 됩니다.</div>
+      <div id="noticeOut"><div class="muted">목록 만들기를 눌러 주세요.</div></div>
+    </div>
+  </section>
+
+
+  <section id="tab-wrong" class="hide">
+    <div class="card">
+      <div class="between"><h2>학생별 오답(🌱 다시 도전)</h2>
+        <button class="btn ghost small" onclick="loadStatus()">새로고침</button></div>
+      <div class="muted" style="margin-bottom:10px">오답은 선생님 PC의 클리닉 검증 엔진이 찾아 <b>파란색 정답을 지운 크롭 이미지</b>로 올립니다(<code>clinic_push_gas.py</code>). 학생 앱 '🌱 다시 도전!'에 바로 뜹니다. 정답표가 없는 국어·역사·과학 문항은 학생이 적은 답을 보고 아래에서 <b>[확인 완료]</b>로 정리합니다.</div>
+      <table id="wrongTable"></table>
+      <div id="wrongOpen" style="margin-top:16px"></div>
+    </div>
+  </section>
+  <section id="tab-book" class="hide">
+    <div class="card">
+      <div class="between"><h2>📚 새 교재 올리기 <span class="pill gray">PDF · 과목·교재명·학년</span></h2>
+        <span class="muted">등록하면 「교재」 탭에 바로 들어가고 계획표·학생 「내 계획」 교재 목록에 나옵니다.</span></div>
+      <form id="bookForm" onsubmit="return false;">
+        <input type="hidden" name="key" id="bkKey" value="">
+        <input type="hidden" name="mask_mode" id="bkMask" value="">
+        <div class="grid">
+          <div>
+            <label class="f">과목</label>
+            <select name="subject" id="bkSubject" style="width:100%">
+              <option>국어</option><option>역사</option><option>과학</option><option>수학</option><option>영어</option><option>기타</option>
+            </select>
+            <label class="f">학년</label>
+            <select name="grade" id="bkGrade" style="width:100%">
+              <option>중1</option><option selected>중2</option><option>중3</option><option>고1</option><option>고2</option><option>초등</option><option></option>
+            </select>
+            <label class="f">교재 구분</label>
+            <select name="role" id="bkRole" style="width:100%">
+              <option selected>진도교재</option><option>문제집</option><option>개념책(진도교재)</option>
+              <option>시험대비교재</option><option>실전책(시험대비교재)</option><option>정답과 해설</option>
+            </select>
+          </div>
+          <div>
+            <label class="f">교재명</label>
+            <input type="text" name="title" id="bkTitle" placeholder="예: 체크체크 국어 2-2" style="width:100%">
+            <label class="f">쪽수 <span class="muted">PDF를 고르면 자동으로 채움</span></label>
+            <input type="text" name="pages" id="bkPages" placeholder="예: 192" style="width:100%">
+            <label class="f">교재 PDF 파일</label>
+            <input type="file" name="file" id="bkFile" accept="application/pdf,.pdf" onchange="bkFileChosen()" style="width:100%;font-size:12.5px">
+            <div class="muted" id="bkFileInfo">PDF만 · 40MB 이하</div>
+          </div>
+          <div>
+            <label class="f">시험범위 <span class="muted">비우면 전체</span></label>
+            <input type="text" name="exam_range" id="bkExam" placeholder="예: 101~155" style="width:100%">
+            <label class="f">서술형 쪽 <span class="muted">선택</span></label>
+            <input type="text" name="essay_pages" id="bkEssay" placeholder="예: 104,117,121" style="width:100%">
+            <label class="f">교사용 PDF — 답 지우기</label>
+            <div class="row" style="gap:14px;margin-top:2px">
+              <label class="muted" style="display:flex;align-items:center;gap:5px"><input type="checkbox" id="bkMaskBlue" style="width:auto"> 파란색 답</label>
+              <label class="muted" style="display:flex;align-items:center;gap:5px"><input type="checkbox" id="bkMaskRed" style="width:auto"> 빨간색 답</label>
+            </div>
+            <div class="muted" style="margin-top:4px">답만 지우고 지도·삽화는 남깁니다. 켜 두면 미리보기에서 원본과 지운 화면을 나란히 보여 줍니다.</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:14px">
+          <button class="btn" id="bkRegBtn" onclick="bkRegister()">교재 등록</button>
+          <button class="btn ghost" id="bkPrevBtn" onclick="bkPreview()">미리보기 (답 지우기)</button>
+          <span class="muted" id="bkMsg"></span>
+        </div>
+      </form>
+      <div id="bkPreviewOut"></div>
+      <div id="bkMaskOut"></div>
+    </div>
+    <div class="card">
+      <div class="between"><h2>등록된 교재 <span class="pill" id="bkCount">-</span></h2>
+        <button class="btn ghost small" onclick="reloadBooks()">새로고침</button></div>
+      <div class="muted" style="margin-bottom:10px">여기서 올린 교재는 id 가 <code>up-</code> 로 시작합니다. 교재를 지우면 목록과 드라이브 PDF 가 함께 정리됩니다(그 교재가 든 계획이 있으면 먼저 막습니다).</div>
+      <table id="bkTable"></table>
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+var BOOT = {"version": "clinic-gas-2.0", "ui": "teacher", "today": "2026-11-26", "timezone": "Asia/Seoul"};
+var $ = function(s){ return document.querySelector(s); };
+var state = { key: localStorage.getItem('clinic.teacherKey') || '', students: [], books: [],
+              selected: null, units: [], weekdays: [], subjects: [], plan: null, status: [], hwPicked: {},
+              grades: [], gradeFilter: 'all', hwStuGrade: 'all', hidden: [], hiddenOpen: false,
+              yStatus: {}, yDate: '', yLoaded: false };
+/* v1.9 — 학생 추가 때 고른 세 칸: 클리닉 · 숙제:수학 · 숙제:영어 */
+var NEWSEL = { flags: { clinic: false, math: true, eng: true } };
+/* v1.8 — 숙제 배정 때 고른 과목·교재 학년·교재 */
+var HWSEL = { subj: {}, grade: 'all', book: '' };
+var SUBJ = ['국어','역사','과학','수학','기타'];
+var WDALL = ['월','화','수','목','금','토','일'];
+
+function api(name, params){
+  var p = params || {};
+  p.key = state.key;
+  return new Promise(function(resolve, reject){
+    google.script.run
+      .withSuccessHandler(function(r){ resolve(r || { ok:false, error:'빈 응답' }); })
+      .withFailureHandler(function(e){ reject(e); })
+      .apiCall(name, p);
+  });
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function saveKey(){
+  state.key = $('#keyInput').value.trim();
+  localStorage.setItem('clinic.teacherKey', state.key);
+  boot();
+}
+function tab(t){
+  var btns = document.querySelectorAll('.tabs button');
+  for(var i=0;i<btns.length;i++) btns[i].classList.toggle('on', btns[i].dataset.tab===t);
+  ['plan','approve','hw','status','notice','wrong','book'].forEach(function(x){ $('#tab-'+x).classList.toggle('hide', x!==t); });
+  if(t==='approve') loadPending();
+  if(t==='hw') loadHw();
+  if(t==='status') loadStatus();
+  if(t==='notice') loadNotices();
+  if(t==='wrong'){ loadStatus(); loadWrongOpen(); }
+}
+
+function mondayOf(s){
+  var d = s ? new Date(s+'T12:00:00') : new Date();
+  var wd = (d.getDay()+6)%7;
+  d.setDate(d.getDate()-wd);
+  return d.toISOString().slice(0,10);
+}
+function nextMonday(){
+  var d = new Date(Date.now()+7*864e5);
+  var wd = (d.getDay()+6)%7;
+  d.setDate(d.getDate()-wd);
+  return d.toISOString().slice(0,10);
+}
+
+function boot(){
+  if(!state.key){ $('#keyCard').classList.remove('hide'); $('#app').classList.add('hide'); return; }
+  api('students', {include_hidden:true}).then(function(r){
+    if(!r.ok){
+      $('#keyErr').innerHTML = '<b style="color:#c8102e">' + esc(r.error || '교사 키가 맞지 않습니다. 다시 확인해 주세요.') + '</b>';
+      $('#keyInput').focus();
+      $('#keyCard').classList.remove('hide'); $('#app').classList.add('hide'); return;
+    }
+    $('#keyErr').textContent = '';
+    $('#keyCard').classList.add('hide'); $('#app').classList.remove('hide');
+    state.students = r.students||[];
+    state.grades = r.grades || [];
+    state.hidden = r.hidden || [];
+    $('#stuCount').textContent = state.students.length+'명';
+    renderStudents();
+    loadYesterday();
+    paintNewSel();
+    api('books').then(function(rb){
+      state.books = rb.books||[];
+      bkRenderList();
+      hwRenderGradeBar(); hwRenderBookBar();
+      $('#subject').innerHTML = SUBJ.map(function(x){ return '<option>'+x+'</option>'; }).join('');
+      if(state.students.length) pickStudent(state.students[0].name);
+      else loadBooks();
+      loadPendingCount();
+      startPolling();
+    });
+  }).catch(function(e){
+    $('#keyErr').innerHTML = '<b style="color:#c8102e">연결 오류: ' + esc(e && e.message || e) + '</b>';
+  });
+}
+
+/* ---------- 학년별 학생 목록 (v1.8) ---------- */
+function gradeRank(g){
+  var m = String(g||'').match(/^(초|중|고)?\s*(\d)/);
+  if(!m) return 900;
+  var base = m[1]==='초'?100:(m[1]==='중'?200:(m[1]==='고'?300:500));
+  return base + Number(m[2]);
+}
+function allGrades(){
+  var out = [];
+  state.students.forEach(function(s){ var g=String(s.grade||'').trim(); if(g && out.indexOf(g)<0) out.push(g); });
+  out.sort(function(a,b){ return gradeRank(a)-gradeRank(b); });
+  return out;
+}
+function gradeOfStudent(s){ return String(s.grade||'').trim() || '학년 없음'; }
+function studentsOfGrade(g){
+  return state.students.filter(function(s){ return g==='all' || gradeOfStudent(s)===g; });
+}
+function renderGradeBar(){
+  var bar = $('#gradeBar'); if(!bar) return;
+  var grades = allGrades();
+  var counts = {};
+  state.students.forEach(function(s){ var g=gradeOfStudent(s); counts[g]=(counts[g]||0)+1; });
+  var html = '<button class="'+(state.gradeFilter==='all'?'on':'')+'" onclick="setGradeFilter(\'all\')">전체 '+state.students.length+'</button>';
+  grades.forEach(function(g){
+    html += '<button class="'+(state.gradeFilter===g?'on':'')+'" onclick="setGradeFilter(\''+esc(g)+'\')">'+esc(g)+' '+counts[g]+'</button>';
+  });
+  if(counts['학년 없음']) html += '<button class="'+(state.gradeFilter==='학년 없음'?'on':'')+'" onclick="setGradeFilter(\'학년 없음\')">학년 없음 '+counts['학년 없음']+'</button>';
+  bar.innerHTML = html;
+  var dl = $('#gradeOpts'); if(dl) dl.innerHTML = grades.map(function(g){ return '<option value="'+esc(g)+'">'; }).join('');
+}
+function setGradeFilter(g){ state.gradeFilter = g; renderStudents(); }
+
+/* ── 어제 미제출 학생을 오늘 목록 맨 위로 (2026-11-26) ── */
+function ymd(d){
+  var p = function(n){ return (n<10?'0':'')+n; };
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+}
+function yesterdayStr(){ var d = new Date(); d.setDate(d.getDate()-1); return ymd(d); }
+function loadYesterday(){
+  if(state.yLoaded) return Promise.resolve();
+  var q = yesterdayStr();
+  return api('status', {date: q}).then(function(r){
+    if(r && r.ok && r.students){
+      state.yDate = r.date || q;
+      state.yStatus = {};
+      r.students.forEach(function(s){
+        var need = (s.hw_assigned||0) > 0 || (s.app_mode === 'homework' ? false : !!s.today_kind);
+        state.yStatus[s.name] = { missed: need && !(s.submitted > 0), submitted: s.submitted||0 };
+      });
+    }
+    state.yLoaded = true;
+    renderStudents();
+  }).catch(function(){ state.yLoaded = true; });
+}
+function yMissed(name){ var y = state.yStatus[name]; return !!(y && y.missed); }
+
+/* ── 카톡 복사용 오늘 안내(P/R) — 오늘 미제출·어제 미제출·오답 대기 ── */
+function copyTodayMsg(){
+  function legacyCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  function go(){
+    var rows = state.status || [];
+    var today = (r0()||ymd(new Date()));
+    function r0(){ var el = $('#statusDate'); return el ? String(el.textContent||'').trim() : ''; }
+    var miss = [], redo = 0, redoNames = [];
+    rows.forEach(function(s){
+      var need = (s.hw_assigned||0) > 0 || (s.app_mode === 'homework' ? false : !!s.today_kind);
+      if(need && !(s.submitted > 0)) miss.push(s.name);
+      if(s.redo_open > 0){ redo += s.redo_open; redoNames.push(s.name+'('+s.redo_open+')'); }
+    });
+    var yMiss = Object.keys(state.yStatus||{}).filter(function(n){ return state.yStatus[n].missed; });
+    var lines = ['[위너스] ' + today + ' 클리닉·숙제 확인'];
+    lines.push('· 오늘 미제출 ' + miss.length + '명' + (miss.length ? ' — ' + miss.join(', ') : ''));
+    if(yMiss.length) lines.push('· 어제 미제출 ' + yMiss.length + '명 — ' + yMiss.join(', '));
+    lines.push('· 🌱 다시 도전 대기 ' + redo + '건' + (redoNames.length ? ' — ' + redoNames.join(', ') : ''));
+    var text = lines.join('\n');
+    function done(){
+      var b = document.querySelector('button[onclick="copyTodayMsg()"]');
+      if(b){ var o = b.textContent; b.textContent = '✅ 복사됨';
+        setTimeout(function(){ b.textContent = o; }, 1500); }
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ legacyCopy(text); done(); });
+    } else { legacyCopy(text); done(); }
+  }
+  if(!(state.status||[]).length){ loadStatus().then(go).catch(go); } else go();
+}
+function modesOf(s){
+  if(s && s.app_modes && s.app_modes.length) return s.app_modes.slice();
+  if(s && s.app_mode === 'none') return [];
+  return [ (s && s.app_mode === 'homework') ? 'homework' : 'clinic' ];
+}
+function hasHwMode(s){ return modesOf(s).indexOf('homework') >= 0; }
+function hasClMode(s){ return modesOf(s).indexOf('clinic') >= 0; }
+/* v1.9 — 세 칸은 서로 독립: [클리닉] · [숙제: 수학] · [숙제: 영어] */
+function modeFlags(s){
+  var m = modesOf(s), hw = m.indexOf('homework') >= 0, subs = (s && s.hw_subjects) || [];
+  var none = !subs.length;                        // 과목을 안 적어 둔 숙제 학생은 둘 다로 본다
+  return { clinic: m.indexOf('clinic') >= 0,
+           math: hw && (none || subs.indexOf('수학') >= 0),
+           eng: hw && (none || subs.indexOf('영어') >= 0) };
+}
+function flagsToList(f){
+  var out = [];
+  if(f.clinic) out.push('clinic');
+  if(f.math) out.push('math');
+  if(f.eng) out.push('eng');
+  return out;
+}
+function modeText(f){
+  var t = [];
+  if(f.clinic) t.push('클리닉');
+  var hw = [];
+  if(f.math) hw.push('수학');
+  if(f.eng) hw.push('영어');
+  if(hw.length) t.push('숙제(' + hw.join('·') + ')');
+  return t.join(' + ') || '배정 없음';
+}
+
+function renderStudents(){
+  renderGradeBar();
+  var list = studentsOfGrade(state.gradeFilter);
+  /* 어제 미제출·미채점 학생을 오늘 목록 맨 위로 (2026-11-26) */
+  list = list.slice().sort(function(a,b){
+    var am = yMissed(a.name)?0:1, bm = yMissed(b.name)?0:1;
+    return am - bm;
+  });
+  $('#studentList').innerHTML = list.length ? list.map(function(s){
+    var f = modeFlags(s);
+    var hw = f.math || f.eng, cl = f.clinic;
+    return '<div class="scard'+(state.selected && state.selected.name===s.name?' on':'')+'" data-name="'+esc(s.name)+'" onclick="pickStudent(\''+esc(s.name)+'\')">'+
+      '<div class="between"><b>'+esc(s.name)+'</b>'+
+        (yMissed(s.name)?'<span class="pill warn" title="'+(state.yDate||'어제')+' 제출 기록이 없습니다">어제 미제출</span>':'')+
+        '<span class="row" style="gap:6px">'+
+        '<span class="pill '+(hw&&!cl?'blue':(hw||cl?'':'gray'))+'">'+esc(modeText(f))+'</span>'+
+        '<button class="delbtn" title="목록에서 빼기(퇴원·안 다니는 학생)" onclick="event.stopPropagation();askDeleteStudent(\''+esc(s.name)+'\')">삭제</button>'+
+      '</span></div>'+
+      '<div class="m">'+esc(gradeOfStudent(s))+(s.mode_label?' · '+esc(s.mode_label):'')+'</div>'+
+      '<div class="row" style="margin-top:7px;gap:6px" onclick="event.stopPropagation()">'+
+        '<button class="chipbtn'+(cl?' on':'')+'" onclick="toggleMode(\''+esc(s.name)+'\',\'clinic\')">클리닉</button>'+
+        '<button class="chipbtn hw'+(f.math?' on':'')+'" onclick="toggleMode(\''+esc(s.name)+'\',\'math\')">숙제: 수학</button>'+
+        '<button class="chipbtn hw'+(f.eng?' on':'')+'" onclick="toggleMode(\''+esc(s.name)+'\',\'eng\')">숙제: 영어</button>'+
+      '</div>'+
+      (cl ? '<label class="kingrow" onclick="event.stopPropagation()"><input type="checkbox" '+(s.self_plan_king?'checked':'')+
+        ' onchange="toggleKing(\''+esc(s.name)+'\', this.checked)"> 👑 자기주도왕</label>' : '')+
+      '</div>';
+  }).join('') : '<div class="muted">'+(state.gradeFilter==='all' ? '등록된 학생이 없습니다.' : '이 학년에 학생이 없습니다.')+'</div>';
+  renderHidden();
+  renderHwStudents();
+}
+
+/** 세 칸 중 하나만 켜고 끈다 — 다른 칸은 건드리지 않는다 */
+function toggleMode(name, key){
+  var s = state.students.filter(function(x){ return x.name===name; })[0];
+  if(!s) return;
+  var f = modeFlags(s);
+  f[key] = !f[key];
+  var got = s;
+  got._busy = true;
+  api('student_set_modes', {student:name, modes:flagsToList(f)}).then(function(r){
+    got._busy = false;
+    if(!r.ok){ alert(r.error||'바꾸지 못했습니다'); renderStudents(); return; }
+    s.app_modes = r.app_modes; s.app_mode = r.app_mode; s.app_mode_label = r.app_mode_label;
+    s.hw_subjects = r.hw_subjects || [];
+    renderStudents();
+    if(!$('#tab-hw').classList.contains('hide')) loadHw();
+  }).catch(function(e){ got._busy = false; alert('연결 오류: '+(e && e.message || e)); renderStudents(); });
+}
+
+/** 숙제 과목만 바꾸기(옛 경로) — 지금은 모드 세 칸으로 통일했다 */
+function toggleHwSubject(name, subj){
+  return toggleMode(name, subj === '수학' ? 'math' : 'eng');
+}
+
+/* ---------- v2.0 학생 삭제(목록에서 빼기) · 숨긴 학생 되돌리기 ----------
+   행은 지우지 않고 `학생` 탭 active=N 으로 숨긴다. 교사·학생 화면 목록, 오늘 현황, 알림 대상에서
+   바로 빠지고 그 학생은 로그인도 되지 않는다. 계획·제출·오답 기록은 그대로 남는다. */
+function askDeleteStudent(name){
+  if(!name) return;
+  var go = window.confirm(name + ' 학생을 목록에서 뺄까요?\n\n'
+    + '· 교사·학생 화면 목록에서 바로 사라집니다(퇴원·안 다니는 학생).\n'
+    + '· 계획·제출·오답 기록은 지우지 않고 그대로 남깁니다.\n'
+    + '· 나중에 「숨긴 학생 보기」에서 되돌릴 수 있습니다.');
+  if(!go) return;
+  setStudentActive(name, 'N');
+}
+function undoDeleteStudent(name){ setStudentActive(name, 'Y'); }
+function setStudentActive(name, active){
+  api('student_set_active', {student:name, active:active}).then(function(r){
+    if(!r.ok){ alert(r.error || '바꾸지 못했습니다'); return; }
+    if(active === 'N' && state.selected && state.selected.name === name) state.selected = null;
+    if(active === 'N') state.hiddenOpen = true;
+    stuMsg(r.message || '', active === 'N' ? name : '');
+    reloadStudents();
+    if(!$('#tab-hw').classList.contains('hide')) loadHw();
+  }).catch(function(e){ alert('연결 오류: ' + (e && e.message || e)); });
+}
+function stuMsg(text, undoName){
+  var box = $('#stuMsg'); if(!box) return;
+  if(!text){ box.innerHTML = ''; return; }
+  box.innerHTML = '<div class="msg">' + esc(text) +
+    (undoName ? ' <button class="btn ghost small" onclick="undoDeleteStudent(\'' + esc(undoName) + '\')">되돌리기</button>' : '') +
+    '</div>';
+}
+function toggleHidden(){ state.hiddenOpen = !state.hiddenOpen; renderHidden(); }
+function renderHidden(){
+  var box = $('#hiddenBox'); if(!box) return;
+  var list = state.hidden || [];
+  if(!list.length){ box.innerHTML = ''; return; }
+  var open = !!state.hiddenOpen;
+  var head = '<div class="row" style="margin-top:10px;gap:8px">'
+    + '<button class="btn ghost small" onclick="toggleHidden()">'
+    + (open ? '숨긴 학생 접기' : '숨긴 학생 ' + list.length + '명 보기') + '</button>'
+    + (open ? '' : '<span class="muted">목록에서 뺐던 학생을 다시 넣을 수 있습니다.</span>')
+    + '</div>';
+  var rows = open ? list.map(function(s){
+    var t = modeText(modeFlags(s));
+    return '<div class="hiddenrow"><b>' + esc(s.name) + '</b>'
+      + '<span class="muted">' + esc(gradeOfStudent(s)) + (t ? ' · ' + esc(t) : '') + '</span>'
+      + '<button class="btn ghost small" onclick="undoDeleteStudent(\'' + esc(s.name) + '\')">되돌리기</button></div>';
+  }).join('') : '';
+  box.innerHTML = head + rows;
+}
+
+function reloadStudents(){
+  api('students', {include_hidden:true}).then(function(r){
+    if(!r.ok) return;
+    state.students = r.students || [];
+    state.grades = r.grades || [];
+    state.hidden = r.hidden || [];
+    $('#stuCount').textContent = state.students.length+'명';
+    renderStudents();
+    if(!state.yLoaded) loadYesterday();
+  });
+}
+
+/* ---------- 학생 추가 (숙제·클리닉 다중 선택) ---------- */
+function toggleNewMode(m){
+  NEWSEL.flags[m] = !NEWSEL.flags[m];
+  if(!NEWSEL.flags.clinic && !NEWSEL.flags.math && !NEWSEL.flags.eng) NEWSEL.flags[m] = true;
+  paintNewSel();
+}
+function toggleNewSubj(x){ toggleNewMode(x === '수학' ? 'math' : 'eng'); }
+function paintNewSel(){
+  if($('#nmCl')) $('#nmCl').classList.toggle('on', !!NEWSEL.flags.clinic);
+  if($('#nmMa')) $('#nmMa').classList.toggle('on', !!NEWSEL.flags.math);
+  if($('#nmEn')) $('#nmEn').classList.toggle('on', !!NEWSEL.flags.eng);
+}
+function addStudent(){
+  var name = ($('#newName').value||'').trim();
+  if(!name){ $('#addStuMsg').textContent = '이름을 넣어 주세요'; return; }
+  var f = NEWSEL.flags;
+  if(!f.clinic && !f.math && !f.eng){ $('#addStuMsg').textContent = '앱: 클리닉·숙제 중 하나는 켜 주세요'; return; }
+  api('student_add', {name:name, pin:($('#newPin').value||'').trim(), grade:($('#newGrade').value||'').trim(),
+                      app_modes: flagsToList(f)}).then(function(r){
+    if(!r.ok){ $('#addStuMsg').textContent = r.error||'추가하지 못했습니다'; return; }
+    $('#addStuMsg').textContent = name + ' 추가했습니다 (핀 ' + r.pin + ', ' + r.app_mode_label + ') — 핀을 꼭 바꿔 주세요';
+    $('#newName').value=''; $('#newPin').value=''; $('#newGrade').value='';
+    reloadStudents();
+  }).catch(function(e){ $('#addStuMsg').textContent = '연결 오류: '+(e && e.message || e); });
+}
+
+/* ---------- 숙제 배정 · 제출 ---------- */
+function hwSelected(){ return state.hwPicked || (state.hwPicked = {}); }
+
+/* 교재에 적힌 학년들 — 없으면 '학년 미지정' */
+function bookGrades(includeNone){
+  var out = [], none = false;
+  (state.books||[]).forEach(function(b){
+    var g = String(b.grade||'').trim();
+    if(!g) none = true;
+    else if(out.indexOf(g)<0) out.push(g);
+  });
+  out.sort(function(a,b){ return gradeRank(a)-gradeRank(b); });
+  if(includeNone && none) out.push('none');
+  return out;
+}
+function hwRenderGradeBar(){
+  var bar = $('#hwGradeBar'); if(!bar) return;
+  var html = '<button class="'+(HWSEL.grade==='all'?'on':'')+'" onclick="hwSetGrade(\'all\')">전체 교재</button>';
+  bookGrades(true).forEach(function(g){
+    var label = g==='none' ? '학년 미지정' : g;
+    html += '<button class="'+(HWSEL.grade===g?'on':'')+'" onclick="hwSetGrade(\''+esc(g)+'\')">'+esc(label)+'</button>';
+  });
+  bar.innerHTML = html;
+}
+function hwSetGrade(g){ HWSEL.grade = g; HWSEL.book = ''; hwRenderGradeBar(); hwRenderBookBar(); }
+function hwBooksOfGrade(){
+  return (state.books||[]).filter(function(b){
+    var g = String(b.grade||'').trim();
+    if(HWSEL.grade==='all') return true;
+    if(HWSEL.grade==='none') return !g;
+    return g === HWSEL.grade;
+  });
+}
+function hwRenderBookBar(){
+  var bar = $('#hwBookBar'); if(!bar) return;
+  var list = hwBooksOfGrade();
+  if(!list.length){ bar.innerHTML = '<span class="empty">이 학년에 올린 교재가 없습니다. 아래에 직접 적어 주세요.</span>'; return; }
+  bar.innerHTML = list.map(function(b){
+    var on = HWSEL.book === b.id;
+    return '<button class="'+(on?'on':'')+'" onclick="hwPickBook(\''+esc(b.id)+'\')" title="'+esc(b.role||'')+'">'+
+      esc(b.subject||'')+' '+esc(b.title||'')+(b.role?' · '+esc(b.role):'')+'</button>';
+  }).join('');
+}
+function hwPickBook(id){
+  var b = (state.books||[]).filter(function(x){ return String(x.id)===String(id); })[0];
+  if(!b) return;
+  HWSEL.book = b.id;
+  if($('#hwBook')) $('#hwBook').value = b.title || '';
+  if(b.subject === '영어' || b.subject === '수학'){ HWSEL.subj = {}; HWSEL.subj[b.subject] = true; }
+  if($('#hwPages')) $('#hwPages').placeholder = b.pages ? ('예: 1~'+b.pages+' (선택)') : '예: 45~48 (선택)';
+  paintHwSel(); hwRenderBookBar();
+}
+function hwToggleSubject(x){
+  HWSEL.subj[x] = !HWSEL.subj[x];
+  paintHwSel();
+}
+function paintHwSel(){
+  if($('#hwsEn')) $('#hwsEn').classList.toggle('on', !!HWSEL.subj['영어']);
+  if($('#hwsMa')) $('#hwsMa').classList.toggle('on', !!HWSEL.subj['수학']);
+}
+function hwSubjectValue(){ return ['영어','수학'].filter(function(x){ return HWSEL.subj[x]; }).join('+'); }
+
+/* --- 학생 목록 (학년으로 좁혀 고르기) --- */
+function hwStuGrades(){
+  var out = [];
+  state.students.forEach(function(s){ var g=gradeOfStudent(s); if(out.indexOf(g)<0) out.push(g); });
+  out.sort(function(a,b){ return gradeRank(a)-gradeRank(b); });
+  return out;
+}
+function hwFilteredStudents(){
+  return state.students.filter(function(s){ return state.hwStuGrade==='all' || gradeOfStudent(s)===state.hwStuGrade; });
+}
+function renderHwStuGradeBar(){
+  var bar = $('#hwStuGradeBar'); if(!bar) return;
+  var counts = {};
+  state.students.forEach(function(s){ var g=gradeOfStudent(s); counts[g]=(counts[g]||0)+1; });
+  var html = '<button class="'+(state.hwStuGrade==='all'?'on':'')+'" onclick="hwSetStuGrade(\'all\')">전체 '+state.students.length+'</button>';
+  hwStuGrades().forEach(function(g){
+    html += '<button class="'+(state.hwStuGrade===g?'on':'')+'" onclick="hwSetStuGrade(\''+esc(g)+'\')">'+esc(g)+' '+counts[g]+'</button>';
+  });
+  bar.innerHTML = html;
+}
+function hwSetStuGrade(g){ state.hwStuGrade = g; renderHwStudents(); }
+function renderHwStudents(){
+  if(!$('#hwStuList')) return;
+  renderHwStuGradeBar();
+  var picked = hwSelected();
+  var list = hwFilteredStudents();
+  var hwOn = list.filter(hasHwMode);
+  var rest = list.filter(function(s){ return !hasHwMode(s); });
+  function box(s){
+    return '<label style="display:block;padding:3px 0;font-size:13px"><input type="checkbox" '+(picked[s.name]?'checked':'')+
+      ' onchange="hwPick(\''+esc(s.name)+'\', this.checked)"> '+esc(s.name)+
+      ' <span class="pill '+(hasHwMode(s)?'blue':'gray')+'" style="margin-left:4px">'+esc(s.app_mode_label||'')+'</span></label>';
+  }
+  $('#hwStuList').innerHTML =
+    (hwOn.length ? hwOn.map(box).join('') : '<div class="muted">이 학년에 숙제가 켜진 학생이 없습니다. 1번 탭에서 카드의 «숙제»를 눌러 주세요.</div>')+
+    (rest.length ? '<div class="muted" style="margin-top:8px;font-weight:700">클리닉만 하는 학생 (내주면 학생 화면에 안 보입니다)</div>'+rest.map(box).join('') : '');
+}
+function hwPick(name, on){
+  var p = hwSelected();
+  if(on) p[name] = 1; else delete p[name];
+}
+function hwPickAll(on){
+  var p = hwSelected();
+  var list = hwFilteredStudents().map(function(s){ return s.name; });
+  state.students.forEach(function(s){
+    if(on && list.indexOf(s.name)>=0 && hasHwMode(s)) p[s.name] = 1;
+    else if(!on) delete p[s.name];
+  });
+  renderHwStudents();
+}
+function assignHw(){
+  var names = Object.keys(hwSelected());
+  if(!names.length){ $('#hwMsg').textContent = '학생을 한 명 이상 골라 주세요'; return; }
+  var book = ($('#hwBook').value||'').trim(), pages = ($('#hwPages').value||'').trim(), task = ($('#hwTask').value||'').trim();
+  var photos = ($('#hwPhotos') && $('#hwPhotos').value||'').trim();
+  var subject = hwSubjectValue();
+  if(!book && !task){ $('#hwMsg').textContent = '교재나 할 일 중 하나는 적어 주세요'; return; }
+  if(photos && (Number(photos) < 1 || Number(photos) > 20)){ $('#hwMsg').textContent = '사진 장수는 1~20 사이로 적어 주세요'; return; }
+  $('#hwMsg').innerHTML = '<span class="sp"></span> 내주는 중…';
+  api('hw_assign', {students: names, date: ($('#hwDate').value||'').trim(), book:book, pages:pages, task:task,
+                    photos: photos || '', subject: subject}).then(function(r){
+    if(!r.ok){ $('#hwMsg').innerHTML = '<span class="warnbox">'+esc(r.error||'실패')+'</span>'; return; }
+    var msg = r.date + ' · ' + r.count + '명에게 숙제를 냈습니다' + (photos ? ' (사진 '+photos+'장)' : '');
+    if((r.skipped||[]).length) msg += ' (없는 이름: '+r.skipped.join(', ')+')';
+    if((r.mode_warn||[]).length) msg += ' — 숙제가 꺼진 학생: '+r.mode_warn.join(', ')+' (1번 탭에서 «숙제»를 켜 주세요)';
+    $('#hwMsg').innerHTML = ((r.mode_warn||[]).length ? '<span class="warnbox">'+esc(msg)+'</span>' : '<span class="okbox">'+esc(msg)+'</span>');
+    $('#hwBook').value=''; $('#hwPages').value=''; $('#hwTask').value=''; if($('#hwPhotos')) $('#hwPhotos').value='';
+    HWSEL.subj = {}; HWSEL.book = ''; paintHwSel(); hwRenderBookBar();
+    state.hwPicked = {}; renderHwStudents(); loadHw();
+  }).catch(function(e){ $('#hwMsg').innerHTML = '<span class="warnbox">'+esc(e && e.message || e)+'</span>'; });
+}
+function loadHw(){
+  renderHwStudents();
+  var date = ($('#hwDate').value||'').trim();
+  api('hw_list', {date:date}).then(function(r){
+    if(!r.ok){ $('#hwTable').innerHTML = '<tr><td>'+esc(r.error)+'</td></tr>'; return; }
+    if($('#hwDateLabel')) $('#hwDateLabel').textContent = r.date;
+    if(!$('#hwDate').value) $('#hwDate').placeholder = r.date;
+    var byName = {};
+    (r.students||[]).forEach(function(s){ byName[s.name] = s; });
+    if(!(r.items||[]).length){
+      $('#hwTable').innerHTML = '<tr><td class="muted">'+esc(r.date)+'에 낸 숙제가 없습니다. 위에서 숙제를 내주면 학생 앱에 바로 보입니다.</td></tr>';
+      return;
+    }
+    $('#hwTable').innerHTML = '<tr><th>학생</th><th>숙제</th><th class="num">오늘 사진</th><th>채점</th><th>마지막 제출</th><th>사진 보기</th><th></th></tr>'+
+      r.items.map(function(it){
+        var s = byName[it.student] || {};
+        var files = s.file_ids || [];
+        var links = files.slice(-3).map(function(id, i){
+          return '<a href="https://drive.google.com/file/d/'+esc(id)+'/view" target="_blank">사진'+(i+1)+'</a>';
+        }).join(' ');
+        if(files.length > 3) links += ' <span class="muted">외 '+(files.length-3)+'장</span>';
+        return '<tr><td><b>'+esc(it.student)+'</b><div class="muted">'+esc(s.app_mode_label||'')+'</div></td>'+
+          '<td>'+esc(it.book||'-')+(it.pages?' <span class="muted">'+esc(it.pages)+'</span>':'')+
+            (it.photos?' <span class="pill gray">사진 '+it.photos+'장</span>':'')+
+            (it.task?'<div class="muted">'+esc(it.task)+'</div>':'')+'</td>'+
+          '<td class="num">'+(s.submitted?('<span class="pill">'+s.submitted+'장</span>'):'<span class="pill warn">0</span>')+'</td>'+
+          '<td>'+gradeBadges(s.grade||[])+'</td>'+
+          '<td class="muted">'+esc(fmtAt(s.last_at||'-'))+'</td>'+
+          '<td>'+((files.length)? links : '-')+'</td>'+
+          '<td><button class="btn ghost small" onclick="cancelHw(\''+esc(it.id)+'\')">취소</button></td></tr>';
+      }).join('');
+  }).catch(function(e){ $('#hwTable').innerHTML = '<tr><td>'+esc(e && e.message || e)+'</td></tr>'; });
+}
+/** 제출 사진 한 장의 채점 배지 — 엔진 전에는 '채점 대기' */
+function gradeBadges(list){
+  if(!list || !list.length) return '-';
+  var shown = list.slice(-2).map(function(g){
+    var out = [];
+    if(g.status === '확인필요') out.push('<span class="pill warn">확인 필요</span>');
+    else if(g.status === '채점완료') out.push('<span class="pill">채점완료'+(g.score!==null && g.score!==undefined?' '+g.score+'점':'')+'</span>');
+    else out.push('<span class="pill gray">채점 대기</span>');
+    if(g.no_solution) out.push('<span class="pill warn">풀이 부족(식 없음)</span>');
+    if(g.uncertain) out.push('<span class="pill warn">인식 안 됨 '+g.uncertain+'</span>');
+    if(g.wrong) out.push('<span class="tag">오답 '+g.wrong+'</span>');
+    return '<div style="margin-bottom:2px">'+out.join(' ')+
+      ' <button class="btn ghost small" onclick="openGrade(\''+esc(g.submission_id)+'\')">문항 보기</button></div>';
+  }).join('');
+  if(list.length > 2) shown += '<div class="muted">외 '+(list.length-2)+'장</div>';
+  return shown;
+}
+
+/* ---------- 문항별 채점 보기·수정 (교사) ---------- */
+var GRADE = { sub:null, pending:{} };
+function openGrade(id){
+  GRADE.sub = null; GRADE.pending = {};
+  $('#gradePanel').innerHTML = '<div class="card"><span class="sp"></span> 문항을 불러오는 중…</div>';
+  try{ $('#gradePanel').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+  api('hw_submission', {submission_id:id}).then(function(r){
+    if(!r.ok){ $('#gradePanel').innerHTML = '<div class="card"><div class="warnbox">'+esc(r.error)+'</div></div>'; return; }
+    GRADE.sub = r; GRADE.pending = {};
+    renderGrade();
+  }).catch(function(e){ $('#gradePanel').innerHTML = '<div class="card"><div class="warnbox">'+esc(e && e.message || e)+'</div></div>'; });
+}
+function closeGrade(){ GRADE.sub = null; GRADE.pending = {}; $('#gradePanel').innerHTML = ''; }
+function markOf(no){
+  if(GRADE.pending[no] !== undefined) return GRADE.pending[no];
+  var m = (GRADE.sub && GRADE.sub.item_marks) || {};
+  return m[no] || '';
+}
+function setMark(no, mark){ GRADE.pending[no] = mark; renderGrade(); }
+function renderGrade(){
+  var r = GRADE.sub; if(!r) return;
+  var s = r.submission || {};
+  var marks = r.item_marks || {};
+  var nos = Object.keys(marks).map(function(x){ return String(x); });
+  Object.keys(GRADE.pending).forEach(function(x){ if(nos.indexOf(x) < 0) nos.push(x); });
+  nos.sort(function(a,b){ return (Number(a)||0)-(Number(b)||0) || String(a).localeCompare(String(b)); });
+  var pendCount = Object.keys(GRADE.pending).length;
+  var head = '<div class="between"><h2>문항별 채점 <span class="pill gray">'+esc(s.student||'')+'</span>'+
+    '<span class="pill '+(s.grade_status==='확인필요'?'warn':(s.grade_status==='채점완료'?'':'gray'))+'">'+esc(s.grade_status||'미채점')+'</span>'+
+    (s.score!==null && s.score!==undefined ? '<span class="pill">'+s.score+'점</span>' : '')+'</h2>'+
+    '<button class="btn ghost small" onclick="closeGrade()">닫기</button></div>';
+  var info = '<div class="muted">'+esc(s.date||'')+' · '+esc(s.book||'')+(s.note?' · '+esc(s.note):'')+' · 제출 '+esc(fmtAt(s.submitted_at||'-'))+
+    (s.photo_url?' · <a href="'+esc(s.photo_url)+'" target="_blank">사진 열기</a>':'')+'</div>';
+  if(!nos.length){
+    $('#gradePanel').innerHTML = '<div class="card">'+head+info+
+      '<div class="warnbox" style="margin-top:10px">아직 문항별 채점 결과가 없습니다(사진 자동 채점 엔진 전). 엔진이 채점하면 문항 번호별로 O/X가 나타나고, 여기서 고칠 수 있습니다.</div></div>';
+    return;
+  }
+  var buttons = nos.map(function(no){
+    var cur = markOf(no);
+    function b(m, label, cls){
+      var on = (cur === m);
+      return '<button class="btn small'+(on?'':' ghost')+(m==='X'?' warn':'')+'" style="padding:5px 8px;font-size:12px" onclick="setMark(\''+esc(no)+'\',\''+m+'\')">'+label+'</button>';
+    }
+    var changed = GRADE.pending[no] !== undefined && GRADE.pending[no] !== (marks[no]||'');
+    return '<div class="item" style="padding:7px 8px;margin-bottom:0'+(changed?';border-color:#f3c4ac;background:#fff8f4':'')+'">'+
+      '<div class="between" style="margin-bottom:4px"><b>'+esc(no)+'번</b>'+
+        '<span class="muted">'+(marks[no]||'-')+(changed?' → <b style="color:#c2410c">'+esc(GRADE.pending[no])+'</b>':'')+'</span></div>'+
+      '<div class="row" style="gap:4px">'+b('O','O')+b('X','X')+b('?','확인필요')+b('N','식없음')+'</div></div>';
+  }).join('');
+  var counts = { O:0, X:0, '?':0, N:0 };
+  nos.forEach(function(no){ var m = markOf(no); if(counts[m] !== undefined) counts[m]++; });
+  $('#gradePanel').innerHTML = '<div class="card">'+head+info+
+    '<div class="row" style="margin:10px 0">'+
+      '<span class="pill">O '+counts.O+'</span><span class="pill warn">X '+counts.X+'</span>'+
+      '<span class="pill warn">확인필요 '+counts['?']+'</span><span class="pill gray">식 없음 '+counts.N+'</span>'+
+      '<span class="muted">문항을 누르면 표시가 바뀌고, <b>저장</b>을 눌러야 반영됩니다.</span></div>'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px">'+buttons+'</div>'+
+    '<div class="row" style="margin-top:12px">'+
+      '<button class="btn" id="gradeSaveBtn" onclick="saveGrade()"'+(pendCount?'':' disabled')+'>저장</button>'+
+      '<button class="btn ghost" onclick="GRADE.pending={};renderGrade()"'+(pendCount?'':' disabled')+'>되돌리기</button>'+
+      '<span class="muted" id="gradeMsg">'+(pendCount? pendCount+'문항 수정됨 — 저장을 눌러 주세요' : '수정한 문항이 없습니다')+'</span></div>'+
+    '</div>';
+}
+function saveGrade(){
+  if(!GRADE.sub) return;
+  var id = GRADE.sub.submission_id;
+  var keys = Object.keys(GRADE.pending);
+  if(!keys.length) return;
+  var btn = $('#gradeSaveBtn'); if(btn) btn.disabled = true;
+  if($('#gradeMsg')) $('#gradeMsg').innerHTML = '<span class="sp"></span> 저장 중…';
+  var chain = Promise.resolve(), failed = [];
+  keys.forEach(function(no){
+    chain = chain.then(function(){
+      return api('hw_grade_item', {submission_id:id, no:no, mark:GRADE.pending[no]}).then(function(r){
+        if(!r.ok) failed.push(no + ':' + (r.error||''));
+      });
+    });
+  });
+  chain.then(function(){
+    GRADE.pending = {};
+    return api('hw_submission', {submission_id:id}).then(function(r){
+      if(r.ok) GRADE.sub = r;
+      renderGrade();
+      if($('#gradeMsg')) $('#gradeMsg').innerHTML = failed.length
+        ? '<span class="warnbox">못 저장한 문항: '+esc(failed.join(', '))+'</span>'
+        : '<span class="okbox">저장했습니다 — 선생님 확인 기준으로 기록됐습니다.</span>';
+      loadHw();
+    });
+  }).catch(function(e){
+    if($('#gradeMsg')) $('#gradeMsg').innerHTML = '<span class="warnbox">'+esc(e && e.message || e)+'</span>';
+    if(btn) btn.disabled = false;
+  });
+}
+
+function cancelHw(id){
+  if(!confirm('이 숙제를 취소할까요? 학생 화면에서 사라집니다(기록은 남습니다).')) return;
+  api('hw_cancel', {id:id}).then(function(r){
+    if(!r.ok){ alert(r.error||'취소하지 못했습니다'); return; }
+    loadHw();
+  }).catch(function(e){ alert('연결 오류: '+(e && e.message || e)); });
+}
+
+function toggleKing(name, on){
+  api('student_set_king', {student:name, king:on}).then(function(r){
+    if(!r.ok){ toast(r.error||'바꾸지 못했습니다'); return; }
+    state.students.forEach(function(s){ if(s.name===name) s.self_plan_king = !!r.self_plan_king; });
+    renderStudents();
+    toast(name + ' 👑 자기주도왕 ' + (r.self_plan_king?'켜짐':'꺼짐'));
+  }).catch(function(e){ toast('연결 오류: '+(e && e.message || e)); });
+}
+
+function toast(msg){
+  var el = $('#genMsg');
+  if(el) el.textContent = msg;
+}
+
+function pickStudent(name){
+  state.selected = state.students.filter(function(s){ return s.name===name; })[0];
+  renderStudents();
+  if(state.selected){
+    $('#subject').value = state.selected.subject || '역사';
+    $('#perDay').value = state.selected.per_day || 5;
+    loadBooks();
+  }
+}
+
+function loadBooks(){
+  var subj = $('#subject').value;
+  var list = state.books.filter(function(b){ return b.subject===subj && String(b.role||'').indexOf('정답')<0; });
+  var main = list.filter(function(b){ return /진도|개념책|문제집/.test(b.role||''); });
+  var exam = list.filter(function(b){ return /시험대비|실전책/.test(b.role||''); });
+  $('#book').innerHTML = main.map(function(b){ return '<option value="'+esc(b.id)+'">'+esc(b.title)+'</option>'; }).join('')
+    || '<option value="">등록된 교재 없음</option>';
+  $('#examBook').innerHTML = '<option value="">병행 안 함(평상시)</option>' + exam.map(function(b){
+    return '<option value="'+esc(b.id)+'">'+esc(b.title)+'</option>'; }).join('');
+  if(state.selected && state.selected.exam_mode && exam.length){
+    var mainId = main.length ? main[0].id : '';
+    var pair = exam.filter(function(b){ return b.id === String(mainId).replace(/\.(jindo|exam|answer)$/, '') + '.exam'; })[0];
+    $('#examBook').value = pair ? pair.id : '';
+  }
+  loadUnits();
+}
+
+/** 교재에 등록된 시험범위를 미리 채운다(선생님이 고칠 수 있다) */
+function fillExamRange(){
+  var id = $('#book').value;
+  var b = state.books.filter(function(x){ return x.id===id; })[0] || {};
+  if($('#examRange')) $('#examRange').value = b.exam_range || '';
+  if($('#examExclude')) $('#examExclude').value = b.exam_exclude || '';
+  var eid = $('#examBook').value;
+  var e = state.books.filter(function(x){ return x.id===eid; })[0] || {};
+  if($('#examRangeExam')) $('#examRangeExam').value = e.exam_range || '';
+}
+
+function loadUnits(){
+  var id = $('#book').value;
+  state.units = [];
+  renderUnits();
+  if(!id){ $('#unitList').innerHTML=''; return; }
+  var b = state.books.filter(function(x){ return x.id===id; })[0] || {};
+  var units = b.units || [];
+  var eSelf = /시험|실전/.test(b.role||'');
+  var pairId = eSelf ? '' : (String(id).replace(/\.(jindo|exam|answer)$/, '') + '.exam');
+  var hasPair = !eSelf && state.books.some(function(x){ return x.id === pairId; });
+  if(!hasPair && $('#examBook') && $('#examBook').value) $('#examBook').value = '';
+  if(!units.length){
+    $('#unitList').innerHTML = '<span class="muted">이 교재는 단원 구조가 없습니다 → 아래 <b>쪽수 직접 입력</b>에 범위를 넣어 주세요.</span>';
+    fillExamRange();
+    return;
+  }
+  $('#unitList').innerHTML = units.map(function(u){
+    var on = state.units.some(function(x){ return x.unit===u.unit; });
+    return '<button class="uchip'+(on?' on':'')+'" onclick="toggleUnit(\''+esc(u.unit)+'\',\''+esc(u.title||'')+'\',\''+esc(u.page_range||'')+'\')">'+
+      esc(u.unit)+' '+esc(u.title||'')+' <span class="muted">'+esc(u.page_range||'')+'</span></button>';
+  }).join('');
+  fillExamRange();
+}
+function toggleUnit(unit,title,range){
+  var i = -1;
+  state.units.forEach(function(u,k){ if(u.unit===unit) i=k; });
+  if(i>=0) state.units.splice(i,1);
+  else state.units.push({unit:unit,title:title,range:range});
+  loadUnitsRenderOnly();
+}
+function loadUnitsRenderOnly(){
+  var id = $('#book').value;
+  var b = state.books.filter(function(x){ return x.id===id; })[0] || {};
+  var units = b.units || [];
+  $('#unitList').innerHTML = units.map(function(u){
+    var on = state.units.some(function(x){ return x.unit===u.unit; });
+    return '<button class="uchip'+(on?' on':'')+'" onclick="toggleUnit(\''+esc(u.unit)+'\',\''+esc(u.title||'')+'\',\''+esc(u.page_range||'')+'\')">'+
+      esc(u.unit)+' '+esc(u.title||'')+' <span class="muted">'+esc(u.page_range||'')+'</span></button>';
+  }).join('');
+  renderUnits();
+}
+function renderUnits(){
+  var order = state.units.map(function(u,i){ return (i+1)+'. '+u.unit; }).join(' → ');
+  if($('#unitOrder')) $('#unitOrder').textContent = order ? ('선택: ' + order) : '';
+}
+
+/* ---------- 📚 새 교재 올리기 (v1.7) ---------- */
+var BK = { file: null, pdf: null, pages: 0, book: null, busy: false };
+
+function bkMaskMode(){
+  var b = document.getElementById('bkMaskBlue').checked, r = document.getElementById('bkMaskRed').checked;
+  return b && r ? 'both' : (b ? 'blue' : (r ? 'red' : ''));
+}
+function bkMaskLabel(m){
+  return m==='both' ? '파란색+빨간색' : (m==='blue' ? '파란색' : (m==='red' ? '빨간색' : '안 함'));
+}
+function bkMsg(html){ var el = document.getElementById('bkMsg'); if(el) el.innerHTML = html; }
+
+function bkFileChosen(){
+  var f = document.getElementById('bkFile').files[0] || null;
+  BK.file = f; BK.pdf = null; BK.pages = 0;
+  document.getElementById('bkPreviewOut').innerHTML = '';
+  var info = document.getElementById('bkFileInfo');
+  if(!f){ info.textContent = 'PDF만 · 40MB 이하'; return; }
+  if(!/pdf/i.test(f.type) && !/\.pdf$/i.test(f.name)){ info.innerHTML = '<span class="warnbox">PDF 파일이 아닙니다.</span>'; BK.file = null; return; }
+  var mb = (f.size/1048576).toFixed(1);
+  if(f.size > 40*1048576){ info.innerHTML = '<span class="warnbox">' + esc(f.name) + ' · ' + mb + 'MB — 40MB가 넘습니다. 나눠서 올려 주세요.</span>'; BK.file = null; return; }
+  info.textContent = f.name + ' · ' + mb + 'MB';
+  bkLoadPdf(f).then(function(pdf){
+    BK.pdf = pdf; BK.pages = pdf.numPages;
+    document.getElementById('bkPages').value = pdf.numPages;
+    info.textContent = f.name + ' · ' + mb + 'MB · ' + pdf.numPages + '쪽';
+  }).catch(function(){
+    info.innerHTML = esc(f.name) + ' · ' + mb + 'MB <span class="muted">(쪽수 자동 확인 실패 — 쪽수를 직접 넣어 주세요)</span>';
+  });
+}
+
+function bkLoadPdf(file){
+  return new Promise(function(resolve, reject){
+    if(!window.pdfjsLib) return reject(new Error('pdf.js 없음'));
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    var fr = new FileReader();
+    fr.onload = function(){
+      pdfjsLib.getDocument({ data: new Uint8Array(fr.result) }).promise.then(resolve).catch(reject);
+    };
+    fr.onerror = function(){ reject(new Error('파일 읽기 실패')); };
+    fr.readAsArrayBuffer(file);
+  });
+}
+
+/* 파란색·빨간색 답 글씨만 흰색으로 — 색이 꽉 찬 덩어리(지도·삽화)는 남긴다 */
+function bkMaskImageData(img, mode){
+  var d = img.data, w = img.width, h = img.height, N = w*h, i, p;
+  var wantB = (mode === 'blue' || mode === 'both'), wantR = (mode === 'red' || mode === 'both');
+  if(!wantB && !wantR) return 0;
+  var cand = new Uint8Array(N), grayArr = new Int32Array(N);
+  for(i=0,p=0;i<N;i++,p+=4){
+    var R=d[p], G=d[p+1], B=d[p+2];
+    grayArr[i] = (R*299 + G*587 + B*114)/1000 | 0;
+    var mx = R>G?R:G; if(B>mx) mx=B;
+    var mn = R<G?R:G; if(B<mn) mn=B;
+    if(mx-mn < 12) continue;                     /* 무채색(검정 글씨·회색)은 그대로 */
+    var S = (mx-mn)/mx*255, V = mx, hue;
+    if(mx===R) hue = 60*((G-B)/(mx-mn)); else if(mx===G) hue = 60*((B-R)/(mx-mn)+2); else hue = 60*((R-G)/(mx-mn)+4);
+    if(hue<0) hue += 360;
+    var blueness = B - (R>G?R:G), redness = R - (G>B?G:B);
+    if(wantB && ((hue>=165 && hue<=255) && ((S>=45 && V>=65) || blueness>=20))) cand[i] = 1;
+    else if(wantR && redness>=10 && ((hue<=22 || hue>=336) && S>=90 && V>=45)) cand[i] = 1;
+  }
+  var W1 = w+1;
+  var sumC = new Int32Array(W1*(h+1)), sumG = new Int32Array(W1*(h+1)), sumCG = new Int32Array(W1*(h+1));
+  for(var y=0;y<h;y++){
+    var rowC=0, rowG=0, rowCG=0;
+    for(var x=0;x<w;x++){
+      var idx = y*w+x, c = cand[idx];
+      rowC += c; rowG += grayArr[idx]; rowCG += c ? grayArr[idx] : 0;
+      sumC[(y+1)*W1+(x+1)] = sumC[y*W1+(x+1)] + rowC;
+      sumG[(y+1)*W1+(x+1)] = sumG[y*W1+(x+1)] + rowG;
+      sumCG[(y+1)*W1+(x+1)] = sumCG[y*W1+(x+1)] + rowCG;
+    }
+  }
+  function box(arr,x0,y0,x1,y1){ return arr[y1*W1+x1] - arr[y0*W1+x1] - arr[y1*W1+x0] + arr[y0*W1+x0]; }
+  var R2 = 13, kill = new Uint8Array(N), killed = 0;
+  for(var yy=0;yy<h;yy++){
+    var y0 = yy-R2<0?0:yy-R2, y1 = yy+R2+1>h?h:yy+R2+1;
+    for(var xx=0;xx<w;xx++){
+      var id = yy*w+xx;
+      if(!cand[id]) continue;
+      var x0 = xx-R2<0?0:xx-R2, x1 = xx+R2+1>w?w:xx+R2+1;
+      var area = (x1-x0)*(y1-y0);
+      var cnt = box(sumC,x0,y0,x1,y1);
+      if(cnt*100 > area*55) continue;            /* 색이 꽉 찬 덩어리 = 삽화·지도 */
+      var rest = area - cnt;
+      if(rest <= 0) continue;
+      var bg = (box(sumG,x0,y0,x1,y1) - box(sumCG,x0,y0,x1,y1)) / rest;
+      if(bg < 185) continue;                     /* 색이 깔린 곳 위 글씨는 남긴다 */
+      kill[id] = 1; killed++;
+    }
+  }
+  /* 번진 가장자리 — 지운 점 바로 옆의 옅은 색까지 함께 지운다 */
+  var halo = kill.slice();
+  for(var hy=0;hy<h;hy++){
+    for(var hx=0;hx<w;hx++){
+      var hid = hy*w+hx;
+      if(kill[hid]) continue;
+      var near = false;
+      for(var dy=-2;dy<=2 && !near;dy++){
+        for(var dx=-2;dx<=2;dx++){
+          var ny=hy+dy, nx=hx+dx;
+          if(ny<0||nx<0||ny>=h||nx>=w) continue;
+          if(kill[ny*w+nx]){ near = true; break; }
+        }
+      }
+      if(!near) continue;
+      var q = hid*4, HR=d[q], HG=d[q+1], HB=d[q+2];
+      var hmx = HR>HG?HR:HG; if(HB>hmx) hmx=HB;
+      var hmn = HR<HG?HR:HG; if(HB<hmn) hmn=HB;
+      if(hmx-hmn < 6) continue;
+      if((hmx-hmn)/hmx*255 < 14) continue;
+      var hblue = HB - (HR>HG?HR:HG), hred = HR - (HG>HB?HG:HB);
+      if((wantB && hblue >= 4) || (wantR && hred >= 5)){ halo[hid] = 1; killed++; }
+    }
+  }
+  kill = halo;
+  for(i=0,p=0;i<N;i++,p+=4){ if(kill[i]){ d[p]=255; d[p+1]=255; d[p+2]=255; } }
+  return killed;
+}
+
+function bkRenderPage(pdf, num, width, mode){
+  return pdf.getPage(num).then(function(page){
+    var v0 = page.getViewport({ scale: 1 });
+    var vp = page.getViewport({ scale: width / v0.width });
+    var cv = document.createElement('canvas');
+    cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,cv.width,cv.height);
+    return page.render({ canvasContext: ctx, viewport: vp }).promise.then(function(){
+      var killed = 0;
+      if(mode){
+        try{
+          var img = ctx.getImageData(0,0,cv.width,cv.height);
+          killed = bkMaskImageData(img, mode);
+          ctx.putImageData(img,0,0);
+        }catch(e){ killed = -1; }
+      }
+      return { canvas: cv, killed: killed };
+    });
+  });
+}
+
+function bkPreview(){
+  var mode = bkMaskMode();
+  if(!BK.file){ bkMsg('PDF 파일을 먼저 골라 주세요.'); return; }
+  var out = document.getElementById('bkPreviewOut');
+  out.innerHTML = '<div class="muted" style="margin-top:12px"><span class="sp"></span> 미리보기 만드는 중…</div>';
+  var prep = BK.pdf ? Promise.resolve(BK.pdf) : bkLoadPdf(BK.file).then(function(p){
+    BK.pdf = p; BK.pages = p.numPages;
+    document.getElementById('bkPages').value = p.numPages;
+    return p;
+  });
+  prep.then(function(pdf){
+    var pages = [];
+    for(var n=1;n<=Math.min(2, pdf.numPages);n++) pages.push(n);
+    return Promise.all(pages.map(function(n){ return bkRenderPage(pdf, n, 620, null); })).then(function(orig){
+      return Promise.all(pages.map(function(n){ return bkRenderPage(pdf, n, 620, mode); })).then(function(mask){
+        var html = '<div style="margin-top:14px"><div class="between"><b>미리보기</b><span class="muted">왼쪽 원본 · 오른쪽 ' +
+          (mode ? bkMaskLabel(mode) + ' 답 지움' : '답 지우기 꺼짐') + '</span></div>';
+        pages.forEach(function(n, i){
+          html += '<div class="row" style="align-items:flex-start;gap:10px;margin-top:10px">' +
+            '<div style="width:49%"><div class="muted">' + n + '쪽 원본</div>' +
+            '<img style="width:100%;border:1px solid var(--line);border-radius:8px" src="' + orig[i].canvas.toDataURL('image/jpeg',0.8) + '"></div>' +
+            '<div style="width:49%"><div class="muted">' + n + '쪽 ' + (mode ? '답 지움' + (mask[i].killed>=0 ? ' · 지운 점 ' + mask[i].killed : '') : '답 지우기 꺼짐') + '</div>' +
+            '<img style="width:100%;border:1px solid var(--line);border-radius:8px" src="' + mask[i].canvas.toDataURL('image/jpeg',0.8) + '"></div>' +
+            '</div>';
+        });
+        html += '</div>';
+        if(!mode) html += '<div class="warnbox" style="margin-top:10px">「파란색 답 / 빨간색 답」을 하나 골라야 지운 화면이 보입니다.</div>';
+        out.innerHTML = html;
+      });
+    });
+  }).catch(function(e){
+    out.innerHTML = '<div class="warnbox" style="margin-top:12px">미리보기를 만들지 못했습니다(' + esc(e && e.message || e) +
+      '). 미리보기 도구를 못 불러왔거나(인터넷 차단) 암호 걸린 PDF일 수 있습니다 — 교재 등록은 그대로 됩니다.</div>';
+  });
+}
+
+function bkRegister(){
+  if(BK.busy) return;
+  if(!BK.file){ bkMsg('PDF 파일을 골라 주세요.'); return; }
+  if(!document.getElementById('bkTitle').value.trim()){ bkMsg('교재명을 넣어 주세요.'); return; }
+  document.getElementById('bkKey').value = state.key;
+  document.getElementById('bkMask').value = bkMaskMode();
+  var form = document.getElementById('bookForm');
+  var btn = document.getElementById('bkRegBtn');
+  BK.busy = true; btn.disabled = true;
+  bkMsg('<span class="sp"></span> 올리는 중… (파일이 크면 조금 걸립니다)');
+  google.script.run
+    .withSuccessHandler(function(r){
+      BK.busy = false; btn.disabled = false;
+      if(!r || !r.ok){ bkMsg('<span class="warnbox">' + esc((r && r.error) || '등록하지 못했습니다') + '</span>'); return; }
+      BK.book = r.book;
+      bkMsg('<span class="okbox">' + esc(r.message) + '</span>');
+      reloadBooks();
+      bkMaskPanel();
+    })
+    .withFailureHandler(function(e){
+      BK.busy = false; btn.disabled = false;
+      bkMsg('<span class="warnbox">연결 오류: ' + esc(e && e.message || e) + '</span>');
+    })
+    .apiBookUpload(form);
+}
+
+function bkMaskPanel(){
+  var b = BK.book, out = document.getElementById('bkMaskOut');
+  if(!b || !out) return;
+  if(!b.mask_mode){ out.innerHTML = ''; return; }
+  out.innerHTML = '<div class="card" style="box-shadow:none;background:#fbfdfc">' +
+    '<b>답 지운 PDF 만들기</b> <span class="muted">(' + bkMaskLabel(b.mask_mode) + ')</span>' +
+    '<div class="muted" style="margin-top:4px">학생에게 보여 줄·인쇄할 쪽 범위를 넣으면 답을 지운 PDF를 만들어 드라이브에 보관하고 이 PC로도 내려받습니다.</div>' +
+    '<div class="row" style="margin-top:8px">' +
+    '<input type="text" id="bkMaskRange" style="width:170px" value="1~' + Math.min(4, BK.pages || 4) + '" placeholder="예: 101~140">' +
+    '<button class="btn ghost small" id="bkMaskBtn" onclick="bkMakeMaskedPdf()">답 지운 PDF 만들기</button>' +
+    '<span class="muted" id="bkMaskMsg"></span></div><div id="bkMaskLink"></div></div>';
+}
+
+function bkRangeList(str, max){
+  var out = [], seen = {};
+  String(str||'').split(',').forEach(function(part){
+    part = part.trim(); if(!part) return;
+    if(part.indexOf('~') >= 0){
+      var q = part.split('~'), a = parseInt(q[0],10), b = parseInt(q[1],10);
+      if(isNaN(a) || isNaN(b)) return;
+      if(a > b){ var t=a; a=b; b=t; }
+      for(var p=a;p<=b;p++) if(p>=1 && p<=max && !seen[p]){ seen[p]=1; out.push(p); }
+    } else {
+      var n = parseInt(part,10);
+      if(!isNaN(n) && n>=1 && n<=max && !seen[n]){ seen[n]=1; out.push(n); }
+    }
+  });
+  return out.sort(function(a,b){ return a-b; });
+}
+
+function bkMakeMaskedPdf(){
+  var b = BK.book; if(!b) return;
+  var msg = document.getElementById('bkMaskMsg'), btn = document.getElementById('bkMaskBtn');
+  if(!BK.file && !BK.pdf){ if(msg) msg.innerHTML = '<span class="warnbox">PDF를 다시 골라 주세요.</span>'; return; }
+  btn.disabled = true;
+  var prep = BK.pdf ? Promise.resolve(BK.pdf) : bkLoadPdf(BK.file);
+  prep.then(function(pdf){
+    BK.pdf = pdf;
+    var list = bkRangeList(document.getElementById('bkMaskRange').value, pdf.numPages);
+    if(!list.length) throw new Error('쪽 범위를 확인해 주세요(예: 101~140)');
+    if(list.length > 40) throw new Error('한 번에 40쪽까지 만들 수 있습니다 — 범위를 나눠 주세요');
+    var JS = (window.jspdf && window.jspdf.jsPDF) || null;
+    if(!JS) throw new Error('PDF 만들기 도구를 못 불러왔습니다(인터넷 확인)');
+    var doc = null, i = 0;
+    function step(){
+      if(i >= list.length) return Promise.resolve(doc);
+      var n = list[i++];
+      return bkRenderPage(pdf, n, 1240, b.mask_mode).then(function(r){
+        var c = r.canvas, pw = 595.28, ph = Math.round(pw * c.height / c.width * 100) / 100;
+        var orient = c.height > c.width ? 'p' : 'l';
+        if(!doc) doc = new JS({ unit:'pt', format:[pw, ph], orientation: orient });
+        else doc.addPage([pw, ph], orient);
+        doc.addImage(c.toDataURL('image/jpeg', 0.85), 'JPEG', 0, 0, pw, ph);
+        if(msg) msg.innerHTML = '<span class="sp"></span> ' + i + ' / ' + list.length + '쪽 지우는 중…';
+        return step();
+      });
+    }
+    return step().then(function(d){
+      var uri = d.output('datauristring');
+      var range = document.getElementById('bkMaskRange').value;
+      if(msg) msg.innerHTML = '<span class="sp"></span> 드라이브에 보관하는 중…';
+      return api('book_attach_masked', { book: b.id, pdf: uri, range: range }).then(function(r){
+        return { uri: uri, r: r, list: list };
+      });
+    });
+  }).then(function(o){
+    btn.disabled = false;
+    var name = b.title + '_답지움_' + o.list[0] + '-' + o.list[o.list.length-1] + '.pdf';
+    if(msg){
+      msg.innerHTML = (o.r && o.r.ok)
+        ? '<span class="okbox">드라이브에 보관했습니다 · ' + o.list.length + '쪽' + (o.r.file && o.r.file.url ? ' · <a href="' + esc(o.r.file.url) + '" target="_blank">열기</a>' : '') + '</span>'
+        : '<span class="warnbox">드라이브 보관 실패: ' + esc((o.r && o.r.error) || '') + '</span>';
+    }
+    var link = document.getElementById('bkMaskLink');
+    if(link) link.innerHTML = '<div style="margin-top:8px"><a class="btn ghost small" href="' + o.uri + '" download="' + esc(name) + '">이 PC로 내려받기 (' + o.list.length + '쪽)</a></div>';
+    reloadBooks();
+  }).catch(function(e){
+    btn.disabled = false;
+    if(msg) msg.innerHTML = '<span class="warnbox">' + esc(e && e.message || e) + '</span>';
+  });
+}
+
+function reloadBooks(){
+  api('books').then(function(r){
+    if(!r.ok) return;
+    state.books = r.books || [];
+    bkRenderList();
+    loadBooks();
+  });
+}
+
+function bkRenderList(){
+  var el = document.getElementById('bkTable'); if(!el) return;
+  var all = state.books || [];
+  var list = all.filter(function(b){ return /^up-/.test(String(b.id)); });
+  var cnt = document.getElementById('bkCount');
+  if(cnt) cnt.textContent = list.length ? (list.length + '권 · 전체 ' + all.length + '권') : ('전체 ' + all.length + '권');
+  if(!list.length){
+    el.innerHTML = '<tr><td class="muted">아직 여기서 올린 교재가 없습니다. 위에서 PDF를 올려 보세요.</td></tr>';
+    return;
+  }
+  el.innerHTML = '<tr><th>과목</th><th>학년</th><th>교재명</th><th>구분</th><th class="num">쪽</th><th>PDF</th><th>답 지우기</th><th></th></tr>' +
+    list.map(function(b){
+      return '<tr><td>' + esc(b.subject) + '</td><td>' + esc(b.grade || '-') + '</td>' +
+        '<td><b>' + esc(b.title) + '</b><div class="muted">' + esc(b.id) + (b.created_at ? ' · ' + esc(String(b.created_at).replace('T',' ')) : '') + '</div></td>' +
+        '<td>' + esc(b.role || '') + '</td><td class="num">' + (b.pages || '-') + '</td>' +
+        '<td>' + (b.pdf_url ? '<a href="' + esc(b.pdf_url) + '" target="_blank">원본</a>' : '-') +
+          (b.masked_url ? ' · <a href="' + esc(b.masked_url) + '" target="_blank">답지움</a>' : '') + '</td>' +
+        '<td>' + esc(bkMaskLabel(b.mask_mode || '')) + '</td>' +
+        '<td><button class="btn ghost small" onclick="bkDelete(\'' + esc(b.id) + '\')">삭제</button></td></tr>';
+    }).join('');
+}
+
+function bkDelete(id){
+  var b = (state.books || []).filter(function(x){ return x.id === id; })[0] || {};
+  if(!confirm('「' + (b.title || id) + '」 교재를 지울까요?\n\n교재 목록에서 빠지고 드라이브의 PDF도 휴지통으로 갑니다.')) return;
+  api('book_delete', { id: id }).then(function(r){
+    if(!r.ok){ alert(r.error || '지우지 못했습니다'); return; }
+    reloadBooks();
+    bkMsg('<span class="okbox">「' + esc(r.title || id) + '」 교재를 지웠습니다.</span>');
+  }).catch(function(e){ alert('연결 오류: ' + (e && e.message || e)); });
+}
+
+function renderWeekdays(){
+  $('#wdList').innerHTML = WDALL.map(function(w){
+    return '<button class="'+(state.weekdays.indexOf(w)>=0?'on':'')+'" onclick="toggleWd(\''+w+'\')">'+w+'</button>';
+  }).join('');
+}
+function toggleWd(w){
+  var i = state.weekdays.indexOf(w);
+  if(i>=0) state.weekdays.splice(i,1); else state.weekdays.push(w);
+  state.weekdays.sort(function(a,b){ return WDALL.indexOf(a)-WDALL.indexOf(b); });
+  renderWeekdays();
+}
+
+function draftSubject(){
+  var subject = $('#subject').value;
+  var book = $('#book').value;
+  if(!book) throw new Error('교재를 고르세요');
+  var pages = $('#pages').value.trim();
+  var units = state.units.map(function(u){ return u.unit; });
+  if(!units.length && !pages) throw new Error('단원을 고르거나 쪽수를 넣어 주세요');
+  return {
+    subject: subject, book: book, units: units, manual_pages: units.length ? '' : pages,
+    per_day: +$('#perDay').value || 5,
+    exam_book: $('#examBook').value || null,
+    exam_range: $('#examRange').value.trim(),
+    exam_exclude: $('#examExclude').value.trim(),
+    exam_range_exam: $('#examRangeExam').value.trim(),
+    skip_essay: !!($('#skipEssay') && $('#skipEssay').checked),
+    weekdays: state.weekdays.slice(),
+    pace: (state.selected && state.selected.pace) || 'standard'
+  };
+}
+
+function addSubject(){
+  try{
+    var s = draftSubject();
+  }catch(e){ $('#addMsg').textContent = e.message; return; }
+  state.subjects.push(s);
+  state.units = []; state.weekdays = [];
+  $('#pages').value = ''; $('#examRange').value = ''; $('#examExclude').value = ''; $('#examRangeExam').value = ''; $('#skipEssay').checked = false;
+  fillExamRange();
+  $('#addMsg').textContent = s.subject + ' 담았습니다';
+  loadUnits();
+  renderWeekdays();
+  renderSubjects();
+}
+
+function rmSubject(i){ state.subjects.splice(i,1); renderSubjects(); }
+
+function subjectLine(s){
+  var b = state.books.filter(function(x){ return x.id===s.book; })[0] || {};
+  var unitTxt = s.units.length ? s.units.join(',') : ('p.'+s.manual_pages);
+  var wd = s.weekdays.length ? ' · '+s.weekdays.join('·') : ' · 요일 자동';
+  var ex = [];
+  if(s.exam_book) ex.push('시험대비 병행');
+  if(s.exam_range) ex.push('진도 '+s.exam_range);
+  if(s.exam_exclude) ex.push(s.exam_exclude+' 빼기');
+  if(s.exam_range_exam) ex.push('시험대비 '+s.exam_range_exam);
+  if(s.skip_essay) ex.push('서술형 제외');
+  return '<b>'+esc(s.subject)+'</b> <span class="muted">'+esc(b.title||s.book)+'</span>'+
+    '<div class="m">'+esc(unitTxt)+wd+' · 하루 '+s.per_day+'쪽'+(ex.length?' · '+esc(ex.join(' / ')):'')+'</div>';
+}
+
+function renderSubjects(){
+  $('#subjCount').textContent = state.subjects.length+'과목';
+  $('#subjList').innerHTML = state.subjects.length ? state.subjects.map(function(s,i){
+    return '<div class="subjitem"><div class="between"><div>'+subjectLine(s)+'</div>'+
+      '<button class="btn ghost small" onclick="rmSubject('+i+')">빼기</button></div></div>';
+  }).join('') : '<div class="muted">아직 담은 과목이 없습니다. 위에서 과목·단원·요일을 고르고 <b>＋ 이 과목 담기</b>를 눌러 주세요.<br>한 과목만 할 때는 담지 않고 바로 아래 <b>계획표 생성</b>을 눌러도 됩니다.</div>';
+}
+
+function subjectsToSend(){
+  if(state.subjects.length) return state.subjects;
+  return [draftSubject()];
+}
+
+function generate(){
+  if(!state.selected){ alert('학생을 선택하세요'); return; }
+  var subs;
+  try{ subs = subjectsToSend(); }catch(e){ $('#genMsg').innerHTML = '<span class="warnbox">'+esc(e.message)+'</span>'; return; }
+  $('#genMsg').innerHTML = '<span class="sp"></span> 만드는 중…';
+  api('plan_generate', {
+    student: state.selected.name,
+    week: $('#week').value.trim() || nextMonday(),
+    subjects: subs
+  }).then(function(r){
+    $('#genMsg').textContent = '';
+    if(!r.ok){ $('#genMsg').innerHTML = '<span class="warnbox">'+esc(r.error||'실패')+'</span>'; return; }
+    state.plan = r.plan; renderPlan();
+    $('#saveBtn').disabled = false;
+    $('#saveMsg').textContent = '계획표를 저장했습니다. 학생 앱에 바로 반영됩니다.';
+  }).catch(function(e){ $('#genMsg').innerHTML = '<span class="warnbox">'+esc(e && e.message || e)+'</span>'; });
+}
+
+function renderPlan(){
+  var p = state.plan;
+  $('#planOut').classList.remove('hide');
+  $('#planStat').textContent = p.week_start+'~'+p.week_end+' · 총 '+p.stats.total_pages+'쪽 · 공부일 '+p.stats.study_days+'일';
+  $('#planTable').innerHTML = '<tr><th>요일/날짜</th><th>과목</th><th>범위</th><th class="num">쪽</th><th>할 일</th></tr>'+
+    p.days.map(function(d){
+      var books = (d.books||[]).map(function(b){ return b.role+' '+b.span; }).join(' / ');
+      return '<tr><td>'+esc(d.weekday)+' '+esc(d.date.slice(5))+'</td><td>'+esc(d.subject)+'</td>'+
+        '<td>'+esc(d.title||'-')+(books?'<div class="muted">'+esc(books)+'</div>':'')+'</td>'+
+        '<td class="num">'+(d.pages||0)+'</td><td class="muted">'+esc((d.tasks||[]).slice(0,2).join(' · '))+'</td></tr>';
+    }).join('');
+  var carry = p.carry_over||[];
+  $('#carryNote').innerHTML = carry.length
+    ? ('이번 주에 다 못 들어간 분량 '+(p.stats.carry_pages||0)+'쪽은 다음 주로 넘깁니다: '+
+       carry.slice(0,4).map(function(c){ return esc(c.subject)+' '+esc(c.spans.join(', ')); }).join(' / '))
+    : '';
+}
+
+function savePlan(){
+  if(!state.plan) return;
+  api('plan_save', {plan: state.plan}).then(function(r){
+    $('#saveMsg').textContent = r.ok ? '저장했습니다. 학생 앱에 바로 반영됩니다.' : ('저장 실패: '+(r.error||''));
+  });
+}
+
+function loadPendingCount(){
+  api('plan_pending').then(function(r){
+    if(!r.ok) return;
+    $('#pendBadge').textContent = r.count ? '(' + r.count + ')' : '';
+  }).catch(function(){});
+}
+
+function loadPending(){
+  $('#pendingOut').innerHTML = '<span class="sp"></span> 불러오는 중…';
+  api('plan_pending').then(function(r){
+    if(!r.ok){ $('#pendingOut').innerHTML = '<div class="warnbox">'+esc(r.error)+'</div>'; return; }
+    $('#pendCount').textContent = r.count||0;
+    $('#pendBadge').textContent = r.count ? '(' + r.count + ')' : '';
+    var pendHtml;
+    if(!r.pending.length){
+      pendHtml = '<div class="okbox">검사 대기 중인 계획이 없습니다.' +
+        ((r.rejected||[]).length ? ' 아래에 <b>수정 요청 보낸 내역 ' + r.rejected.length + '건</b>이 있습니다.' : '') + '</div>';
+    } else {
+      pendHtml = r.pending.map(function(p){
+        var rows = (p.days||[]).map(function(d){
+          return '<tr><td>'+esc(d.weekday)+' '+esc(d.date.slice(5))+'</td><td>'+esc(d.subject)+'</td><td>'+esc(d.title||'-')+'</td><td class="num">'+(d.pages||0)+'</td></tr>';
+        }).join('');
+        var key = esc(p.student)+'|'+esc(p.week_start);
+        return '<div class="pending"><div class="between"><h3>👑 '+esc(p.student)+' · '+esc(p.week_start)+'~'+esc(p.week_end||'')+'</h3>'+
+          '<span class="pill gray">올린 시각 '+esc(fmtAt(p.submitted_at||'-'))+'</span></div>'+
+          '<div class="muted">총 '+(p.stats.total_pages||0)+'쪽 · 공부일 '+(p.stats.study_days||0)+'일 · 담은 과목: '+esc(p.subject_text||'-')+(p.note?' · 메모: '+esc(p.note):'')+'</div>'+
+          '<table style="margin-top:8px">'+rows+'</table>'+
+          '<div class="row" style="margin-top:10px">'+
+            '<button class="btn" onclick="approvePlan(\''+key+'\')">승인(확정)</button>'+
+            '<input type="text" id="note_'+esc(p.student)+'_'+esc(p.week_start)+'" placeholder="수정 요청 메모 (예: 화요일은 과학 대신 국어)" style="flex:1;min-width:200px">'+
+            '<button class="btn warn" onclick="rejectPlan(\''+key+'\')">수정 요청</button>'+
+          '</div></div>';
+      }).join('');
+    }
+    $('#pendingOut').innerHTML = pendHtml;
+    renderRejected(r.rejected||[]);
+  }).catch(function(e){ $('#pendingOut').innerHTML = '<div class="warnbox">'+esc(e && e.message || e)+'</div>'; });
+}
+
+function fmtAt(s){ return String(s||'').replace('T',' ').replace(/-/g,'-'); }
+
+/** 수정 요청을 보낸 계획 — 검사 대기가 0건이어도 아래에 그대로 남는다 */
+function renderRejected(list){
+  if($('#rejCount')) $('#rejCount').textContent = list.length;
+  if($('#rejectedCard')) $('#rejectedCard').style.display = list.length ? '' : 'none';
+  if(!$('#rejectedOut')) return;
+  $('#rejectedOut').innerHTML = list.map(function(p){
+    var subj = (p.subjects||[]).map(function(x){
+      return esc(x.subject)+(x.pages?' '+x.pages+'쪽':'')+(x.weekdays&&x.weekdays.length?'('+esc(x.weekdays.join('·'))+')':'');
+    }).join(' · ');
+    var days = (p.days||[]).filter(function(d){ return d && d.kind === 'study'; })
+      .map(function(d){ return esc(d.weekday)+' '+esc(String(d.date||'').slice(5)); }).join(', ');
+    return '<div class="reject">'+
+      '<div class="between"><b>'+esc(p.student)+' · '+esc(p.week||p.week_start)+'~'+esc(p.week_end||'')+'</b>'+
+        '<span class="pill warn">수정 요청 보냄 '+esc(fmtAt(p.decided_at||'-'))+'</span></div>'+
+      '<div class="muted" style="margin-top:5px">총 <b>'+(p.pages||0)+'쪽</b> · 공부일 '+(p.study_days||0)+'일 · 학생이 올린 시각 '+esc(fmtAt(p.submitted_at||'-'))+'</div>'+
+      '<div class="muted">담은 과목: '+(subj||'-')+'</div>'+
+      (days?'<div class="muted">공부일: '+days+'</div>':'')+
+      '<div class="note">«'+esc(p.review_note||'다시 짜서 올려 주세요.')+'»</div>'+
+      '</div>';
+  }).join('');
+}
+
+function splitKey(key){ var p = key.split('|'); return { student: p[0], week: p[1] }; }
+
+function approvePlan(key){
+  var k = splitKey(key);
+  if(!confirm(k.student + ' ' + k.week + ' 계획을 승인하고 그 주의 공식 계획으로 확정할까요?')) return;
+  api('plan_approve', {student:k.student, week:k.week}).then(function(r){
+    if(!r.ok){ alert('승인하지 못했습니다: '+(r.error||'')); return; }
+    loadPending(); loadStatus();
+  }).catch(function(e){ alert('연결 오류: '+(e && e.message || e)); });
+}
+
+function rejectPlan(key){
+  var k = splitKey(key);
+  var el = document.getElementById('note_'+k.student+'_'+k.week);
+  var note = el ? el.value.trim() : '';
+  if(!note){ if(!confirm('메모 없이 수정 요청을 보낼까요?')) return; }
+  api('plan_reject', {student:k.student, week:k.week, note:note}).then(function(r){
+    if(!r.ok){ alert('보내지 못했습니다: '+(r.error||'')); return; }
+    loadPending();
+  }).catch(function(e){ alert('연결 오류: '+(e && e.message || e)); });
+}
+
+function loadStatus(){
+  return api('status').then(function(r){
+    if(!r.ok){ throw new Error(r.error||'실패'); }
+    state.status = r.students||[];
+    $('#statusDate').textContent = r.date;
+    $('#statusTable').innerHTML = '<tr><th>학생</th><th>방식</th><th>오늘</th><th class="num">제출</th><th>마지막 제출</th><th class="num">오답 대기</th></tr>'+
+      state.status.map(function(s){
+        return '<tr><td><b>'+esc(s.name)+'</b>'+(s.self_plan_king?' <span class="pill gold">👑</span>':'')+'<div class="muted">'+esc(s.device_group||'')+'</div></td>'+
+          '<td><span class="pill '+(s.app_mode==='homework'?'blue':'')+'">'+esc(s.app_mode_label||'')+'</span>'+(s.mode?'<div class="muted">'+esc(s.mode)+'</div>':'')+'</td>'+
+          '<td>'+(s.app_mode==='homework'
+              ? (s.hw_assigned
+                  ? esc((s.hw_books||[]).join(' / '))+' <span class="muted">숙제 '+s.hw_assigned+'개</span>'
+                  : '<span class="muted">숙제 없음</span>')
+              : (s.today_kind==='study'?esc(s.today_title||''):(s.today_kind==='review'?'복습일':(s.today_kind==='free'?'자율':'계획 없음')))
+                +(s.today_pages?'<div class="muted">'+s.today_pages+'쪽</div>':''))+'</td>'+
+          '<td class="num">'+(s.submitted?('<span class="pill">'+s.submitted+'/'+Math.max(s.photos_needed||0,1)+'</span>'):'<span class="pill warn">0</span>')+'</td>'+
+          '<td class="muted">'+esc(s.last_submitted_at||'-')+'</td>'+
+          '<td class="num">'+(s.redo_open||0)+'</td></tr>';
+      }).join('');
+    $('#wrongTable').innerHTML = '<tr><th>학생</th><th>오늘 범위</th><th class="num">오답 대기</th><th class="num">오늘 사진</th></tr>'+
+      state.status.map(function(s){
+        return '<tr><td><b>'+esc(s.name)+'</b></td><td class="muted">'+esc((s.today_books||[]).join(' / ')||'-')+'</td>'+
+          '<td class="num">'+(s.redo_open||0)+'</td><td class="num">'+(s.submitted||0)+'</td></tr>';
+      }).join('');
+  }).catch(function(e){ $('#statusTable').innerHTML = '<tr><td>'+esc(e && e.message || e)+'</td></tr>'; });
+}
+
+/* ---------- 🌱 다시 도전 대기 — 학생이 적은 답을 보고 [확인 완료] ---------- */
+function loadWrongOpen(){
+  var box = $('#wrongOpen'); if(!box) return;
+  box.innerHTML = '<div class="muted"><span class="sp"></span> 불러오는 중…</div>';
+  api('wrong_list').then(function(r){
+    if(!r.ok){ box.innerHTML = '<div class="warnbox">'+esc(r.error||'불러오지 못했습니다')+'</div>'; return; }
+    var items = r.items || [];
+    var head = '<div class="between"><h2>🌱 다시 도전 대기 <span class="pill">'+items.length+'</span></h2>'+
+               '<button class="btn ghost small" onclick="loadWrongOpen()">새로고침</button></div>';
+    if(!items.length){ box.innerHTML = head + '<div class="muted">대기 중인 문항이 없습니다.</div>'; return; }
+    box.innerHTML = head + '<table><tr><th>학생</th><th>교재·쪽·문항</th><th>학생이 적은 답</th><th>상태</th><th></th></tr>'+
+      items.map(function(x){
+        var ans = (x.attempts||[]).map(function(a){
+          return esc(a.answer||'') + (a.correct===true?' ✓':(a.correct===false?' ✗':''));
+        }).join(', ') || '<span class="muted">아직</span>';
+        return '<tr><td><b>'+esc(x.student)+'</b><div class="muted">'+esc(x.asked_date||'')+'</div></td>'+
+          '<td>'+esc(x.book||'')+' <span class="muted">p.'+esc(x.page||'')+' · '+esc(x.label||'')+'</span></td>'+
+          '<td>'+ans+'</td>'+
+          '<td>'+(x.self_fixed?'<span class="pill blue">스스로 해결</span>':'')+(x.has_answer_key?'':'<div class="muted">정답표 없음</div>')+'</td>'+
+          '<td><button class="btn ghost small" onclick="wrongDone(\''+esc(x.id)+'\')">확인 완료</button></td></tr>';
+      }).join('')+'</table>';
+  }).catch(function(e){ box.innerHTML = '<div class="warnbox">'+esc(e && e.message || e)+'</div>'; });
+}
+function wrongDone(id){
+  api('wrong_done', {id:id}).then(function(r){
+    if(!r.ok){ alert(r.error||'실패'); return; }
+    loadWrongOpen(); loadStatus();
+  }).catch(function(e){ alert('오류: '+(e && e.message || e)); });
+}
+
+function loadNotices(){
+  $('#noticeOut').innerHTML = '<span class="sp"></span>';
+  api('notices').then(function(r){
+    if(!r.ok){ $('#noticeOut').innerHTML = '<div class="warnbox">'+esc(r.error)+'</div>'; return; }
+    function block(title, arr, cls){
+      var head = '<h2 style="margin-top:14px">'+title+' <span class="pill '+cls+'">'+arr.length+'</span></h2>';
+      if(!arr.length) return head + '<div class="muted">없음</div>';
+      return head + arr.map(function(x){
+        return '<div class="msg"><b>'+esc(x.student)+'</b> → '+esc((x.to||[]).join(', '))+'<div style="margin-top:4px">'+esc(x.message||'')+'</div></div>';
+      }).join('');
+    }
+    $('#noticeOut').innerHTML = '<div class="okbox">발송 '+r.counts.sent+'건 · 대상만 생성(승인 전 발송 금지)</div>'+
+      block('독촉 대상', r.remind, 'warn') + block('완료 알림 대상(원장·담임)', r.complete, '');
+  }).catch(function(e){ $('#noticeOut').innerHTML = '<div class="warnbox">'+esc(e && e.message || e)+'</div>'; });
+}
+
+/* ---------- 앱 안 알림 — 배너 + 소리 + (허용 시) 브라우저 알림. 문자·메일 0건 ---------- */
+var NOTI = { timer: null, ms: 40000, audio: null, seenKey: 'clinic.teacher.seen.v1', started: false };
+
+function seenArr(){
+  try{ var v = JSON.parse(localStorage.getItem(NOTI.seenKey)||'null'); return Array.isArray(v) ? v : null; }catch(e){ return null; }
+}
+function seenSave(list){
+  try{ localStorage.setItem(NOTI.seenKey, JSON.stringify(list.slice(-300))); }catch(e){}
+}
+function unlockAudio(){
+  try{
+    var AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
+    if(!NOTI.audio) NOTI.audio = new AC();
+    if(NOTI.audio.state === 'suspended') NOTI.audio.resume();
+  }catch(e){}
+}
+if(window.addEventListener){
+  window.addEventListener('pointerdown', unlockAudio, true);
+  window.addEventListener('keydown', unlockAudio, true);
+}
+function chime(){
+  unlockAudio();
+  var a = NOTI.audio; if(!a) return;
+  try{
+    var t0 = a.currentTime;
+    [[880,0],[1174.7,0.16]].forEach(function(n){
+      var o = a.createOscillator(), g = a.createGain();
+      o.type = 'sine'; o.frequency.value = n[0];
+      g.gain.setValueAtTime(0.0001, t0+n[1]);
+      g.gain.exponentialRampToValueAtTime(0.16, t0+n[1]+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0+n[1]+0.34);
+      o.connect(g); g.connect(a.destination);
+      o.start(t0+n[1]); o.stop(t0+n[1]+0.4);
+    });
+  }catch(e){}
+}
+function notiState(){
+  var sup = ('Notification' in window);
+  var on = sup && Notification.permission === 'granted';
+  if($('#notiState')) $('#notiState').textContent = on ? '🔔 브라우저 알림 켜짐' : (sup ? '🔕 브라우저 알림 꺼짐 (화면 배너·소리는 항상)' : '화면 알림만 (이 브라우저는 알림 미지원)');
+  if($('#notiBtn')) $('#notiBtn').textContent = on ? '알림 상태 확인' : '알림 켜기';
+}
+function askNotifyTeacher(){
+  if(!('Notification' in window)){ alert('이 브라우저는 브라우저 알림을 지원하지 않아요. 앱을 열어 두면 화면 배너와 소리로 알려 드립니다.'); return; }
+  if(Notification.permission === 'granted'){ alert('브라우저 알림이 켜져 있어요. 앱을 열어 두면 새 소식이 배너·소리·알림으로 뜹니다.'); return; }
+  try{ Notification.requestPermission().then(function(){ notiState(); }).catch(function(){}); }
+  catch(e){}
+}
+function banner(html){
+  var el = $('#alertBar'); if(!el) return;
+  el.innerHTML = '<button class="x" onclick="closeAlert()">×</button>' + html;
+  el.classList.remove('hide');
+  try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){}
+}
+function closeAlert(){ var el = $('#alertBar'); if(el) el.classList.add('hide'); }
+function pushNoti(text){
+  if(!('Notification' in window) || Notification.permission !== 'granted') return;
+  try{ new Notification('위너스 클리닉 · 선생님', { body: text, tag: 'clinic-teacher' }); }catch(e){}
+}
+function statusLine(r){
+  var c = r.counts || {};
+  var p = c.pending === undefined ? (r.pending||[]).length : c.pending;
+  var s = c.submitted === undefined ? 0 : c.submitted;
+  return '검사 대기 ' + p + '건 · 오늘 제출 ' + s + '장';
+}
+/** 새 계획·새 제출 사진 확인 — 40초마다 + 앱을 다시 켰을 때 */
+function checkNotifyAlert(first){
+  if(!state.key) return;
+  if(document.hidden) return;
+  api('notify_poll').then(function(r){
+    if(!r.ok) return;
+    var items = [];
+    (r.pending||[]).forEach(function(x){ items.push({ key:'p|'+x.student+'|'+x.week+'|'+x.submitted_at, kind:'plan', x:x }); });
+    (r.submitted||[]).forEach(function(x){ items.push({ key:'s|'+x.student+'|'+x.signature, kind:'sub', x:x }); });
+    var keys = items.map(function(i){ return i.key; });
+    var prev = seenArr();
+    if(!prev){
+      /* 이 기기 첫 확인 — 지금 상태만 조용히 알려 주고 기준으로 저장(소리는 다음 새 소식부터) */
+      if(items.length) banner('<b>지금 알림</b> · ' + statusLine(r) +
+        '<div class="muted" style="margin-top:5px">앞으로 새 계획·제출 사진이 오면 이 자리에 배너·소리로 알려 드립니다.</div>');
+      seenSave(keys);
+      return;
+    }
+    var fresh = items.filter(function(i){ return prev.indexOf(i.key) < 0; });
+    if(fresh.length){
+      var plans = fresh.filter(function(i){ return i.kind==='plan'; }).map(function(i){ return i.x; });
+      var subs = fresh.filter(function(i){ return i.kind==='sub'; }).map(function(i){ return i.x; });
+      var lines = [];
+      plans.forEach(function(x){
+        lines.push('<b>👑 '+esc(x.student)+'</b> 님이 자기주도 계획을 올렸어요 · '+esc(x.week)+'주'+(x.pages?' · '+x.pages+'쪽':'')+
+          ((x.subjects||[]).length?' ('+esc(x.subjects.join('·'))+')':''));
+      });
+      subs.forEach(function(x){
+        lines.push('<b>'+esc(x.student)+'</b> 님이 '+(x.hw ? '숙제 사진 ' : '오늘 클리닉 사진 ')+x.count+'장을 올렸어요'+(x.books&&x.books.length?' ('+esc(x.books.join(', '))+')':''));
+      });
+      var now = new Date();
+      var hh = ('0'+now.getHours()).slice(-2)+':'+('0'+now.getMinutes()).slice(-2);
+      banner('<b>🔔 새 소식 '+hh+'</b><div style="margin-top:5px">'+lines.join('<br>')+'</div>'+
+        '<div class="muted" style="margin-top:6px">알자 문자·메일은 보내지 않습니다 — 이 화면 알림만입니다. '+
+        '<a href="#" onclick="closeAlert();tab(\'approve\');return false;">승인 탭 열기</a></div>');
+      chime();
+      pushNoti(lines.map(function(s){ return s.replace(/<[^>]+>/g,''); }).join(' / '));
+      loadPendingCount();
+      if(!$('#tab-approve').classList.contains('hide')) loadPending();
+      if(!$('#tab-status').classList.contains('hide')) loadStatus();
+    }
+    seenSave(keys);
+  }).catch(function(){});
+}
+function startPolling(){
+  notiState();
+  if(NOTI.started) { checkNotifyAlert(false); return; }
+  NOTI.started = true;
+  if(NOTI.timer) clearInterval(NOTI.timer);
+  NOTI.timer = setInterval(function(){ checkNotifyAlert(false); }, NOTI.ms);
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) checkNotifyAlert(false); });
+  window.addEventListener('focus', function(){ checkNotifyAlert(false); });
+  checkNotifyAlert(true);
+}
+function stopPolling(){ if(NOTI.timer){ clearInterval(NOTI.timer); NOTI.timer=null; } NOTI.started=false; }
+
+/* 시작 */
+$('#week').value = nextMonday();
+if(state.key) { $('#keyInput').value = state.key; }
+renderWeekdays();
+renderSubjects();
+boot();
+</script>
+</body>
+</html>
+

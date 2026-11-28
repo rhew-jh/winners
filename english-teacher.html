@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<script>window.WINNERS_BRIDGE={mode:"english",exec:"https://script.google.com/macros/s/AKfycbwQDZu4RIj8S8whycUx3f2lR6NSQaAW1XLHfIHp3Od6GIXEC7MLvP7jn5zS03Tq1Q-UaQ/exec"};</script>
+<script src="bridge.js"></script>
+
+  <title>WINNERS 영어 교사</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { --navy:#16306b; --red:#c8102e; --ink:#1d2330; --muted:#6b7480; --line:#dde2e9; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; margin:0; padding:14px; background:#f4f6f9; color:var(--ink); }
+    header { display:flex; align-items:center; justify-content:flex-start; gap:10px; margin-bottom:12px; }
+    header h1 { font-size:17px; margin:0; color:var(--navy); }
+    header .sub { font-size:11px; color:var(--muted); }
+    .tabs { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+    .tabs button { flex:1 1 30%; padding:11px 6px; border:1px solid var(--line); background:#fff; color:#48566b; border-radius:11px;
+                   font-size:13px; font-weight:700; cursor:pointer; }
+    .tabs button.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+    .card { background:#fff; border-radius:14px; padding:14px; margin-bottom:12px; box-shadow:0 1px 4px rgba(16,32,64,.08); }
+    .card h2 { font-size:13px; margin:0 0 10px; color:var(--navy); letter-spacing:.2px; }
+    label { display:block; font-size:12px; color:#4b5361; margin:8px 0 5px; }
+    select, input { width:100%; padding:11px; border:1px solid var(--line); border-radius:10px; font-size:15px; background:#fff; }
+    button.act { width:100%; margin-top:10px; padding:13px; border:0; border-radius:11px; background:var(--navy); color:#fff; font-size:15px; font-weight:700; cursor:pointer; }
+    button.act.sec { background:#48566b; }
+    button.act:disabled { opacity:.55; }
+    .row { display:flex; gap:8px; } .row > * { flex:1; }
+    .badge { display:inline-block; font-size:11px; padding:3px 9px; border-radius:20px; background:#e8eefc; color:var(--navy); font-weight:700; }
+    .badge.ok { background:#e6f6ec; color:#157347; }
+    .badge.wait { background:#fff4e5; color:#a35b00; }
+    .badge.err { background:#fde8ea; color:#b3261e; }
+    .note { font-size:12.5px; line-height:1.6; background:#f1f4f9; border-radius:10px; padding:11px; margin-top:10px; }
+    .note.err { background:#fdecec; color:#8c1d18; }
+    .note.ok { background:#eaf7ee; color:#125c33; }
+    .note.warn { background:#fff6e6; color:#7a4a00; }
+    .muted { color:var(--muted); font-size:12px; }
+    table { width:100%; border-collapse:collapse; font-size:12px; }
+    th, td { text-align:left; padding:6px 5px; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { color:var(--muted); font-weight:600; font-size:11px; }
+    .hide { display:none !important; }
+    .counts { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+    .scroll { max-height:420px; overflow:auto; }
+    button.act.mini { padding:8px; font-size:12px; margin-top:0; border-radius:9px; }
+    .days { display:flex; gap:5px; flex-wrap:wrap; margin-top:4px; }
+    .days label { display:flex; align-items:center; gap:5px; width:auto; margin:0; background:#f2f5fa; border-radius:9px; padding:7px 9px; font-size:12.5px; font-weight:700; color:#41567a; }
+    .days input { width:auto; }
+    .steps { margin-top:6px; }
+    .steps .st { display:flex; align-items:center; gap:7px; background:#f4f7fc; border-radius:10px; padding:8px 9px; margin-bottom:6px; font-size:13px; font-weight:700; }
+    .steps .st input { flex:1; padding:8px; font-size:13px; }
+    .steps .st button { border:1px solid var(--line); background:#fff; border-radius:8px; width:30px; height:32px; font-weight:800; color:#41567a; }
+  </style>
+</head>
+<body>
+<header>
+  <img id="logo" alt="WINNERS" style="height:30px;width:auto;display:block">
+  <div>
+    <h1>WINNERS 영어 · 교사 화면</h1>
+    <div class="sub">새 교재 등록 · 등록 대기열 · 재시험 배정 (테스트 환경)</div>
+  </div>
+</header>
+
+<div class="card">
+  <h2>교사 토큰</h2>
+  <input id="token" placeholder="교사 토큰" autocomplete="off">
+  <div class="muted" style="margin-top:6px">토큰은 이 브라우저에만 저장됩니다(localStorage).</div>
+</div>
+
+<div class="tabs">
+  <button id="tabUpload" class="on">교재 업로드</button>
+  <button id="tabQueue">등록 대기열</button>
+  <button id="tabAssign">배정·재시험</button>
+  <button id="tabElem">초등 단어·진도</button>
+  <button id="tabDevice">교사 기기 인증</button>
+</div>
+
+
+<div id="paneUpload">
+  <div class="card">
+    <h2>새 교재 PDF 업로드</h2>
+    <label>교재명 (필수)</label>
+    <input id="bookName" placeholder="예: 자동등록_테스트교재">
+    <label>학년 (선택)</label>
+    <input id="bookGrade" placeholder="예: 중2 / 공통영어2">
+    <label>PDF 파일 — 학생용·답지 통합본도 됩니다</label>
+    <input id="bookFile" type="file" accept="application/pdf,.pdf">
+    <button id="btnUpload" class="act">업로드 (대기열에 접수)</button>
+    <div id="upMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">업로드하면 Drive <b>WINNERS_새교재_업로드대기</b> 폴더에 저장되고
+      대기열에 <b>대기</b> 행이 생깁니다. 문항·답지 분리는 자동 처리(process_uploads)가 이어서 합니다.</div>
+  </div>
+</div>
+
+
+<div id="paneQueue" class="hide">
+  <div class="card">
+    <h2>교재등록대기열 현황</h2>
+    <div class="counts" id="qCounts"></div>
+    <button id="btnQueue" class="act sec">새로고침</button>
+    <div class="scroll" style="margin-top:10px">
+      <table>
+        <thead><tr><th>접수</th><th>교재명</th><th>상태</th><th>문항</th><th>품질</th><th>비고</th></tr></thead>
+        <tbody id="qBody"></tbody>
+      </table>
+    </div>
+    <div id="qMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">5초마다 자동 새로고침합니다.</div>
+  </div>
+</div>
+
+
+<div id="paneAssign" class="hide">
+  <div class="card">
+    <h2>재시험 배정</h2>
+    <label>학생 찾기</label>
+    <div class="row">
+      <div><input id="stQ" placeholder="이름·ID·반 검색 (예: 최유성, ST001)"></div>
+      <div><select id="stGrade"><option value="">전체 학년</option></select></div>
+    </div>
+    <label>학생 <span id="stCnt" class="muted">(불러오는 중…)</span></label>
+    <select id="sid" size="6"></select>
+    <label>교재 — 승인 교재에서 고르면 아래에 담깁니다</label>
+    <div id="wa16AssignBar">
+      <input type="search" id="bkQ" placeholder="교재명·출판사 검색 (예: Bricks, Reading)">
+      <button type="button" class="fav" id="bkFav">⭐ 즐겨찾기</button>
+      <span class="cnt" id="bkCnt"></span>
+    </div>
+    <select id="bkSel"></select>
+    <div id="wa16Chips"></div>
+    <input id="bookIds" type="hidden">
+    <div class="muted" id="bkHint" style="margin-top:6px">교재를 고르면 위 목록에 담깁니다. 담은 교재는 ✕ 로 뺄 수 있어요.</div>
+    <div class="row">
+      <div><label>문항수</label><input id="count" value="5"></div>
+      <div><label>추가 랜덤</label><input id="extra" value="2"></div>
+    </div>
+    <div style="margin-top:8px"><label>분할 출제 (교재 1권 · 한 묶음씩)</label><select id="splitMode"><option value="">분할 안 함 — 전체에서 무작위</option><option value="A">묶음별 100점 — 오답 + 랜덤 2</option><option value="B">누적 진도 — 랜덤 2 없이 틀린 문제 누적</option></select></div><div style="margin-top:6px"><label>한 묶음 문항 수</label><input id="splitChunk" value="6"></div><button id="btnAssign" class="act">배정하기</button>
+    <div id="asMsg" class="note hide"></div>
+  </div>
+  <div class="card" id="wa16SetupCard">
+    <h2>🔧 운영 세팅 점검</h2>
+    <div class="muted">초등 접근코드·4자리 비밀번호(핀)와 테스트학생, 숙제 전용 링크 상태를 확인합니다. 여러 번 눌러도 안전합니다.</div>
+    <button id="wa16SetupBtn" class="act sec">세팅 실행 · 상태 보기</button>
+    <div id="wa16SetupMsg" class="note hide"></div>
+  </div>
+  <div class="card">
+    <h2>교재 승인 (테스트 승인 원장)</h2>
+    <input id="approveIds" placeholder="MAT-... (쉼표로 여러 개)">
+    <button id="btnApprove" class="act sec">승인 추가</button>
+    <div id="apMsg" class="note hide"></div>
+  </div>
+  <div class="card">
+    <h2>학생 회차 현황</h2>
+    <button id="btnState" class="act sec">현황 보기</button>
+    <div id="stMsg" class="note hide"></div>
+    <div style="margin-top:8px">
+      <label>교사 확정 — 이번 회차 오답 번호 (없으면 비움)</label>
+      <input id="wrongSlots" placeholder="예: 1,3">
+      <button id="btnConfirm" class="act sec">채점 확정 → 다음 회차 생성</button>
+      <button id="btnRetry" class="act sec">출제실패 재시도 · 조판메타 캐시 비우기</button>
+      <div id="cfMsg" class="note hide"></div>
+    </div>
+  </div>
+</div>
+
+
+<div id="paneElem" class="hide">
+  <div class="card">
+    <h2>초등 학생 설정</h2>
+    <label>학생</label>
+    <select id="eStudent"><option value="">불러오는 중…</option></select>
+    <div class="row">
+      <div><label>사용 단어장</label><select id="eVocab"><option value="">-</option></select></div>
+      <div><label>학년</label><input id="eGrade" placeholder="초4"></div>
+    </div>
+    <div class="row">
+      <div><label>시작 단어번호</label><input id="eStart" type="number" min="1"></div>
+      <div><label>현재 진도번호</label><input id="eCur" type="number" min="1"></div>
+    </div>
+    <label>영어 수업 요일</label>
+    <div class="days" id="eDays"></div>
+    <div class="row">
+      <div><label>하루 새 단어 수</label><input id="eDaily" type="number" min="1"></div>
+      <div><label>시험 문항 수</label><input id="eCount" type="number" min="1"></div>
+      <div><label>새 단어 비율(%)</label><input id="eRatio" type="number" min="0" max="100" placeholder="80"></div>
+    </div>
+    <label>추가 학습 순서 (위에서부터 진행)</label>
+    <div class="steps" id="eSteps"></div>
+    <button class="act sec mini" id="eAddStep" style="width:auto;padding:8px 12px">+ 단계 추가</button>
+    <button class="act" id="eSave">설정 저장 (변경 이후 시험부터 적용)</button>
+    <div id="eSaveMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">저장하면 현재 진도·수업요일·비율이 다음에 만드는 시험지부터 적용됩니다.</div>
+  </div>
+
+  <div class="card">
+    <h2>초등 커리큘럼 (교재 · Unit · 오늘 순서)</h2>
+    <div class="muted" id="cWho">학생을 고르세요.</div>
+    <label>교재</label>
+    <select id="cBook"><option value="">교재 불러오는 중…</option></select>
+    <div class="row">
+      <div><label>현재 Unit</label><select id="cUnit"><option value="">-</option></select></div>
+      <div><label>이 Unit 자료</label><div id="cUnitInfo" class="muted" style="padding-top:8px">-</div></div>
+    </div>
+    <label>오늘 학습 순서 (위에서부터 진행)</label>
+    <div id="cSteps"></div>
+    <button class="act sec mini" id="cAddStep" style="width:auto;padding:8px 12px">+ 단계 추가</button>
+    <button class="act" id="cSave">커리큘럼 저장 (학생 태블릿에 바로 적용)</button>
+    <div id="cMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">학생 화면 맨 위 <b>오늘의 학습 순서</b>가 이 순서로 바뀝니다. 태블릿형(교재 단어·스크립트)은 화면에서 바로 풀고 자동 채점되고, 종이형(단어장·워크시트)은 그 Unit만 인쇄 목록에 올립니다.</div>
+  </div>
+  <div class="card">
+    <h2>오늘 현황판</h2>
+    <button class="act sec mini" id="eRefresh" style="width:auto;padding:8px 14px">새로고침</button>
+    <div class="scroll" style="margin-top:10px">
+      <table><thead><tr><th>학생</th><th>오늘 상태</th><th>채점</th><th>재시험·완료</th><th>추가 학습</th><th>재출력</th></tr></thead><tbody id="eBody"></tbody></table>
+    </div>
+    <div id="eBoardMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">채점 이력은 <b>교사QR</b>(휴대폰 QR 채점)과 <b>학생태블릿</b>을 구분해 보여 줍니다.</div>
+  </div>
+
+  <div class="card">
+    <h2>초등 태블릿 학습 현황 (첫 시도 점수 · 학부모 QR)</h2>
+    <button class="act sec mini" id="kRefresh" style="width:auto;padding:8px 14px">새로고침</button>
+    <div class="scroll" style="margin-top:10px">
+      <table><thead><tr><th>학생</th><th>교재·Unit</th><th>오늘 단계</th><th>첫 시도 점수</th><th>녹음 QR</th></tr></thead><tbody id="kBody"></tbody></table>
+    </div>
+    <div id="kMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">첫 시도 점수는 <b>처음 제출한 점수</b>로 고정되고, 다시 풀면 연습 점수만 괄호로 올라갑니다. QR을 학부모님께 보내면 로그인 없이 아이 녹음을 들을 수 있습니다.</div>
+  </div>
+  <div class="card">
+    <h2>시험지 원장 (최근)</h2>
+    <div class="scroll"><table><thead><tr><th>시험일</th><th>학생</th><th>회차</th><th>문항</th><th>상태</th><th>채점경로</th><th>점수</th></tr></thead><tbody id="eLedgerBody"></tbody></table></div>
+    <div id="eLedgerMsg" class="note hide"></div>
+  </div>
+</div>
+
+
+<div id="paneDevice" class="hide">
+  <div class="card">
+    <h2>등록된 교사 휴대폰</h2>
+    <button class="act sec mini" id="dRefresh" style="width:auto;padding:8px 14px">목록 새로고침</button>
+    <div class="scroll" style="margin-top:10px">
+      <table><thead><tr><th>교사</th><th>기기</th><th>발급</th><th>만료</th><th>상태</th><th>권한</th></tr></thead><tbody id="dBody"></tbody></table>
+    </div>
+    <div id="dMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">해제하면 그 휴대폰은 즉시 QR 화면이 차단됩니다(“원장님에 의해 접근 권한이 해제되었습니다”). 다시 쓰려면 그 기기에서 인증을 다시 해야 합니다.</div>
+  </div>
+  <div class="card">
+    <h2>PIN / 학생 접근코드 (테스트 환경)</h2>
+    <button class="act sec mini" id="dInit" style="width:auto;padding:8px 14px">초기 설정 값 보기</button>
+    <div id="dInitMsg" class="note hide"></div>
+    <div class="muted" style="margin-top:8px">테스트 학생(<b>ELTEST01·ELTEST02</b>)의 접근코드와 QR PIN 을 확인합니다.</div>
+  </div>
+</div>
+
+<script>
+  function $(id) { return document.getElementById(id); }
+  function show(el, text, kind) {
+    el.className = 'note' + (kind ? ' ' + kind : '');
+    el.classList.remove('hide');
+    el.innerHTML = text;
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function badge(text, kind) { return '<span class="badge ' + (kind || '') + '">' + esc(text) + '</span>'; }
+  function badgeFor(state) {
+    var s = String(state || '');
+    if (s === '등록완료') return badge(s, 'ok');
+    if (s === '처리중') return badge(s, 'wait');
+    if (s.indexOf('오류') === 0) return badge(s, 'err');
+    return badge(s, 'wait');
+  }
+
+   
+  function call(payload) {
+    return new Promise(function (resolve, reject) {
+      payload.token = $('token').value;
+      google.script.run
+        .withSuccessHandler(function (r) { resolve(r); })
+        .withFailureHandler(function (e) { reject((e && e.message) || e); })
+        .wae3tRun(payload);
+    });
+  }
+
+   
+  var TABS = [['tabElem', 'paneElem'], ['tabDevice', 'paneDevice'], ['tabUpload', 'paneUpload'], ['tabQueue', 'paneQueue'], ['tabAssign', 'paneAssign']];
+  var queueTimer = null;
+  function selectTab(id) {
+    TABS.forEach(function (t) {
+      $(t[0]).className = (t[0] === id ? 'on' : '');
+      $(t[1]).classList.toggle('hide', t[0] !== id);
+    });
+    if (id === 'tabQueue') { loadQueue(); startTimer(); } else { stopTimer(); }
+    if (id === 'tabElem' && !STUDENTS.length) loadElemStudents();
+    if (id === 'tabElem' && typeof loadKidBoard === 'function') loadKidBoard();
+    if (id === 'tabDevice') loadDevices();
+  }
+  function startTimer() { stopTimer(); queueTimer = setInterval(loadQueue, 5000); }
+  function stopTimer() { if (queueTimer) { clearInterval(queueTimer); queueTimer = null; } }
+
+   
+  function readBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () { resolve(String(fr.result).replace(/^data:[^,]*,/, '')); };
+      fr.onerror = function () { reject('파일을 읽지 못했습니다.'); };
+      fr.readAsDataURL(file);
+    });
+  }
+   
+  TABS.forEach(function (t) {
+    $(t[0]).onclick = function () { selectTab(t[0]); };
+  });
+
+  $('btnUpload').onclick = function () {
+    var name = $('bookName').value.trim();
+    var f = $('bookFile').files[0];
+    if (!name) { show($('upMsg'), '교재명을 입력하세요.', 'err'); return; }
+    if (!f) { show($('upMsg'), 'PDF 파일을 선택하세요.', 'err'); return; }
+    if (!/\.pdf$/i.test(f.name) && f.type !== 'application/pdf') { show($('upMsg'), 'PDF 파일만 올릴 수 있습니다.', 'err'); return; }
+    if (f.size > 20 * 1024 * 1024) { show($('upMsg'), 'PDF가 너무 큽니다(20MB 이내): ' + Math.round(f.size / 1024) + 'KB', 'err'); return; }
+    $('btnUpload').disabled = true;
+    show($('upMsg'), 'PDF를 읽는 중… (' + Math.round(f.size / 1024) + 'KB)');
+    readBase64(f).then(function (b64) {
+      show($('upMsg'), '업로드 중… ' + Math.round(b64.length / 1024) + 'KB (base64)');
+      return call({ action: 'upload_book', 교재명: name, 학년: $('bookGrade').value.trim(), 파일명: f.name, base64: b64 });
+    }).then(function (r) {
+      if (!r.ok) { show($('upMsg'), '업로드 실패: ' + esc(r.error || ''), 'err'); return; }
+      show($('upMsg'), '✅ 접수 완료 — 등록ID <b>' + esc(r.등록ID) + '</b><br>' +
+        '파일 <b>' + esc(r.파일명) + '</b> · ' + Math.round(r.크기 / 1024) + 'KB · 상태 <b>' + esc(r.상태) + '</b><br>' +
+        '분리·등록은 자동 처리에서 이어집니다. <b>등록 대기열</b> 탭에서 진행을 확인하세요.', 'ok');
+      $('bookFile').value = '';
+      loadQueue();
+    }).catch(function (e) {
+      show($('upMsg'), '오류: ' + esc(e), 'err');
+    }).then(function () { $('btnUpload').disabled = false; });
+  };
+
+   
+  function loadQueue() {
+    if (!$('token').value) return;
+    call({ action: 'book_queue' }).then(function (r) {
+      if (!r.ok) { show($('qMsg'), '오류: ' + esc(r.error || ''), 'err'); return; }
+      var c = r.건수 || {};
+      $('qCounts').innerHTML = ['전체', '대기', '처리중', '등록완료', '오류'].map(function (k) {
+        return badge(k + ' ' + (c[k] || 0), k === '등록완료' ? 'ok' : (k === '오류' ? 'err' : (k === '대기' || k === '처리중' ? 'wait' : '')));
+      }).join(' ');
+      var rows = (r.대기열 || []).map(function (o) {
+        return '<tr><td class="muted">' + esc((o.접수시각 || '').slice(5, 16)) + '</td>' +
+          '<td>' + esc(o.교재명) + '</td>' +
+          '<td>' + badgeFor(o.상태) + (o.진행단계 ? '<div class="muted">' + esc(o.진행단계) + '</div>' : '') + '</td>' +
+          '<td>' + escape0(o.문항수) + '</td>' +
+          '<td>' + esc(o.품질 || '') + '</td>' +
+          '<td class="muted">' + esc(o.오류사유 || o.비고 || '') + '</td></tr>';
+      }).join('');
+      $('qBody').innerHTML = rows || '<tr><td colspan="6" class="muted">대기열이 비어 있습니다.</td></tr>';
+      show($('qMsg'), '기준 시각 ' + esc(r.at), '');
+    }).catch(function (e) { show($('qMsg'), '연결 오류: ' + esc(e), 'err'); });
+  }
+  function escape0(v) { return esc(v == null ? '' : v); }
+  $('btnQueue').onclick = loadQueue;
+
+   
+  $('btnAssign').onclick = function () {
+    var ids = $('bookIds').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!ids.length) { show($('asMsg'), '교재ID를 입력하세요.', 'err'); return; }
+    var _sm = $('splitMode') ? $('splitMode').value : '';
+    if (_sm) {
+      if (ids.length !== 1) { show($('asMsg'), '분할 출제는 교재 1권만 배정할 수 있습니다. 교재를 하나만 담아 주세요.', 'err'); return; }
+      if (!$('sid').value) { show($('asMsg'), '학생을 고르세요.', 'err'); return; }
+      $('btnAssign').disabled = true;
+      call({ action: 'assign19', studentId: $('sid').value, bookId: ids[0],
+             chunk: Number(($('splitChunk') ? $('splitChunk').value : '6') || 6), mode: _sm, teacher: '교사' })
+        .then(function (r) {
+          if (!r.ok) { show($('asMsg'), '분할 배정 실패: ' + esc(r.error || ''), 'err'); return; }
+          show($('asMsg'), '✅ ' + esc(r.message) + ' (' + esc(r.배정ID) + ')', 'ok');
+        }).catch(function (e) { show($('asMsg'), '연결 오류: ' + esc(e), 'err'); })
+        .then(function () { $('btnAssign').disabled = false; });
+      return;
+    }
+    $('btnAssign').disabled = true;
+    call({ action: 'assign', studentId: $('sid').value, bookIds: ids,
+           count: Number($('count').value || 5), extraRandomCount: Number($('extra').value || 0),
+           teacher: '교사' }).then(function (r) {
+      if (!r.ok) { show($('asMsg'), '배정 실패: ' + esc(r.error || ''), 'err'); return; }
+      show($('asMsg'), '✅ 배정 ' + esc(r.배정ID) + ' · 1회차 ' + esc(r.문항수) + '문항 · 추가 랜덤 ' +
+        esc(r.extraRandomCount) + '문제', 'ok');
+      $('btnState').click();
+    }).catch(function (e) { show($('asMsg'), '연결 오류: ' + esc(e), 'err'); })
+      .then(function () { $('btnAssign').disabled = false; });
+  };
+  $('btnApprove').onclick = function () {
+    var ids = $('approveIds').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!ids.length) { show($('apMsg'), '교재ID를 입력하세요.', 'err'); return; }
+    call({ action: 'approve_book', bookIds: ids }).then(function (r) {
+      if (!r.ok) { show($('apMsg'), '승인 실패: ' + esc(r.error || ''), 'err'); return; }
+      show($('apMsg'), '✅ 승인 교재 ' + r.승인교재.length + '권: ' + esc(r.추가.join(', ')), 'ok');
+    }).catch(function (e) { show($('apMsg'), '연결 오류: ' + esc(e), 'err'); });
+  };
+  $('btnState').onclick = function () {
+    call({ action: 'teacher_state', studentId: $('sid').value }).then(function (r) {
+      if (!r.ok) { show($('stMsg'), '오류: ' + esc(r.error || ''), 'err'); return; }
+      var lines = ['<b>' + esc(r.studentId) + '</b> ' + (r.예외학생 ? badge('예외학생', 'wait') : '')];
+      if (r.배정) {
+        lines.push('배정 ' + esc(r.배정.배정ID) + ' · ' + esc(r.배정.학습주제));
+        if (r.배정.분할) lines.push('<b>' + esc(r.배정.분할.모드명) + '</b> · ' + r.배정.분할.묶음 + '/' + r.배정.분할.묶음수 + '묶음 · 이번 범위 ' + esc(r.배정.분할.이번범위) + '번 · 전체 ' + r.배정.분할.전체 + '문항' + (r.배정.분할.모드 === 'B' ? (' · 누적 오답 ' + r.배정.분할.누적수 + '문항(' + esc(String((r.배정.분할.누적번호 || []).join(','))) + ')') : ''));
+      }
+      else lines.push('배정 없음');
+      (r.라운드 || []).forEach(function (x) {
+        lines.push(x.회차 + '회차 ' + badge(x.상태, x.상태 === '100점완료' ? 'ok' : (x.상태 === '출제실패' ? 'err' : '')) +
+          ' · ' + x.문항수 + '문항 · 점수 ' + (x.점수 == null ? '-' : x.점수) + ' · 오답 ' + x.오답수 +
+          (x.PDF파일ID ? ' · PDF ' + esc(String(x.PDF파일ID).slice(0, 8)) : ''));
+      });
+      show($('stMsg'), lines.join('<br>'), '');
+    }).catch(function (e) { show($('stMsg'), '연결 오류: ' + esc(e), 'err'); });
+  };
+  $('btnConfirm').onclick = function () {
+    var st = $('stMsg').innerHTML;
+    var slots = $('wrongSlots').value.split(',').map(function (s) { return Number(s.trim()); }).filter(function (n) { return n > 0; });
+    call({ action: 'teacher_state', studentId: $('sid').value }).then(function (r) {
+      if (!r.ok || !r.배정) throw new Error(r.error || '배정이 없습니다.');
+      var rounds = r.라운드 || [];
+      var last = rounds.length ? rounds[rounds.length - 1] : null;
+      if (!last) throw new Error('회차 기록이 없습니다.');
+      return call({ action: 'teacher_confirm', studentId: r.studentId, assignmentId: r.배정.배정ID,
+                    round: last.회차, wrongSlots: slots, teacher: '선생님' });
+    }).then(function (res) {
+      if (!res.ok) { show($('cfMsg'), '확정 실패: ' + esc(res.error || ''), 'err'); return; }
+      var comp = res.구성 ? (' · 오답 ' + res.구성.오답 + ' + 추가랜덤 ' + res.구성.추가랜덤 +
+        ' (남은 미출제 ' + res.구성.남은미출제 + ')') : '';
+      show($('cfMsg'), '✅ ' + esc(res.status) + (res.다음회차 ? ' → ' + res.다음회차 + '회차 ' + res.다음문항수 + '문항' : '') + comp, 'ok');
+      $('btnState').click();
+    }).catch(function (e) { show($('cfMsg'), '오류: ' + esc(e), 'err'); });
+  };
+  $('btnRetry').onclick = function () {
+    call({ action: 'teacher_state', studentId: $('sid').value }).then(function (r) {
+      if (!r.ok || !r.배정) throw new Error(r.error || '배정이 없습니다.');
+      return call({ action: 'retry_pdf', studentId: r.studentId, assignmentId: r.배정.배정ID });
+    }).then(function (res) {
+      return call({ action: 'reload_manifest' }).then(function (c) {
+        show($('cfMsg'), (res.ok ? '재시도: ' + esc(res.status) + (res.pdfFileId ? ' · PDF ' + esc(String(res.pdfFileId).slice(0, 10)) : '') : '재시도 실패: ' + esc(res.error || '')) +
+          ' · 조판메타 캐시 ' + (c.ok ? '비움' : '실패'), res.ok ? 'ok' : 'err');
+      });
+    }).catch(function (e) { show($('cfMsg'), '오류: ' + esc(e), 'err'); });
+  };
+
+   
+  var STUDENTS = [], VOCABS = [], DAYS = ['월', '화', '수', '목', '금', '토'];
+  function noteHide(el) { if (el) el.classList.add('hide'); }
+  function loadElemStudents() {
+    if (!$('token').value) { show($('eSaveMsg'), '교사 토큰을 먼저 입력하세요.', 'warn'); return; }
+    call({ action: 'elem_settings_get' }).then(function (r) {
+      if (!r.ok) { show($('eSaveMsg'), '오류: ' + esc(r.error || ''), 'err'); return; }
+      STUDENTS = r.설정 || [];
+      $('eStudent').innerHTML = STUDENTS.map(function (x) { return '<option value="' + esc(x.학생ID) + '">' + esc(x.학생이름) + ' (' + esc(x.학생ID) + ' · ' + esc(x.학년) + ')</option>'; }).join('') || '<option value="">등록된 초등 학생이 없습니다</option>';
+      loadVocabs(); if (typeof cLoadBooks === 'function') cLoadBooks();
+    }).catch(function (e) { show($('eSaveMsg'), '연결 오류: ' + esc(e), 'err'); });
+  }
+  function loadVocabs() {
+    call({ action: 'elem_vocab_list' }).then(function (r) {
+      VOCABS = (r && r.단어장) || [];
+      $('eVocab').innerHTML = VOCABS.map(function (v) { return '<option value="' + esc(v.vocab_id) + '">' + esc(v.교재명) + ' · ' + v.총단어수 + '단어</option>'; }).join('') || '<option value="">단어장 없음</option>';
+      fillStudent();
+    });
+  }
+  function fillStudent() {
+    var s = STUDENTS.filter(function (x) { return String(x.학생ID) === String($('eStudent').value); })[0];
+    if (!s) return;
+    $('eGrade').value = s.학년 || ''; $('eVocab').value = s.단어장ID || '';
+    $('eStart').value = s.시작단어번호 || 1; $('eCur').value = s.현재단어번호 || 1;
+    $('eDaily').value = s.일일새단어수 || 10; $('eCount').value = s.시험문항수 || 10; $('eRatio').value = s.새단어비율 || 80;
+    var on = String(s.수업요일 || '').split(',').map(function (x) { return x.trim(); });
+    $('eDays').innerHTML = DAYS.map(function (d) { return '<label><input type="checkbox" value="' + d + '"' + (on.indexOf(d) >= 0 ? ' checked' : '') + '>' + d + '</label>'; }).join('');
+    renderSteps(s.추가학습순서 || []); if (typeof cFillStudent === 'function') cFillStudent();
+    noteHide($('eSaveMsg'));
+  }
+  $('eStudent').onchange = fillStudent;
+  function renderSteps(list) {
+    $('eSteps').innerHTML = '';
+    (list || []).forEach(function (x, i) {
+      var nm = typeof x === 'string' ? x : (x.학습 || x.이름 || '');
+      var isWT = typeof x === 'object' && String(x.유형 || '').toUpperCase() === 'WORD_TEST';
+      var extra = isWT ? (' · ' + (x.교재명 || '') + ' ' + (x.단원 || '') + ' · ' + (x.문항 ? x.문항.length : 0) + '문항') : '';
+      var row = document.createElement('div'); row.className = 'st';
+      row.innerHTML = '<span>' + (i + 1) + '</span><input value="' + esc(nm) + '"><span class="muted" style="width:auto;font-size:11px">' + esc(extra) + '</span><button data-up="' + i + '">↑</button><button data-del="' + i + '">✕</button>';
+      $('eSteps').appendChild(row);
+    });
+    Array.prototype.forEach.call($('eSteps').querySelectorAll('button[data-up]'), function (b) { b.onclick = function () { moveStep(Number(b.getAttribute('data-up')), -1); }; });
+    Array.prototype.forEach.call($('eSteps').querySelectorAll('button[data-del]'), function (b) { b.onclick = function () { moveStep(Number(b.getAttribute('data-del')), 'del'); }; });
+  }
+  function readSteps() { return Array.prototype.map.call($('eSteps').querySelectorAll('input'), function (i) { return i.value; }); }
+  function currentExtraObjects() {
+    var s = STUDENTS.filter(function (x) { return String(x.학생ID) === String($('eStudent').value); })[0];
+    return (s && s.추가학습순서) ? s.추가학습순서.filter(function (x) { return typeof x === 'object'; }) : [];
+  }
+  function moveStep(i, dir) {
+    var list = readSteps(), objs = currentExtraObjects();
+    if (dir === 'del') list.splice(i, 1); else { var j = i + dir; if (j < 0 || j >= list.length) return; var t = list[i]; list[i] = list[j]; list[j] = t; }
+    renderSteps(list.map(function (nm) { var f = objs.filter(function (o) { return (o.학습 || '') === nm; })[0]; return f ? f : nm; }));
+  }
+  $('eAddStep').onclick = function () { var l = readSteps(); l.push(''); renderSteps(l); };
+  $('eSave').onclick = function () {
+    var id = $('eStudent').value;
+    if (!id) { show($('eSaveMsg'), '학생을 고르세요.', 'err'); return; }
+    var days = Array.prototype.filter.call($('eDays').querySelectorAll('input'), function (c) { return c.checked; }).map(function (c) { return c.value; });
+    if (!days.length) { show($('eSaveMsg'), '영어 수업 요일을 하나 이상 체크하세요.', 'err'); return; }
+    var s0 = STUDENTS.filter(function (x) { return String(x.학생ID) === String(id); })[0] || {};
+    var objs = currentExtraObjects();
+    var order = readSteps().filter(function (x) { return String(x).trim() !== ''; }).map(function (nm) { var f = objs.filter(function (o) { return (o.학습 || '') === nm; })[0]; return f ? f : nm; });
+    $('eSave').disabled = true;
+    call({ action: 'elem_settings_save', 학생ID: id, 학생이름: s0.학생이름 || id, 학년: $('eGrade').value.trim(), 학습구분: '초등',
+      단어장ID: $('eVocab').value, 시작단어번호: Number($('eStart').value || 1), 현재단어번호: Number($('eCur').value || 1),
+      수업요일: days.join(','), 일일새단어수: Number($('eDaily').value || 10), 시험문항수: Number($('eCount').value || 10),
+      새단어비율: Number($('eRatio').value || 80), 추가학습순서: order }).then(function (r) {
+      $('eSave').disabled = false;
+      if (!r.ok) { show($('eSaveMsg'), '저장 실패: ' + esc(r.error || ''), 'err'); return; }
+      var v = r.설정 || {};
+      show($('eSaveMsg'), '✅ 저장했습니다 — ' + esc(v.학생이름 || id) + ' · 수업요일 ' + esc(v.수업요일) + ' · 현재 ' + v.현재단어번호 + '번 · ' + v.시험문항수 + '문항 · 새단어 ' + v.새단어비율 + '%<br>추가 학습: ' + esc((v.추가학습순서 || []).map(function (x) { return typeof x === 'string' ? x : x.학습; }).join(' → ') || '없음'), 'ok');
+      loadElemStudents(); loadBoard();
+    }).catch(function (e) { $('eSave').disabled = false; show($('eSaveMsg'), '연결 오류: ' + esc(e), 'err'); });
+  };
+  function loadBoard() {
+    if (!$('token').value) return;
+    var rows = [];
+    Promise.all(STUDENTS.map(function (s) {
+      return call({ action: 'elem_teacher_today', studentId: s.학생ID }).then(function (t) { rows.push({ s: s, t: (t && t.ok) ? t : null }); }).catch(function () { rows.push({ s: s, t: null }); });
+    })).then(function () {
+      rows.sort(function (a, b) { return String(a.s.학생ID) < String(b.s.학생ID) ? -1 : 1; });
+      $('eBody').innerHTML = rows.map(function (o) {
+        var t = o.t;
+        if (!t) return '<tr><td>' + esc(o.s.학생이름) + '</td><td colspan="5" class="muted">상태 없음</td></tr>';
+        var last = t.최근회차;
+        var stat = t.상태 === '수업없음' ? badge('수업일 아님', 'wait') : (t.전체완료일 ? badge('오늘 전체 완료', 'ok') : (t.단어완료일 ? badge('단어 완료(100점)', 'ok') : (last ? badge(last.상태, last.상태 === '미채점' ? 'wait' : 'ok') : badge('시험 전'))));
+        var grade = last ? (last.상태 === '미채점' ? badge('미채점', 'wait') : (last.채점경로 === '교사QR' ? badge('교사 QR 채점', 'ok') : badge('학생 태블릿', '')) + ' <b>' + (last.점수 == null ? '-' : last.점수) + '점</b>') : '-';
+        var re = (t.재시험있음 ? '재시험 ' + (last ? last.회차 : '') + '회차' : '재시험 없음') + (t.단어완료일 ? '<div class="muted">다음 단어 ' + (t.설정 ? t.설정.현재단어번호 : '') + '번</div>' : '');
+        var ex = t.추가학습 ? (t.추가학습.현재 ? ('<b>' + esc(t.추가학습.현재.학습) + '</b><div class="muted">완료 ' + t.추가학습.완료수 + ' / ' + t.추가학습.순서.length + '</div>') : (t.추가학습.전체완료 ? badge('전체 완료', 'ok') : '<span class="muted">-</span>')) : '<span class="muted">-</span>';
+        var uid = last ? last.exam_uid : (t.오늘시험 ? t.오늘시험.exam_uid : '');
+        var rp = uid ? '<button class="act sec mini" data-reprint="' + esc(uid) + '" data-sid="' + esc(o.s.학생ID) + '">재출력</button>' : '-';
+        return '<tr><td><b>' + esc(t.학생이름) + '</b><div class="muted">' + esc(t.학생ID) + '</div></td><td>' + stat + '</td><td>' + grade + '</td><td>' + re + '</td><td>' + ex + '</td><td>' + rp + '</td></tr>';
+      }).join('');
+      Array.prototype.forEach.call($('eBody').querySelectorAll('button[data-reprint]'), function (b) {
+        b.onclick = function () { b.disabled = true; call({ action: 'elem_reprint', studentId: b.getAttribute('data-sid'), examUid: b.getAttribute('data-reprint'), teacher: '교사' }).then(function (r) { b.disabled = false; show($('eBoardMsg'), r.ok ? ('재출력 접수: ' + esc(r.출력요청ID) + ' (인쇄대기열)') : ('재출력 실패: ' + esc(r.error || '')), r.ok ? 'ok' : 'err'); }).catch(function (e) { b.disabled = false; show($('eBoardMsg'), '연결 오류: ' + esc(e), 'err'); }); };
+      });
+      loadLedger();
+    });
+  }
+  function loadLedger() {
+    call({ action: 'elem_list_ledger' }).then(function (r) {
+      var list = (r && r.원장) || [];
+      list = list.sort(function (a, b) { return String(b.시험일 + b.exam_uid) < String(a.시험일 + a.exam_uid) ? -1 : 1; }).slice(0, 25);
+      $('eLedgerBody').innerHTML = list.map(function (x) { return '<tr><td class="muted">' + esc(x.시험일) + '</td><td>' + esc(x.학생ID) + '</td><td>' + x.회차 + '</td><td>' + x.문항수 + '</td><td>' + badge(x.상태, x.상태 === '미채점' ? 'wait' : 'ok') + '</td><td>' + (x.채점경로 === '교사QR' ? badge('교사QR', 'ok') : esc(x.채점경로)) + '</td><td>' + (x.점수 == null ? '-' : x.점수) + '</td></tr>'; }).join('') || '<tr><td colspan="7" class="muted">원장이 비어 있습니다.</td></tr>';
+    }).catch(function (e) { show($('eLedgerMsg'), '연결 오류: ' + esc(e), 'err'); });
+  }
+  $('eRefresh').onclick = function () { if (!STUDENTS.length) loadElemStudents(); else loadBoard(); };
+   
+  function loadDevices() {
+    if (!$('token').value) { show($('dMsg'), '교사 토큰을 먼저 입력하세요.', 'warn'); return; }
+    call({ action: 'teacher_list_devices' }).then(function (r) {
+      if (!r.ok) { show($('dMsg'), '오류: ' + esc(r.error || ''), 'err'); return; }
+      $('dBody').innerHTML = (r.기기 || []).map(function (d) {
+        var active = d.권한상태 === '활성';
+        return '<tr><td><b>' + esc(d.교사이름 || d.교사ID) + '</b></td><td class="muted">' + esc(d.기기라벨 || '') + '<div>' + esc(d.device_token) + '</div></td><td class="muted">' + esc((d.발급일시 || '').slice(0, 16)) + '</td><td class="muted">' + esc((d.만료일시 || '').slice(0, 16)) + '</td><td>' + badge(d.권한상태, active ? 'ok' : 'err') + '</td><td>' + (active ? '<button class="act mini sec" data-revoke="' + esc(d.device_token_full) + '">권한 해제</button>' : '-') + '</td></tr>';
+      }).join('') || '<tr><td colspan="6" class="muted">등록된 기기가 없습니다.</td></tr>';
+      Array.prototype.forEach.call($('dBody').querySelectorAll('button[data-revoke]'), function (b) {
+        b.onclick = function () { if (!window.confirm('이 기기의 QR 권한을 해제할까요? 해제하면 그 휴대폰은 바로 차단됩니다.')) return; b.disabled = true; call({ action: 'teacher_revoke_device', deviceToken: b.getAttribute('data-revoke') }).then(function (res) { b.disabled = false; show($('dMsg'), res.ok ? ('✅ ' + res.해제건수 + '건 권한 해제 — 대상 기기는 즉시 차단됩니다.') : ('해제 실패: ' + esc(res.error || '')), res.ok ? 'ok' : 'err'); loadDevices(); }).catch(function (e) { b.disabled = false; show($('dMsg'), '연결 오류: ' + esc(e), 'err'); }); };
+      });
+    }).catch(function (e) { show($('dMsg'), '연결 오류: ' + esc(e), 'err'); });
+  }
+  function initDeviceTab() {
+    $('dRefresh').onclick = loadDevices;
+    $('dInit').onclick = function () { call({ action: 'elem_admin_init' }).then(function (r) { if (!r.ok) { show($('dInitMsg'), '오류: ' + esc(r.error || ''), 'err'); return; } var codes = r.학생코드 || {}; show($('dInitMsg'), 'QR PIN <b>' + esc(r.PIN || '') + '</b> · 교사 토큰 <b>' + esc(r.교사토큰 || '') + '</b><br>' + Object.keys(codes).map(function (k) { return esc(k) + ' → <b>' + esc(codes[k]) + '</b>'; }).join('<br>'), 'warn'); }); };
+  }
+  var LOGO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAACWCAMAAAAxBqvPAAAAYFBMVEUjGBUMUKUoDArdEzwfFRIeFBEGUaEBKXX1BBILSZerBy3JEDb+AGxwAQ8JRIwAensAfv4APrYAAP+4DzKqAFTCEDQA///sFEAJPoL/AP+7EDJ/AH8JPHwAAAALTqDXEjqc/+VVAAAAIHRSTlP7+Bbxm18TCwqtGasCBWYCAggBWANwAf9QAZwCUAD+/kX7kegAABZsSURBVHja7Z0Jd6M4EoBBIISxwVcn6e5ZOf//Xw6HMTqqSkII25NF7+3uzAZz6KPukkjkNn70SLYp2ABvYwO8jQ3wNjbAUQdjG90fDPggr1dZPvFtGob/kc96/7wBsxqSC5aMw/d+a8nHn3BZrwg428sqyqnyuY9IjsfTJ+Cc5OCcTP8fg2+NLwSMgpgPmE13lcvV3uJaVt/ZPAmusWdN3LPI+DiCADMX4Lvky4Bb85VgxgcuOWfPALxUjVXlNfuu5K/5ilbOn0XlkZJVAPNpyvTpjybB010ZZ1sJcOI/YZiG3mfzdPRjEo05jA2YgYcSgFmuTX6Ss+gSrOPVzvemgMtWQ39nWe2to9E3eC5g+IlY/hgKqWkQgO3JV+4jDuA8wa8BAGZ80K6cvQ5wJVsN/e2po2vlKSBOHrPoBJzQAwcMTX57UEzA4CXGa1iANXPCXgW409CtCHvqaA69wVM44zOLjmOCAfMEmf06GuAcuSf+xoB7Dd3r6FC+xCPT/GAvOBQw+jsWTYLxW2PvC/iuof10NEsWAmaaEESUYO3Ehv2OBhi9RHtOthZgliSLkguDhvbU0XmyWIJ17cniSbB5aTPGWg6Ymd4509/VdQBzj0l1a2g/Ha0qaP0N9gTMjFeEyfiA8/aZWm+gNrNqywFzVSfUfbpSeRK2CmBtxnhAtuuhob+/r04dnRuTxGcCZtYvyExXnkP/qEwaq6d0C1Ncvvt59HtZCpipeWMG/V+rSDBLkkVGeNTQvY4+uJLx6gMwUtq4F98piEHzZS1SRgiSPRGtXA+JPR5XghmUaF8fMHdpPE8N3QL+rqW3imKgxnVJMAdDSAamXqeM75Aye6RklbPwPvPBnmODAcDPkGAw5AvS0J2OPvipKAbIjUccnM9yx3L4OFsNMNuL5jy3ZmUVFZ0vAywdgK2HdblZ5cEY5UNDDzra/jutoph/LKLdam4mjJmXsOOACXPB43vRDKyGeAGuEc8FEfHE7bRo8mrnHr+VAdpoADDkuzok2Exg50BNgLkSKhTgGs9kRYuDtTtmammj1xJegBma7mQuBT3GCNj4R1b7bJ8ZQwVs/q09eGr1oFU0J2pyqjF96DPzxrlHqJRTErx6LpoRUQP3luBZgKnnAT2q6/fXDMDtwR/VQUIuo+13cb3+8zgECJdzhOEEmcj5EoBxvR4rF43xzeUagBl2LYYTrvcaUXpkWYWWZ+920x0moX9iPnU3MyVIA169HszJdHdkwOrFGNevhiH+JeWHP999bVhtSy5yN2CGe805UnWzKopcSxgRgDVz0HcjMFbHLBdyqpwRDTAz39XcSPFCbundpzq0atpTiD+kntrSprYrEXKvVCUuU2gMoLrrNZO1Ho1AiY66G/c2R6CDiUUr+HOcbyTANaCKmCkoOZMY40pWmQfhrIuKy+Bi0mMWDeeWUy029jvxEEsXYCgH1mfB+KDhebymuxx9lX3DJKU9JYckmIE6ipsOC8NjJbchzvYV5I/z2YA1xc6hBh1Kd4MZQSB5AM8ZouOWNt2p8z8+EmNB1SQg0cFzbC454ZXqavqPW03vJVR5qP3rhdx6K3LsjRsfCczfWUlwoKuSuW8rImCmFEQcje8IYKYMGzDqlFL9fvPUdKeey3pGRRiQHq79BtcnPSPWuUYcUhR9ESlPaMAemiWP2hcNVETyVpri5KLRljeAMJHSIuKlLjqqZtT8c+ivHJgGdH5mxJs1CNjtHCwGzHTZuxcxtVc6DmCOTi4zfS9OJi0xNZ3tJdnbwSk1saj5wG3rJdL4/gzAbiURqZpEIuS+ieny0KppEPBVupaxcPwOLMMxc9CpLBYIOO9MxFIV/TTASjmUeXRdoOOXWimcRus9u1vge6OTc/sGdBXNZjRxeeSVucQASxQsHxs83gzwkH+B68EUXvUNcPVylKAZvh5mLVJi+tKoJBZgoPmDSRzwI05SfTKuWfmlgJ2P4gXYTMBAgDkV5U75Ou7dy2FY4IMX2H6Yrnb96JxiSwGbBWQuJQEY1iK1WsBcBpgtBqy73a13lmOAXesIreIq0ox1hW1w7bmSlD16pgZ1ze37Wga4f1HvYgkmTFXAdV2PmgTpslgKmLuMvEuCB987z7XKCdbR4cXYs9vOEOGr9zpDbmWN7vn9UWEvA8zAf3FJ8EqAEc++80OYTy4a9uxXXQBeY0lKTx2NsMt5PAkOyjqsBXhq52X2slYWApitCbj1obXc1VwdTdx5zmIAnhNUoZ58TMCgR61rmXcCXKkaOssUxNnVQ4Rzz0T09No/Xv/pkYA/+kclgIpm6wJW3iikFj0TMF9VRddKNnqv5qY9dLQzq8N9ZD8P6o5BATOwkDe9ROtIcHTAdSwNXWmVX62EWNE62qemxDxMJP3ORgLslSZ/DeB8TRVdKStWOp51OeWmnX40g0tJXr1/zwF8j67kzDT5swB3URWDZsPoBvAY2BSWDw29v/c+l62a/vLR0dpEcsyxZq8EzB2+17MAG50IXE8W1PZszPdK8YKwVflVOj0cOtrsFp2SWu4tHF4H2IdbdMCIkWPIbEQDXMqPzGrMKccSoktHo2c3YtANsMoUiutWBNxraLPyexjUtMuPxgHXPBpgPPrN//MSvDrgYWusznuu4U4PUkerz6G+lN0/x5NgrzhrA4yY4PKadeq5AtD3aprW0fhOV3k8J8sj648CzkMSYD8JcFdoQBpz+k6PL0pH675/zqcupdxtG54D2JmGYW8KuFNPEcKkbntZWz2ratpXR89PZW2AIxssBDDVN9k15NEbsvh0qW6AXwd4yFXioyxdGVEH4ZxtgF8LuHQAdJaTeJj8boCfJsGLRx4gvj8GMOPQ2pWfBRhcJuXC+1MAO5zP/GcA7hirbVm5o9fT5hMVsPRus18eB8cbz/6wzPIb9j/i/R5p+/IZ8ALOgvvmYwP8w8cGeAO8jQ3wNjbA29gAb2MDvI0N8P/NuByFEKfx3z6LsxCFwAAfwGEXyEvPA6GDqHOUzqsQT+o63eV0POnjeCJOZx98dJwOG0fvXxXF+SyK48Wb7nFCq+cET2ed8ibB7zUKcfQ56rP9L3FudrtdOo72n5vfYkB9PmqAu5alPTQq+Y923m77bWhkerNECR6WVfeSLHyCScBlDRyAdlTVwMW65qzpXZe77uG1ke7EJywtFyl29ijk4+hCNunOdxzH352AmzBH09xlr3AwLrr/NLv0lgKjPY8lwf3nsoHx9WE0wVTy+gUeuNfaneDzfVf3Qom9gbfWEdcCho7AmiL7He7MgzPlgG5ugXmQAgNsH3wrpqPP4OmQcR4BF16/aontmvPIEMcrmuFwe4xPV1wuuooGdwG0VgOgWyToX1P/Be2FMh2T0UvwW8DgRZCWqwq4WGYCBmaigSexB2wdrAFuoJm9gbNdqIC9ftFRbhWG/DyifFmD0FXOspNnFTACzv70X41tFah1LFbQXijTybIsBHCW1YcyIuBUyKMn4PRpgB+UG0SI29toaLrDGQzAFbw7jWn4fsG7FFmf+Syh92VSB2GAsS9NBgNOH3PwZoAHQgIi3L6Su9TjRCZgbH+pTN/aohqWd0FHatYaVgijCQ4FjOzDEAi4nwTxroDb394aebL5itTrNCZgVPfqgA/ortu6rJcAQ8VMhwJu3xFgR8JgwJ1lLd4XcKdmi0C+NmAMnaF5a3y3XqkflxEKNhgwqKQXAE7FSbwrYEDFiIsvXxswonx1pUiYYEUBD1ES5ZGHSzC0yHcJ4J1tht8IsOnpF372FwSs7zClmtbSxwT3U/9rehGu5BsQDhj6Zns44H4GxTsDTluh1fjOEH4dsNcungfiwxeq9oReBHXKFwAGYqVFgO1Y6b0AK2b4KItZ2t1wsv6AqQ4NMGGC9SMr4EVQX4AlEmyb4WWAU9OReSfA7RCPC5/8FTQEuAKlU5soRI3bDjck6ar1XALYjpWWAAZipfcCPN3eUZ7TJRKMbcSrZKgq+tNE05FQlKQ6YYsAa2eKADj9rcvwUwE/ctD4GTzekNQ+DRAHIx6yMpuwFrdFFFLlWrJ6GeD2VId4gDsz/CleBFirM6BOwv3KWIh0LyHp57EBI/WG1o0+TDVA+rNiI0LoXdGM+UIJzv5qZngxYD1WCgXsUU2C5HNgV6DmdYyUCuy1StOxOihEM3CGAcMusmI60d3UTRmFbLUWwC4E3H1D5Vc0wGasFAg4Tel6MAKYXcRQ1xNYrN4MpDC90ZIcelDuwcCx2Q0FKQswXG9QnNbS9XXA0QiD4bJqOJcCzr4rZS+O5YBval4/DHCLylWjJyT4cjxLPGF+Jkxw++dPIcazFKJv9GjsciFqhJWJL2XmAlxhb0KWqc+/WIK1WGk54JZOcVkKWBTnwh5+gPsyoLghBPuTfEq4vq87EO3tF6ceMWSDa2jiMzL/CGphQNnrCZPFgDWNvxjwTWvvCAaMdIh4AsbC3CnVAf61vTGrqN1JtCjspjskTzWGtw4TrDGyCOo55OWA1ZTlcsCdo/JQ0q8CLC4NJcFtFAw+RHE5Ik1bFuASzjRPltVhgsdJBb1treEjAuAuZRkPsJr0fRVgxE2+69qLLGAN3oBtKfJytAFXsA4ePVbTBGd/EYqALtdNcBQJnmKlOIAfmvBVgJFU88PFF0iPXesgXvxWNsBx7tiqYWHL/lqchnfhYEdJRutPDMDTmxcD8BSOvJ0EN5QNvvWhdqvevZaugEZ4dFitKCq7mpzu7wIQb+kNPZEAf1fDxliRAN/Og7ILBnwUR3NcFtvgx4uDF7VvO0F2UieSzDWPM2//0fre9v1QKF7Wd4mMA3h69WIA7ts7LoskWC6UYDhZfc+UnNGHSPsGPXkqnIDBatHDdbKCKIvj3dIegD9o1YFYEnx3zaMBHmKlUMBFQYXBHnHwOaWqSQLPgPe56DPaLJ9I2ggP0meb4AwU1BoCaHbfRgLcXe8QDfDoz0QsNqjlegdgATtRk2kXVL9dj7hBECd0M+Sdmm2C9/JvBpVqgVqSYYKjAR7aO8IAp3DK8vhkwOIkWkEXEuM7nUHI1JWPgxEnkjbCg7dq6d0W2kcGFZQgPWBs1BwAuF/bZI2vzgyHAG5nDlif0gqUeJEEN1gQ9OjJEs7LDohPFwrwFV2QwMwJvgLhbkfJjpKyb90EhwGusPaOMMACyQuK5wLuLfVQAHJ1VXr0zIJLXhJ9USBc5wXEsoaan2uolmSt/AxS0Vjj9p8gFZ0WDZLaFU8E7Gjp0DvfC5/rAktetAXgQL2hn3qLWo8dDIdsPW+a4DDAVfWdIa9fEGBsRVrxVMD0z4W24v8k09QHcSO1pc+JY2lKX8iHTDCQu+7UOXAOs5c5DDDSuX2VQYAbUON1Xs3lTQB3siiMhSs3z3hP/WHiWFyWfTNZ255xBUlOL0+2FjBMcBjgskRX1wQBlmhq0J7G5wNOTUyjkvZbWqi+Gom+9QJSyIdMMBAPdf1wtfPz6mGAW3cqgzt7QwD/RhaCdJHL6yW495YuVob5jHjb5IqIRLpWl3Ua1jbBB1Ch17bCtExwqIpGEjFf1zDA509MSb8YMLH+u42VbunMKyeuLRr6xkrbBFegQu++XpO5tl4IBFxXWO92mARj9Zv/vRRwn5RiWN5R+MrwdOlEuoxw97FWSJ6A3HXn8ny4THAw4PYQUEnbhUs/FX1Gm9FfB/jeBYvuwSK6/ksfO/wIoRPpWJ3Sfy/OTl2UiJdlCbu9/1EwYGdf2Bwnqyuy+a6Xf6aK7rdgOVJ77Pi4Wq0ZFgDgEu5ZB00wtNShm1gooIoE2N0YNg+wZ+DxZMB9hRffRkmcpGhuqUebmQB2ugM3X6gtaGOhDkp1mCewdz8KB9xd8iseYI8E70u86G7BlPDYKIs+B7sAgMF6Q13D1QNInqoaX3UYAXB5qLMsHuBhV7MogMFN58LDpIbsAGr/xtAM9pSsK2zAoA6sKriHDmqvu9YWuV8yHmB6G4n5gMWniAK4JQINdQPE2XEwsdmdvBTjEgbnCtLE3PjRnq3yivhNtkLPPmpXFLwMMLalVyDgITsUA3DI0pUbsazwJiS9Y2W3hIERiNNUftqAISOcVR9fcBu7nT382leORPRSwGUlsywe4PZ/dlEAC2AcnS07O7RS2L4yJ8eWs72fjGY+xjYxAzC07uRqOja4NGV7Mwy2TfAywK5lrHMBXwqfOuuKbbOYBrGUtICNMb5ueNABibnjhaUBvz505llWoyuBs0z/ObgL8DLAPrHSDMA+sdJ6gMX5gmUuUmthGWiUzzjhwcuyVDSQvchQaGajR5bpnVpAFLwYsHsVzSzAHpX0VSVYSJam7np/r5CPIOGGVAHWju92jegvsSjcVuhOE7wYsDtWmgXYvcHYuisbjsSyFG3RY1eBgHbXZGTDjwn44BQPZa6prdHAfrsogN2x0jzAzi0CV166gq7eb4xVrV33s7AugywdRlS0m5m6n4rL4YE34l8M2BkrzQPsjJVCvWjFkSa7KguJNlVqgIdlKuYaBmxteHqGnCxskSGyvF6yb3LjDsgERwCM1JVCAfexUvr8OPixCQsuwsay5WGZiiwKt/7plMoFAEzuZ2ct5nYp9CtggmMAdtSV5gKWBaN3qwrMZDXNuM0O3ReNMdrZgLtycX8v3WeShDif0N09UgnFwR5GWJ1ql0KvVpJgR6w0HzAZK4Vvo/RYW0QDFlhT7cOyT+3aCmNJ7s9zv7QF2BGE6N/foN0d5Fs4MQDTtzkbMF1XCt0ITVk8RgPuHGnazdL68cfP5zS/+52xqKVWoATT+2FpJrh0Aa7WAlzCPXihgMm60uqAsVCnPeAIbzzgtUfeBQTs2tFO3wyUVuigCY4DmFQeAYCPRF1pfcDo8t+x5HDx3s3ftN/2p+0cG2LpM12SRhg0wZEAU7FSAGAqVlofcOcDkL+fDfg2brBkA3ZZtz+uLi6HCY4FmKgrhQAmF9GvDbgFiMY6QYAnBxwCfPXfkJuKV7I9KMCxABPGJAjwpWBoYWZ1wFjVcrzRmYC7SsVRoiq6mhHZUpsMwyY4GmD8VQwCjNeVngD4iOvoIgTwtH8W9HlZRhhhs75LKfRqXQnGLx4GGM8orQ+Y0tFiNmB1i2QAMOEZtyD++Cp001yvABiLlQIBY7HSMwA7Kg6zALdXPUkCMOWeWi1WuBFGouCYgLFYKRQw0oP3DMB40bBvrfIH3KfPTpICTBlhu76LR1VX5JvOEQFj21wHAkZipWcARqt+ww5tMwB3Hz28kICJr8jaC42IjcIRJlEBI/vzhQKGvdmnABb4nu5nf8Bpan6RMZEzjDAU2WIK3fho9FqAa+Rj1IGA+x689BWAqcaOx4fJffqpqT06XDUiqL6LGeEvzATHBdylWrJ4gLvvE92eBDjVAOOdGeO9NjvqGzz93xq7cSuB58zbBMNbt1AmODJgKFZaABhSlU+RYEpHP3ZDa3Z2jeFRmWwKqPUygSethAc8yXOOxQ53HVHh3RJl5TgdsIvkmVr4Yx8uHKfDB/0r48r0OYZ/EI1CeYLbV4g/gc7aRG7DtMPve2vF+fPeQyuKpvn9+3fTFOLeh/cpwLUuyQwpK8s5B6N3WTuPrmecDbwBXXtcrJ2c6WU/jsOB06HjQv5KOC9sH3UpzuLTBo/u+75J8H9TyxwfCvxIb1W9Af7hYwO8Ad7Gf3n8C4ONmGHvHUYtAAAAAElFTkSuQmCC';
+  try { if ($('logo')) $('logo').src = LOGO; } catch (e) {}
+  setTimeout(function () { try { initDeviceTab(); } catch (e) {} try { google.script.run.withSuccessHandler(function (r) { if (r && r.ok && r.logo) $('logo').src = r.logo; }).withFailureHandler(function () {}).ui3Logo(); } catch (e) {} try { if ($('token').value) loadElemStudents(); } catch (e) {} }, 0);
+   
+  (function () {
+    var saved = '';
+    try { saved = localStorage.getItem('wae3t_teacher_token') || ''; } catch (e) {}
+    if (saved) $('token').value = saved;
+    $('token').addEventListener('change', function () {
+      try { localStorage.setItem('wae3t_teacher_token', $('token').value); } catch (e) {}
+    });
+  })();
+</script>
+
+
+<style>
+  .kqr{ width:88px; height:88px; background:#fff; border:2px solid #eef1f6; border-radius:8px; padding:3px; display:inline-block; vertical-align:middle; }
+  .kqr svg{ width:100%; height:100%; display:block; }
+  .cstep{ display:flex; align-items:center; gap:6px; background:#f7f9fc; border:1px solid #e3e9f2; border-radius:9px; padding:7px 9px; margin-bottom:6px; font-size:12px; }
+  .cstep .n{ flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:#16306b; color:#fff; font-weight:700; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .cstep .nm{ flex:1 1 auto; font-weight:600; }
+  .cstep .md{ flex:0 0 auto; font-size:10px; padding:2px 6px; border-radius:999px; background:#e8eef9; color:#31456e; }
+  .cstep .md.t{ background:#e6f7f1; color:#0f7a63; }
+  .cstep button{ flex:0 0 auto; border:1px solid #d7dfec; background:#fff; color:#31456e; border-radius:7px; width:24px; height:24px; font-size:12px; cursor:pointer; }
+  .cstep button:disabled{ opacity:.35; }
+  .crank{ font-size:11px; color:#8a94a6; margin:2px 0 8px; }
+  .kbadge{ display:inline-block; font-size:10px; font-weight:700; padding:2px 7px; border-radius:999px; background:#eef1f6; color:#5a6b86; margin-right:4px; }
+  .kbadge.ok{ background:#e6f7ee; color:#11794e; }
+  .kbadge.wait{ background:#fff4e0; color:#a86a0c; }
+  .kscore{ font-size:11px; line-height:1.5; }
+  .kqrbox{ display:flex; align-items:center; gap:8px; }
+  .kqrbox .btns{ display:flex; flex-direction:column; gap:4px; }
+  .kqrbox .btns button, .kqrbox .btns a{ font-size:10px; padding:4px 8px; border-radius:6px; border:1px solid #d7dfec; background:#fff; color:#31456e; text-decoration:none; cursor:pointer; text-align:center; }
+</style>
+
+<script>
+ 
+var CSTEP = [
+  ['vocab_paper', '단어장 시험', 'paper'],
+  ['book_word', '교재 단어', 'tablet'],
+  ['book_script', '스크립트 대본', 'tablet'],
+  ['book_worksheet', 'Unit 워크시트', 'paper'],
+  ['book_test', 'Unit 테스트', 'paper']
+];
+var CBOOKS = [], CUNITS = [], CORDER = [], CCUR = {}, CSEL = '';
+
+function cStepDef(k) {
+  for (var i = 0; i < CSTEP.length; i++) if (CSTEP[i][0] === k) return CSTEP[i];
+  return [k, k, 'tablet'];
+}
+function cBookById(id) {
+  for (var i = 0; i < CBOOKS.length; i++) if (CBOOKS[i].교재ID === id) return CBOOKS[i];
+  return null;
+}
+function cMsg(text, kind) { var el = $('cMsg'); if (!el) return; el.className = 'note ' + (kind || ''); el.innerHTML = text; el.classList.remove('hide'); }
+function cMsgHide() { var el = $('cMsg'); if (el) el.classList.add('hide'); }
+
+function cLoadBooks() {
+  if (!$('token').value) return;
+  call({ action: 'elem_unit_list' }).then(function (r) {
+    if (!r || !r.ok) { cMsg('교재 목록을 불러오지 못했습니다: ' + esc((r && r.error) || ''), 'err'); return; }
+    CBOOKS = r.교재 || [];
+    $('cBook').innerHTML = CBOOKS.map(function (b) {
+      return '<option value="' + esc(b.교재ID) + '">' + esc(b.교재명) + ' · ' + (b.단원수 || 0) + '단원</option>';
+    }).join('') || '<option value="">등록된 교재 없음</option>';
+    cFillStudent();
+  }).catch(function (e) { cMsg('연결 오류: ' + esc(e), 'err'); });
+}
+
+function cRenderUnits(keepUnit) {
+  var b = cBookById($('cBook').value);
+  CUNITS = (b && b.단원목록) ? b.단원목록 : [];
+  $('cUnit').innerHTML = CUNITS.map(function (u) {
+    var files = u.files || {};
+    var kinds = ['word', 'script', 'worksheet', 'test'].filter(function (k) { return files[k] && files[k].driveFileId; });
+    return '<option value="' + esc(u.단원) + '">' + esc(u.단원) + (u.제목 ? ' · ' + esc(u.제목) : '') + ' [' + kinds.join('/') + ']</option>';
+  }).join('') || '<option value="">단원 없음</option>';
+  if (keepUnit) {
+    var hit = CUNITS.filter(function (u) { return u.단원 === keepUnit; })[0];
+    if (hit) $('cUnit').value = keepUnit;
+  }
+  cUnitInfo();
+}
+
+function cUnitInfo() {
+  var b = cBookById($('cBook').value);
+  var u = (b && b.단원목록 ? b.단원목록 : []).filter(function (x) { return x.단원 === $('cUnit').value; })[0];
+  var el = $('cUnitInfo');
+  if (!u) { el.textContent = '-'; return; }
+  var files = u.files || {};
+  var parts = [];
+  [['word', '단어'], ['script', '스크립트'], ['worksheet', '워크시트'], ['test', '테스트']].forEach(function (k) {
+    var f = files[k[0]];
+    if (f && f.driveFileId) parts.push(k[1] + ' ' + (f.쪽수 || 1) + '쪽');
+  });
+  el.innerHTML = (parts.length ? parts.join(' · ') : '<span class="muted">파일 없음</span>') +
+    '<div class="crank">단어 ' + (u.단어문항 || 0) + '문항 · 대본 ' + (u.스크립트문항 || 0) + '문항</div>';
+}
+
+function cRenderOrder() {
+  var box = $('cSteps');
+  if (!CORDER.length) { box.innerHTML = '<div class="crank">아직 단계가 없습니다. 아래 [+ 단계 추가]로 순서를 만드세요.</div>'; return; }
+  box.innerHTML = CORDER.map(function (k, i) {
+    var d = cStepDef(k);
+    return '<div class="cstep"><span class="n">' + (i + 1) + '</span><span class="nm">' + esc(d[1]) + '</span>' +
+      '<span class="md' + (d[2] === 'tablet' ? ' t' : '') + '">' + (d[2] === 'tablet' ? '태블릿' : '종이') + '</span>' +
+      '<button data-up="' + i + '"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+      '<button data-down="' + i + '"' + (i === CORDER.length - 1 ? ' disabled' : '') + '>↓</button>' +
+      '<button data-del="' + i + '">✕</button></div>';
+  }).join('');
+  Array.prototype.forEach.call(box.querySelectorAll('[data-up]'), function (b) {
+    b.onclick = function () { cMove(Number(b.getAttribute('data-up')), -1); };
+  });
+  Array.prototype.forEach.call(box.querySelectorAll('[data-down]'), function (b) {
+    b.onclick = function () { cMove(Number(b.getAttribute('data-down')), 1); };
+  });
+  Array.prototype.forEach.call(box.querySelectorAll('[data-del]'), function (b) {
+    b.onclick = function () { CORDER.splice(Number(b.getAttribute('data-del')), 1); cRenderOrder(); };
+  });
+}
+function cMove(i, dir) {
+  var j = i + dir;
+  if (j < 0 || j >= CORDER.length) return;
+  var t = CORDER[i]; CORDER[i] = CORDER[j]; CORDER[j] = t;
+  cRenderOrder();
+}
+
+function cFillStudent() {
+  var sid = $('eStudent').value;
+  if (!sid) { $('cWho').textContent = '학생을 고르세요.'; return; }
+  var s = STUDENTS.filter(function (x) { return String(x.학생ID) === String(sid); })[0] || {};
+  $('cWho').innerHTML = '<b>' + esc(s.학생이름 || sid) + '</b> (' + esc(sid) + ') 학생의 커리큘럼을 정합니다.';
+  call({ action: 'elem_curriculum_get', studentId: sid }).then(function (r) {
+    var cur = (r && r.ok && r.설정) ? r.설정 : null;
+    CCUR = cur || {};
+    if (cur && cur.교재ID) {
+      if (!CBOOKS.length) { return; }
+      $('cBook').value = cur.교재ID;
+      cRenderUnits(cur.현재Unit);
+    } else if (CBOOKS.length) {
+      $('cBook').value = CBOOKS[0].교재ID;
+      cRenderUnits('');
+      CORDER = [];
+    }
+    if (cur && cur.단계순서 && cur.단계순서.length) CORDER = cur.단계순서.slice();
+    cRenderOrder();
+    cMsgHide();
+    if (cur && cur.설정변경일시) cMsg('저장된 커리큘럼 — ' + esc(cur.교재명 || '') + ' ' + esc(cur.현재Unit || '') + ' · ' + esc(cur.설정변경일시), 'ok');
+  }).catch(function (e) { cMsg('커리큘럼 조회 오류: ' + esc(e), 'err'); });
+}
+
+function cSave() {
+  var sid = $('eStudent').value;
+  if (!sid) { cMsg('학생을 고르세요.', 'err'); return; }
+  var b = cBookById($('cBook').value);
+  if (!b) { cMsg('교재를 고르세요.', 'err'); return; }
+  var unit = $('cUnit').value;
+  if (!unit) { cMsg('Unit을 고르세요.', 'err'); return; }
+  if (!CORDER.length) { cMsg('오늘 학습 순서를 하나 이상 넣으세요.', 'err'); return; }
+  $('cSave').disabled = true;
+  call({ action: 'elem_curriculum_save', 학생ID: sid, 교재ID: b.교재ID, 교재명: b.교재명,
+    현재Unit: unit, 단계순서: CORDER, 오늘단계: CORDER }).then(function (r) {
+    $('cSave').disabled = false;
+    if (!r || !r.ok) { cMsg('저장 실패: ' + esc((r && (r.error || r.code)) || ''), 'err'); return; }
+    var v = r.설정 || {};
+    cMsg('✅ 저장했습니다 — ' + esc(v.교재명 || b.교재명) + ' ' + esc(v.현재Unit || unit) + '<br>' +
+      '오늘 순서: ' + esc((v.오늘단계 || CORDER).map(function (k) { return cStepDef(k)[1]; }).join(' → ')) +
+      '<br><span class="muted">학생 태블릿 화면을 새로고침하면 바로 적용됩니다.</span>', 'ok');
+    loadKidBoard();
+  }).catch(function (e) { $('cSave').disabled = false; cMsg('연결 오류: ' + esc(e), 'err'); });
+}
+
+ 
+function loadKidBoard() {
+  if (!$('token').value || !$('kBody')) return;
+  call({ action: 'elem_curriculum_board' }).then(function (r) {
+    if (!r || !r.ok) { show($('kMsg'), '현황을 불러오지 못했습니다: ' + esc((r && r.error) || ''), 'err'); return; }
+    noteHide($('kMsg'));
+    var rows = r.학생 || [];
+    $('kBody').innerHTML = rows.map(function (s) {
+      if (!s.커리큘럼) {
+        return '<tr><td><b>' + esc(s.학생이름) + '</b><div class="muted">' + esc(s.학생ID) + '</div></td>' +
+          '<td colspan="4" class="muted">커리큘럼 미설정 — 위에서 교재·Unit·순서를 저장하세요.</td></tr>';
+      }
+      var info = '<b>' + esc((s.교재 && s.교재.교재명) || '') + '</b> <span class="kbadge">' + esc(s.단원 || '') + '</span>';
+      var steps = s.오늘단계 || [];
+      var done = steps.filter(function (x) { return x.완료; }).length;
+      var prog = '<span class="kbadge ' + (done === steps.length && steps.length ? 'ok' : 'wait') + '">' + done + ' / ' + steps.length + ' 완료</span>';
+      prog += '<div class="kscore">' + steps.map(function (x) {
+        return '<span class="kbadge ' + (x.완료 ? 'ok' : 'wait') + '">' + (x.완료 ? '✓ ' : '· ') + esc(x.제목) + '</span>';
+      }).join('') + '</div>';
+      var scores = (s.첫시도점수 && s.첫시도점수.length)
+        ? s.첫시도점수.map(function (x) {
+          var line = '<b>' + esc(cShort(x.단계)) + ' 첫 시도 ' + (x.점수 == null ? '-' : x.점수) + '점';
+          if (x.시도횟수 > 1 && x.최신연습점수 != null) line += ' <span class="muted">(연습 ' + x.최신연습점수 + '점 · ' + x.시도횟수 + '회)</span>';
+          return line + '</b>';
+        }).join('<br>') : '<span class="muted">아직 제출 없음</span>';
+      var rec;
+      if (s.녹음 && s.녹음.있음) {
+        rec = '<div class="kqrbox"><div class="kqr">' + (s.녹음.qr || '') + '</div><div class="btns">' +
+          '<button data-copyurl="' + esc(s.녹음.공개URL || '') + '">링크 복사</button>' +
+          '<a href="' + esc(s.녹음.공개URL || '#') + '" target="_blank" rel="noopener">열기</a>' +
+          '<span class="muted">' + esc((s.녹음.길이초 || 0) + '초') + '</span></div></div>';
+      } else {
+        rec = '<span class="muted">녹음 없음</span>';
+      }
+      return '<tr><td><b>' + esc(s.학생이름) + '</b><div class="muted">' + esc(s.학생ID) + ' · ' + esc(s.학년 || '') + '</div></td>' +
+        '<td>' + info + '</td><td>' + prog + '</td><td class="kscore">' + scores + '</td><td>' + rec + '</td></tr>';
+    }).join('') || '<tr><td colspan="5" class="muted">학생이 없습니다.</td></tr>';
+    Array.prototype.forEach.call($('kBody').querySelectorAll('[data-copyurl]'), function (b) {
+      b.onclick = function () {
+        var t = b.getAttribute('data-copyurl') || '';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(t).then(function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '링크 복사'; }, 1200); },
+            function () { window.prompt('아래 링크를 복사하세요', t); });
+        } else { window.prompt('아래 링크를 복사하세요', t); }
+      };
+    });
+  }).catch(function (e) { show($('kMsg'), '연결 오류: ' + esc(e), 'err'); });
+}
+function cShort(k) {
+  return { vocab_paper: '단어시험', book_word: '교재 단어', book_script: '스크립트', book_worksheet: '워크시트', book_test: '테스트' }[k] || k;
+}
+
+ 
+$('cBook').onchange = function () { cRenderUnits(''); };
+$('cUnit').onchange = cUnitInfo;
+$('cAddStep').onclick = function () {
+  var used = CORDER;
+  var avail = CSTEP.filter(function (d) { return used.indexOf(d[0]) < 0; });
+  if (!avail.length) { cMsg('모든 단계를 이미 넣었습니다.', 'warn'); return; }
+  CORDER.push(avail[0][0]);
+  cRenderOrder();
+};
+$('cSave').onclick = cSave;
+$('kRefresh').onclick = loadKidBoard;
+</script>
+</body>
+</html>
+
+
+<style id="wa13TStyle">
+  #wa13TAll{position:fixed;right:16px;bottom:20px;z-index:55;background:linear-gradient(180deg,#2F6BFF,#1E4ED8);
+    color:#fff;border:none;border-radius:999px;padding:12px 18px;font:800 14px/1.1 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    box-shadow:0 10px 22px rgba(30,78,216,.32);cursor:pointer;display:none}
+  #wa13TAll.on{display:block}
+  .wa13-nb{margin-top:8px;padding-top:8px;border-top:1px dashed #D8DEEA;font:700 12px/1.5 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#3A4A6B}
+  .wa13-nb .st{display:inline-block;border-radius:999px;padding:3px 9px;margin-right:6px;font-weight:900;font-size:11.5px;background:#EEF1F7;color:#55617A}
+  .wa13-nb .st.ok{background:#E6F7EE;color:#1B7F4B}
+  .wa13-nb .st.wait{background:#FFF4E0;color:#9A6200}
+  .wa13-nb .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .wa13-nb button{border:none;border-radius:9px;padding:7px 10px;font:800 11.5px/1 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;cursor:pointer;background:#EEF1F7;color:#2A3B5E}
+  .wa13-nb button.pri{background:#2F6BFF;color:#fff}
+  .wa13-nb button.mon{background:#F3ECFF;color:#5B2BD6}
+  .wa13-nb .mon-t{color:#5B2BD6;font-weight:900}
+  #wa13TOv{position:fixed;inset:0;z-index:90;background:rgba(16,24,40,.62);display:none;align-items:center;justify-content:center;padding:18px}
+  #wa13TOv.on{display:flex}
+  #wa13TOv .box{background:#fff;border-radius:16px;width:min(680px,96vw);max-height:86vh;display:flex;flex-direction:column;overflow:hidden}
+  #wa13TOv .hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #E6EAF2}
+  #wa13TOv .hd b{font:900 15px/1.3 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#1E2A44}
+  #wa13TOv .hd button{border:none;background:#EEF1F7;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer}
+  #wa13TOv textarea{flex:1;min-height:320px;border:none;outline:none;padding:14px 16px;resize:none;
+    font:500 13.5px/1.6 "D2Coding","Consolas",monospace;color:#22304A;white-space:pre-wrap}
+  #wa13TOv .ft{display:flex;gap:8px;padding:12px 16px;border-top:1px solid #E6EAF2;flex-wrap:wrap}
+  #wa13TOv .ft button{border:none;border-radius:10px;padding:10px 14px;font:800 13px/1 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;cursor:pointer;background:#EEF1F7;color:#2A3B5E}
+  #wa13TOv .ft button.pri{background:#2F6BFF;color:#fff}
+  #wa13TOv .ft .note{font:700 12px/1.4 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#8A5A00}
+</style>
+
+<button id="wa13TAll" type="button">📊 오늘 초등 전체 통합안내 반영</button>
+<div id="wa13TOv">
+  <div class="box">
+    <div class="hd"><b id="wa13TOvTitle">학부모 문자 초안</b><button type="button" id="wa13TOvClose">닫기</button></div>
+    <textarea id="wa13TOvText" readonly></textarea>
+    <div class="ft">
+      <button type="button" class="pri" id="wa13TOvCopy">문구 복사</button>
+      <button type="button" id="wa13TOvRefresh">시트 반영 새로고침</button>
+      <span class="note">알자 문자는 자동 발송하지 않습니다(테스트). 시트 `알자발송상태`는 '대기'로만 기록됩니다.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var MAP = {};       
+  var CUR = null;     
+  function $(id) { return document.getElementById(id); }
+  function tok() { var t = $('token'); return t ? String(t.value || '').trim() : ''; }
+  function api(p) {
+    return new Promise(function (res) {
+      try {
+        if (!p.token) p.token = tok();
+        google.script.run.withSuccessHandler(res)
+          .withFailureHandler(function (e) { res({ ok: false, error: String(e && e.message || e) }); })
+          .wae3tRun(p);
+      } catch (e) { res({ ok: false, error: String(e && e.message || e) }); }
+    });
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function loadMap() {
+    if (!tok()) return Promise.resolve();
+    return api({ action: 'elem_curriculum_board' }).then(function (r) {
+      if (!r || !r.ok) return;
+      MAP = {};
+      (r.학생 || []).forEach(function (s) {
+        MAP[String(s.학생ID)] = { 안내시트: s.안내시트 || null, 숙제: s.숙제 || null, 이름: s.학생이름 };
+      });
+      decorate();
+    });
+  }
+
+  function studentIdOfRow(tr) {
+    var txt = tr.textContent || '';
+    var m = /([A-Z][A-Z0-9_]{2,})\s*·/.exec(txt) || /\b([A-Z]{2,}[0-9]{2,})\b/.exec(txt);
+    if (m && MAP[m[1]]) return m[1];
+     
+    var keys = Object.keys(MAP);
+    for (var i = 0; i < keys.length; i++) {
+      var nm = MAP[keys[i]] && MAP[keys[i]].이름;
+      if (nm && String(nm).length > 1 && txt.indexOf(nm) >= 0) return keys[i];
+    }
+    return m ? m[1] : '';
+  }
+
+  function decorate() {
+    var body = $('kBody');
+    if (!body) { $('wa13TAll').className = ''; return; }
+    Array.prototype.forEach.call(body.querySelectorAll('tr'), function (tr) {
+      var sid = studentIdOfRow(tr);
+      if (!sid) return;
+      var cell = tr.lastElementChild;
+      if (!cell) return;
+      var old = cell.querySelector('.wa13-nb');
+      if (old) old.parentNode.removeChild(old);
+      var d = MAP[sid];
+      if (!d) return;    
+      var n = d.안내시트 || { 반영: false, 상태: '미반영' };
+      var hw = d.숙제 || { 몬스터수: 0 };
+      var stCls = n.상태 === '승인완료' ? 'ok' : (n.반영 ? 'wait' : '');
+      var html = '<div class="wa13-nb" data-sid="' + esc(sid) + '">'
+        + '<span class="st ' + stCls + '">' + (n.반영 ? '안내시트 반영됨 · ' + esc(n.상태) : '안내시트 미반영') + '</span>'
+        + (n.알자발송상태 ? '<span class="st">알자 ' + esc(n.알자발송상태) + '</span>' : '')
+        + (hw.몬스터수 ? '<div class="mon-t">👾 밀린 숙제 ' + hw.몬스터수 + '일</div>' : '')
+        + '<div class="row">'
+        + '<button type="button" class="pri" data-a="sync">통합안내 시트 반영</button>'
+        + '<button type="button" data-a="view">문구 보기</button>'
+        + (hw.몬스터수 ? '<button type="button" class="mon" data-a="next">이어하기</button><button type="button" class="mon" data-a="new">새 진도</button>' : '')
+        + '</div></div>';
+      cell.insertAdjacentHTML('beforeend', html);
+      var box = cell.querySelector('.wa13-nb');
+      Array.prototype.forEach.call(box.querySelectorAll('[data-a]'), function (b) {
+        b.onclick = function () { act(b.getAttribute('data-a'), sid, d); };
+      });
+    });
+    $('wa13TAll').className = tok() ? 'on' : '';
+  }
+
+  function act(a, sid, d) {
+    if (a === 'view') {
+      api({ action: 'elem_notice_preview', studentId: sid }).then(function (r) {
+        if (!r || !r.ok) { alert((r && r.error) || '문구를 만들지 못했습니다.'); return; }
+        showOverlay(sid, r.안내문, '미리보기(아직 시트에 쓰지 않음)');
+      });
+      return;
+    }
+    if (a === 'sync') {
+      api({ action: 'elem_notice_sync', studentId: sid, teacher: '원장' }).then(function (r) {
+        if (!r || !r.ok) { alert((r && r.error) || '반영에 실패했습니다.'); return; }
+        showOverlay(sid, r.안내문 || '', r.반영 ? ('시트 반영 완료 · ' + (r.행 && r.행.상태)) : (r.사유 || '반영되지 않음'));
+        loadMap();
+      });
+      return;
+    }
+    var mode = a === 'next' ? '이어하기' : '새진도';
+    api({ action: 'elem_nextday_mode', studentId: sid, mode: mode }).then(function (r) {
+      if (!r || !r.ok) { alert((r && r.error) || '처리에 실패했습니다.'); return; }
+      alert(mode + ' 처리 완료\n오늘 단계: ' + (r.오늘단계 || []).join(' → ') + '\n\n' + (r.안내 || ''));
+      loadMap();
+      if (typeof window.loadKidBoard === 'function') window.loadKidBoard();
+    });
+  }
+
+  function showOverlay(sid, text, note) {
+    CUR = sid;
+    $('wa13TOvTitle').textContent = ((MAP[sid] && MAP[sid].이름) || sid) + ' · ' + (note || '');
+    $('wa13TOvText').value = text || '';
+    $('wa13TOv').className = 'on';
+  }
+
+  $('wa13TOvClose').onclick = function () { $('wa13TOv').className = ''; };
+  $('wa13TOvCopy').onclick = function () {
+    var t = $('wa13TOvText');
+    t.removeAttribute('readonly'); t.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    t.setAttribute('readonly', 'readonly');
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t.value).catch(function () {});
+    this.textContent = '복사됨';
+    var b = this; setTimeout(function () { b.textContent = '문구 복사'; }, 1200);
+  };
+  $('wa13TOvRefresh').onclick = function () { if (CUR) act('sync', CUR, MAP[CUR] || {}); };
+  $('wa13TAll').onclick = function () {
+    if (!tok()) { alert('먼저 교사 토큰을 넣어 주세요.'); return; }
+    if (!confirm('오늘 초등 학생 전체의 통합안내 시트 행을 만들거나 갱신할까요?\n(문자 발송은 하지 않습니다)')) return;
+    api({ action: 'elem_notice_sync', all: true, teacher: '원장' }).then(function (r) {
+      if (!r || !r.ok) { alert((r && r.error) || '반영에 실패했습니다.'); return; }
+      alert('통합안내 시트 반영: ' + (r.반영 || 0) + '명 (문자 발송 없음)');
+      loadMap();
+    });
+  };
+
+   
+  function hook() {
+    var body = $('kBody');
+    if (!body) return;
+    new MutationObserver(function () { loadMap(); }).observe(body, { childList: true });
+    loadMap();
+  }
+  var tries = 0;
+  var timer = setInterval(function () {
+    if ($('kBody')) { clearInterval(timer); hook(); }
+    else if (++tries > 40) clearInterval(timer);
+  }, 500);
+  setTimeout(function () { if ($('kBody')) loadMap(); }, 1500);
+})();
+</script>
+
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function api(p) {
+    return new Promise(function (res) {
+      try {
+        google.script.run.withSuccessHandler(res)
+          .withFailureHandler(function (e) { res({ ok: false, error: String(e && e.message || e) }); })
+          .wae3tRun(p);
+      } catch (e) { res({ ok: false, error: String(e && e.message || e) }); }
+    });
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function tok() { var t = $('token'); return t ? String(t.value || '').trim() : ''; }
+
+  function addBox(nb) {
+    if (nb.querySelector('.wa13-cm')) return;
+    var sid = nb.getAttribute('data-sid');
+    if (!sid) return;
+    var box = document.createElement('div');
+    box.className = 'wa13-cm';
+    box.innerHTML = '<div style="margin-top:8px;font:800 11.5px/1.4 \'Apple SD Gothic Neo\',sans-serif;color:#2A3B5E">선생님 코멘트 (입력하면 학부모 안내문 맨 아래 들어가요)</div>'
+      + '<textarea rows="2" placeholder="예: 오늘 발음이 많이 좋아졌어요!" '
+      + 'style="width:100%;box-sizing:border-box;border:1px solid #D8DEEA;border-radius:9px;padding:7px 9px;font:600 12px/1.5 \'Apple SD Gothic Neo\',sans-serif;resize:vertical"></textarea>'
+      + '<div class="row" style="display:flex;gap:6px;margin-top:6px;align-items:center">'
+      + '<button type="button" data-c="save" style="border:none;border-radius:9px;padding:7px 10px;font:800 11.5px/1 \'Apple SD Gothic Neo\',sans-serif;background:#1E4ED8;color:#fff;cursor:pointer">코멘트 저장</button>'
+      + '<span data-c="msg" style="font:700 11px/1.3 \'Apple SD Gothic Neo\',sans-serif;color:#8A5A00"></span></div>';
+    nb.appendChild(box);
+    var ta = box.querySelector('textarea'), msg = box.querySelector('[data-c="msg"]');
+    if (tok()) {
+      api({ action: 'elem_teacher_comment_get', token: tok(), studentId: sid }).then(function (r) {
+        if (r && r.ok && r.코멘트) ta.value = r.코멘트;
+      });
+    }
+    box.querySelector('[data-c="save"]').onclick = function () {
+      if (!tok()) { msg.textContent = '교사 토큰을 먼저 넣어 주세요.'; return; }
+      msg.textContent = '저장 중…';
+      api({ action: 'elem_teacher_comment_save', token: tok(), studentId: sid, 코멘트: ta.value, teacher: '선생님' })
+        .then(function (r) {
+          if (!r || !r.ok) { msg.textContent = (r && r.error) || '저장 실패'; return; }
+          msg.textContent = '저장됨 · 안내문 ' + ((r.안내시트 && r.안내시트.상태) || '반영') ;
+        });
+    };
+  }
+
+  var timer = setInterval(function () {
+    var body = $('kBody');
+    if (!body) return;
+    clearInterval(timer);
+    new MutationObserver(function () {
+      Array.prototype.forEach.call(body.querySelectorAll('.wa13-nb'), addBox);
+    }).observe(body, { childList: true, subtree: true });
+    Array.prototype.forEach.call(body.querySelectorAll('.wa13-nb'), addBox);
+  }, 700);
+})();
+</script>
+
+
+<style id="wa15BookStyle">
+  #wa15BookBar{display:flex;align-items:center;gap:8px;margin:10px 0 6px;flex-wrap:wrap}
+  #wa15BookBar input{flex:1 1 220px;min-width:180px;padding:9px 12px;border:1.5px solid #D8DEE9;border-radius:10px;
+    font:600 13.5px/1.2 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#14203a;background:#fff}
+  #wa15BookBar input:focus{outline:none;border-color:#6C8AE4}
+  #wa15BookBar .fav{flex:0 0 auto;padding:9px 12px;border:1.5px solid #FFCE7A;border-radius:10px;background:#FFF6E2;
+    color:#8A5A00;font:800 13px/1.2 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;cursor:pointer}
+  #wa15BookBar .fav.on{background:#FFE1A8;border-color:#F5A623}
+  #wa15BookBar .cnt{font:700 12px/1.2 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#7A879A}
+</style>
+<script>
+(function () {
+  var FKEY = 'wa15_book_fav';
+  function favs() {
+    try { var a = JSON.parse(localStorage.getItem(FKEY) || '[]'); return a instanceof Array ? a : []; } catch (e) { return []; }
+  }
+  function saveFavs(a) { try { localStorage.setItem(FKEY, JSON.stringify(a)); } catch (e) { } }
+  function bookSelect() {
+    var all = document.querySelectorAll('select');
+    for (var i = 0; i < all.length; i++) {
+      var opts = all[i].options;
+      for (var j = 0; j < opts.length; j++) {
+        if (/\d+\s*단원/.test(String(opts[j].text || ''))) return all[i];
+      }
+    }
+    return null;
+  }
+  function cache(sel) {
+    if (sel.__wa15 && sel.__wa15.length) return sel.__wa15;
+    var out = [];
+    for (var i = 0; i < sel.options.length; i++) {
+      var o = sel.options[i];
+      if (!o.value) continue;
+      out.push({ v: o.value, t: String(o.text || '') });
+    }
+    sel.__wa15 = out;
+    return out;
+  }
+  function rebuild(sel, q) {
+    var list = cache(sel).slice();
+    var f = favs();
+    var match = function (x) { return !q || x.t.toLowerCase().indexOf(q) >= 0; };
+    var favList = list.filter(function (x) { return f.indexOf(x.v) >= 0 && match(x); });
+    var rest = list.filter(function (x) { return f.indexOf(x.v) < 0 && match(x); });
+    var keep = sel.value;
+    while (sel.firstChild) sel.removeChild(sel.firstChild);
+    function fill(parent, arr) {
+      arr.forEach(function (x) {
+        var o = document.createElement('option');
+        o.value = x.v; o.text = x.t;
+        parent.appendChild(o);
+      });
+    }
+    if (favList.length) {
+      var g1 = document.createElement('optgroup');
+      g1.label = '⭐ 즐겨찾기';
+      fill(g1, favList);
+      sel.appendChild(g1);
+    }
+    if (rest.length || !favList.length) {
+      var g2 = document.createElement('optgroup');
+      g2.label = favList.length ? '전체 교재' : '교재';
+      fill(g2, rest);
+      sel.appendChild(g2);
+    }
+    var ok = false;
+    for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === keep) ok = true;
+    if (ok) sel.value = keep;
+    else if (sel.options.length) sel.selectedIndex = 0;
+  }
+  function place(sel) {
+    if (document.getElementById('wa15BookBar')) return;
+    var bar = document.createElement('div');
+    bar.id = 'wa15BookBar';
+    bar.innerHTML = '<input type="search" id="wa15BookQ" placeholder="교재명·시리즈 검색 (예: Bricks, Reading)">'
+      + '<button type="button" class="fav" id="wa15BookFav">⭐ 즐겨찾기</button>'
+      + '<span class="cnt" id="wa15BookCnt"></span>';
+    var box = sel.parentNode;
+    box.insertBefore(bar, sel);
+    var q = document.getElementById('wa15BookQ');
+    var btn = document.getElementById('wa15BookFav');
+    var cnt = document.getElementById('wa15BookCnt');
+    function stamp() {
+      var f = favs(), v = sel.value;
+      btn.className = 'fav' + (f.indexOf(v) >= 0 ? ' on' : '');
+      btn.textContent = (f.indexOf(v) >= 0 ? '⭐ 즐겨찾기 해제' : '⭐ 즐겨찾기');
+      cnt.textContent = f.length ? ('즐겨찾기 ' + f.length + '권') : '';
+    }
+    q.addEventListener('input', function () { rebuild(sel, String(q.value || '').trim().toLowerCase()); stamp(); });
+    btn.addEventListener('click', function () {
+      var v = sel.value; if (!v) return;
+      var f = favs(), k = f.indexOf(v);
+      if (k >= 0) f.splice(k, 1); else f.push(v);
+      saveFavs(f);
+      rebuild(sel, String(q.value || '').trim().toLowerCase());
+      sel.value = v;
+      stamp();
+    });
+    sel.addEventListener('change', stamp);
+    rebuild(sel, '');
+    stamp();
+  }
+  function scan() {
+    var sel = bookSelect();
+    if (!sel) return false;
+    if (!sel.__wa15) cache(sel);
+    place(sel);
+     
+    if (!sel.querySelector('optgroup')) {
+      var qi = document.getElementById('wa15BookQ');
+      rebuild(sel, String((qi && qi.value) || '').trim().toLowerCase());
+    }
+    return true;
+  }
+  function boot() {
+    scan();
+    var n = 0;
+    var t = setInterval(function () { scan(); if (++n > 40) clearInterval(t); }, 500);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+<style id="wa16AssignStyle">
+  #wa16AssignBar{display:flex;align-items:center;gap:8px;margin:10px 0 6px;flex-wrap:wrap}
+  #wa16AssignBar input{flex:1 1 200px;min-width:150px;padding:9px 12px;border:1.5px solid #D8DEE9;border-radius:10px;
+    font:600 13.5px/1.2 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#14203a;background:#fff}
+  #wa16AssignBar input:focus{outline:none;border-color:#6C8AE4}
+  #wa16AssignBar .fav{flex:0 0 auto;padding:9px 12px;border:1.5px solid #FFCE7A;border-radius:10px;background:#FFF6E2;
+    color:#8A5A00;font:800 13px/1.2 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;cursor:pointer}
+  #wa16AssignBar .fav.on{background:#FFE1A8;border-color:#F5A623}
+  #wa16AssignBar .cnt{font:700 12px/1.2 "Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#7A879A}
+  #sid[size]{height:auto;min-height:132px;padding:6px}
+  #bkSel{padding:8px}
+  #wa16Chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .wa16-chip{display:inline-flex;align-items:center;gap:6px;background:#EEF6FF;border:1px solid #BFD8FF;color:#1E4ED8;
+    border-radius:999px;padding:6px 10px;font:800 12px/1.15 "Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+  .wa16-chip button{border:0;background:none;color:#1E4ED8;font-weight:900;cursor:pointer;font-size:13px;padding:0 2px}
+</style>
+<script>
+
+
+(function () {
+  var META = null;
+  var BOOKS = [];
+  var PICK = [];                  
+  var FKEY = 'wa16_bk_fav';
+  function $(id) { return document.getElementById(id); }
+  function tok() { var t = $('token'); return t ? String(t.value || '').trim() : ''; }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function call(p) {
+    return new Promise(function (res) {
+      try {
+        if (!p.token) p.token = tok();
+        google.script.run.withSuccessHandler(res)
+          .withFailureHandler(function (e) { res({ ok: false, error: String(e && e.message || e) }); })
+          .wae3tRun(p);
+      } catch (e) { res({ ok: false, error: String(e) }); }
+    });
+  }
+  function favs() {
+    try { var a = JSON.parse(localStorage.getItem(FKEY) || '[]'); return a instanceof Array ? a : []; }
+    catch (e) { return []; }
+  }
+  function setFavs(a) { try { localStorage.setItem(FKEY, JSON.stringify(a)); } catch (e) { } }
+  function bookOf(id) {
+    for (var i = 0; i < BOOKS.length; i++) if (BOOKS[i].교재ID === id) return BOOKS[i];
+    return null;
+  }
+  function bookLabel(b) {
+    var g = b.학년 ? ' [' + b.학년 + ']' : '';
+    return (b.교재명 || b.교재ID) + g + ' · ' + b.교재ID;
+  }
+
+   
+  function fillGrades() {
+    var sel = $('stGrade');
+    if (!sel || !META) return;
+    var cur = sel.value, gs = [];
+    (META.학년 || []).forEach(function (g) { if (g && gs.indexOf(g) < 0) gs.push(g); });
+    (META.학생 || []).forEach(function (s) { if (s.학년 && gs.indexOf(s.학년) < 0) gs.push(s.학년); });
+    gs.sort(function (a, b) { return String(a).localeCompare(String(b), 'ko'); });
+    var html = '<option value="">전체 학년</option>';
+    gs.forEach(function (g) { html += '<option value="' + esc(g) + '">' + esc(g) + '</option>'; });
+    sel.innerHTML = html;
+    sel.value = cur || '';
+  }
+  function fillStudents() {
+    var sel = $('sid');
+    if (!sel || !META) return;
+    var q = String(($('stQ') && $('stQ').value) || '').toLowerCase().trim();
+    var g = String(($('stGrade') && $('stGrade').value) || '');
+    var keep = sel.value;
+    var rows = (META.학생 || []).filter(function (s) {
+      if (g && String(s.학년) !== g) return false;
+      if (!q) return true;
+      return (String(s.id) + ' ' + String(s.이름) + ' ' + String(s.반)).toLowerCase().indexOf(q) >= 0;
+    });
+    var html = '';
+    rows.forEach(function (s) {
+      var tail = '';
+      if (s.학년) tail += ' (' + s.학년 + ')';
+      if (s.반) tail += ' ' + s.반;
+      if (s.상태 && String(s.상태).indexOf('퇴원') >= 0) tail += ' · ' + s.상태;
+      if (s.배정가능) tail += ' ✓';
+      html += '<option value="' + esc(s.id) + '">' + esc(s.id) + ' · ' + esc(s.이름 || '') + esc(tail) + '</option>';
+    });
+    if (!html) html = '<option value="">(조건에 맞는 학생이 없습니다)</option>';
+    sel.innerHTML = html;
+    var ok = false;
+    for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === keep) ok = true;
+    if (ok) sel.value = keep;
+    else if (sel.options.length) sel.selectedIndex = 0;
+    var cnt = $('stCnt');
+    if (cnt) cnt.textContent = '(' + rows.length + '명 / 전체 ' + (META.학생 || []).length + '명)';
+  }
+
+   
+  function fillBooks() {
+    var sel = $('bkSel');
+    if (!sel || !META) return;
+    var q = String(($('bkQ') && $('bkQ').value) || '').toLowerCase().trim();
+    var f = favs();
+    var match = function (b) {
+      if (!q) return true;
+      return (String(b.교재명) + ' ' + String(b.출판사) + ' ' + String(b.교재ID) + ' ' + String(b.학년))
+        .toLowerCase().indexOf(q) >= 0;
+    };
+    var fv = [], rest = [];
+    BOOKS.forEach(function (b) {
+      if (!match(b)) return;
+      (f.indexOf(b.교재ID) >= 0 ? fv : rest).push(b);
+    });
+    var html = '';
+    if (fv.length) {
+      html += '<optgroup label="⭐ 즐겨찾기">';
+      fv.forEach(function (b) { html += '<option value="' + esc(b.교재ID) + '">' + esc(bookLabel(b)) + '</option>'; });
+      html += '</optgroup>';
+    }
+    html += '<optgroup label="' + (fv.length ? '전체 교재' : '승인 교재') + '">';
+    rest.forEach(function (b) { html += '<option value="' + esc(b.교재ID) + '">' + esc(bookLabel(b)) + '</option>'; });
+    html += '</optgroup>';
+    sel.innerHTML = html;
+    var cnt = $('bkCnt');
+    if (cnt) cnt.textContent = (fv.length + rest.length) + ' / ' + BOOKS.length + '권';
+    var bf = $('bkFav');
+    if (bf) {
+      var cur = sel.value;
+      var isFav = cur && f.indexOf(cur) >= 0;
+      bf.className = 'fav' + (isFav ? ' on' : '');
+      bf.textContent = isFav ? '⭐ 즐겨찾기 해제' : '⭐ 즐겨찾기';
+    }
+  }
+  function drawChips() {
+    var box = $('wa16Chips');
+    var hid = $('bookIds');
+    if (hid) hid.value = PICK.join(',');
+    if (!box) return;
+    if (!PICK.length) { box.innerHTML = ''; return; }
+    var html = '';
+    PICK.forEach(function (id) {
+      var b = bookOf(id);
+      var label = b ? (b.교재명 || id) : id;
+      html += '<span class="wa16-chip">' + esc(label) + ' <button type="button" data-rm="' + esc(id) + '">✕</button></span>';
+    });
+    box.innerHTML = html;
+    Array.prototype.forEach.call(box.querySelectorAll('[data-rm]'), function (bn) {
+      bn.onclick = function () {
+        var id = bn.getAttribute('data-rm');
+        PICK = PICK.filter(function (x) { return x !== id; });
+        drawChips();
+      };
+    });
+  }
+  function addPick(id) {
+    if (!id) return;
+    if (PICK.indexOf(id) >= 0) return;
+    if (PICK.length >= 10) { note('한 번에 10권까지 담을 수 있어요.'); return; }
+    PICK.push(id);
+    drawChips();
+  }
+  function note(t) {
+    var el = $('asMsg');
+    if (!el) return;
+    el.className = 'note warn';
+    el.innerHTML = esc(t);
+  }
+
+   
+  function load(force) {
+    if (META && !force) { fillGrades(); fillStudents(); fillBooks(); return; }
+    if (!tok()) {
+      var cnt = $('stCnt');
+      if (cnt) cnt.textContent = '(교사 토큰을 넣으면 학생·교재 목록을 불러옵니다)';
+      return;
+    }
+    var cnt2 = $('stCnt');
+    if (cnt2) cnt2.textContent = '(불러오는 중…)';
+    call({ action: 'teacher_meta' }).then(function (r) {
+      if (!r || !r.ok) {
+        if (cnt2) cnt2.textContent = '(' + ((r && r.error) || '목록을 불러오지 못했습니다') + ')';
+        return;
+      }
+      META = r;
+      BOOKS = r.교재 || [];
+      fillGrades(); fillStudents(); fillBooks(); drawChips();
+    });
+  }
+
+  function boot() {
+    if (!$('paneAssign')) return;
+    var q = $('stQ'); if (q) q.oninput = function () { fillStudents(); };
+    var g = $('stGrade'); if (g) g.onchange = function () { fillStudents(); };
+    var bq = $('bkQ'); if (bq) bq.oninput = function () { fillBooks(); };
+    var bs = $('bkSel');
+    if (bs) {
+      bs.onchange = function () { addPick(bs.value); bs.selectedIndex = -1; };
+    }
+    var bf = $('bkFav');
+    if (bf) {
+      bf.onclick = function () {
+        var sel = $('bkSel');
+        var id = sel && sel.value;
+        if (!id) { note('즐겨찾기로 묶을 교재를 먼저 고르세요.'); return; }
+        var f = favs();
+        var i = f.indexOf(id);
+        if (i >= 0) f.splice(i, 1); else f.push(id);
+        setFavs(f);
+        fillBooks();
+      };
+    }
+     
+    var tabA = $('tabAssign');
+    if (tabA) {
+      var old = tabA.onclick;
+      tabA.addEventListener('click', function () { setTimeout(function () { load(false); }, 30); });
+    }
+    var t = $('token');
+    if (t) t.addEventListener('change', function () { load(true); });
+    var btn = $('btnAssign');
+    if (btn) {
+      btn.addEventListener('click', function () {
+         
+        setTimeout(function () { PICK = []; drawChips(); }, 50);
+      });
+    }
+    var sb = $('wa16SetupBtn');
+    if (sb) {
+      sb.onclick = function () {
+        var m = $('wa16SetupMsg');
+        sb.disabled = true;
+        if (m) { m.className = 'note'; m.textContent = '실행 중…'; }
+        google.script.run.withSuccessHandler(function (r) {
+          sb.disabled = false;
+          if (!m) return;
+          m.className = 'note ok';
+          m.textContent = '완료 · 초등 ' + ((r && r.초등학생수) || 0) + '명 · 단어장 ' + ((r && r.단어장수) || 0) + '권 · 리포트 ' + ((r && r.리포트파일) || '-');
+        }).withFailureHandler(function (e) {
+          sb.disabled = false;
+          if (m) { m.className = 'note warn'; m.textContent = '오류: ' + String((e && e.message) || e); }
+        }).wae16Setup1124();
+      };
+    }
+    load(false);
+    setTimeout(function () { load(false); }, 1200);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>위너스 학원 화면</title>
+<style>
+  :root{--navy:#16306b;--ink:#1b2440;--muted:#6b7785;--line:#e3e8f1;--bg:#f2f5fb;--green:#1f6f4a;--mint:#e8f5ee;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+       padding:18px 14px 40px}
+  .wrap{max-width:640px;margin:0 auto}
+  h1{font-size:20px;margin:6px 0 2px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 18px}
+  h2{font-size:14px;margin:22px 0 8px;color:var(--navy)}
+  a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 16px;margin:9px 0;
+         text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(20,40,80,.04)}
+  a.card:active{transform:scale(.995)}
+  .t{font-size:15.5px;font-weight:800;display:flex;align-items:center;gap:8px}
+  .d{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+  .badge{font-size:10.5px;font-weight:700;color:var(--green);background:var(--mint);border-radius:999px;padding:3px 8px}
+  .note{font-size:12px;color:var(--muted);margin-top:26px;line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>위너스 학원 화면</h1>
+  <p class="sub">폰·태블릿에서 바로 여는 주소입니다. (구글 로그인 필요 없음 · 화면 안에서 이름·핀 입력)</p>
+
+  <h2>클리닉</h2>
+  <a class="card" href="clinic.html">
+    <div class="t">학생 화면 <span class="badge">클리닉·숙제</span></div>
+    <div class="d">오늘 할 클리닉 · 숙제 사진 올리기 · 오답 다시 풀기 · 내 계획</div>
+  </a>
+  <a class="card" href="clinic-teacher.html">
+    <div class="t">선생님 화면 <span class="badge">교사 키</span></div>
+    <div class="d">계획표 만들기 · 자기주도 승인 · 숙제 배정·채점 · 새 교재 올리기</div>
+  </a>
+
+  <h2>수학 숙제</h2>
+  <a class="card" href="math-wrong.html">
+    <div class="t">숙제 오답 체크 <span class="badge">페이지별 터치</span></div>
+    <div class="d">학년 → 학생 → 교재 → 페이지 줄마다 틀린 번호 터치 → [저장]. 줄마다 중간 저장 · 완료페이지 숨기기 · 학원 PC 콘솔 오답함으로 전달</div>
+  </a>
+
+  <h2>수학 기출</h2>
+  <a class="card" href="math.html">
+    <div class="t">QR 채점 (학생 시험지)</div>
+    <div class="d">시험지 QR을 찍으면 이 화면이 열립니다. (?exam=시험코드)</div>
+  </a>
+  <a class="card" href="math-teacher.html">
+    <div class="t">채점 교사 화면 <span class="badge">토큰</span></div>
+    <div class="d">시험지 만들기 · 선생님 핀 관리 · 채점 기록</div>
+  </a>
+
+  <h2>영어</h2>
+  <a class="card" href="english-console.html">
+    <div class="t">영어 선생님 통합 관리 <span class="badge">선생님 화면</span></div>
+    <div class="d">문제지 선택·배정·출력·성적 확인 + <b>📄 영어 문제지 탭의 숙제 오답(페이지별 터치·줄별 저장)</b></div>
+  </a>
+  <a class="card" href="english-elem.html">
+    <div class="t">초등 학습 (태블릿) <span class="badge">SM-P200</span></div>
+    <div class="d">이름 + 4자리 핀으로 입장 · 단어·스크립트·워크시트 · 숙제 링크(?hw=)</div>
+  </a>
+  <a class="card" href="english-paper.html">
+    <div class="t">영어 문제지 QR 채점</div>
+    <div class="d">영어 시험지 QR을 찍으면 열립니다. (?exam=시험코드)</div>
+  </a>
+  <a class="card" href="english-teacher.html">
+    <div class="t">영어 교사 화면 <span class="badge">토큰</span></div>
+    <div class="d">교재 등록·배정 · 초등 설정 · 회차 현황</div>
+  </a>
+
+  <p class="note">
+    이 주소는 화면만 담당하고, 실제 데이터는 학원의 Google Apps Script 서버와 직접 주고받습니다.<br>
+    토큰·핀은 저장되어 있지 않아 각 화면에서 한 번 입력하면 그 기기에만 기억됩니다.
+  </p>
+</div>
+</body>
+</html>
