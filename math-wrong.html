@@ -694,6 +694,12 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       if (root.firstChild !== tabsBar) root.insertBefore(tabsBar, root.firstChild);
     }
     paintTabs();
+    /* 다른 창(탭)에서 학생·답안지를 열거나 닫으면 이 창의 「열린 탭」 바도 바로 따라 갱신한다 */
+    try {
+      global.addEventListener('storage', function (ev) {
+        if (ev && (!ev.key || ev.key === TABK)) { try { paintTabs(); } catch (e) { } }
+      });
+    } catch (e) { }
 
     /* ═══════════════ 로그인 ═══════════════ */
     var loginWrap = el('div', 'wb-login');
