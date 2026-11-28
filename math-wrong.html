@@ -638,7 +638,12 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       paintTabs();
     }
     function openNamed(href, k) {
-      var name = 'wb_' + String(k || 'x').replace(/[^A-Za-z0-9_-]/g, '_');
+      /* 창 이름 — 교재 ID에 한글·'/'가 많아 글자만 남기면 서로 다른 교재가 같은 창으로 겹친다.
+         그래서 키의 해시를 붙여 늘 다르게 만든다(같은 키는 언제나 같은 창 → 중복 탭 없음). */
+      var raw = String(k || 'x');
+      var hh = 0;
+      for (var hi = 0; hi < raw.length; hi++) { hh = (hh * 31 + raw.charCodeAt(hi)) | 0; }
+      var name = 'wb_' + raw.replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 12) + '_' + (hh >>> 0).toString(36);
       var w = null;
       try { w = global.open(href, name); } catch (e) { }
       if (w) { try { w.focus(); } catch (e) { } return true; }
