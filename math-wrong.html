@@ -2842,7 +2842,10 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
     /* ═══════════════ 교사용 답안지 탭 (?mode=answers) ═══════════════ */
     function bookTitleOf(id) {
       var b = (S.books || []).filter(function (x) { return String(x.bookId) === String(id); })[0];
-      return (b && b.title) ? b.title : '답안지';
+      if (b && b.title) return b.title;
+      /* 명단·교재 목록을 받기 전에는 교재 ID('중2-2/올백_중2-2_기말')에서 이름을 먼저 만든다 */
+      var s = String(id || '').split('/').pop().replace(/_/g, ' ').trim();
+      return s || '답안지';
     }
     function ansHrefOf(id) {
       return 'math-wrong.html?mode=answers' + (id ? '&bid=' + encodeURIComponent(id) : '');
