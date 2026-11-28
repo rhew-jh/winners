@@ -649,30 +649,36 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       global.location.href = href;
       return true;
     }
+    /* 3차(2026-11-28): 「선생님 화면」은 탭바의 첫 칸으로 늘 붙박이 —
+       답안지·채점·오답지 화면에서도 한 번에 선생님 화면으로 돌아올 수 있다. */
+    var HOME_TAB = { k: 'teacher', label: '🏠 선생님 화면', href: 'math-wrong.html' };
     function paintTabs() {
       if (!tabsBar) return;
-      var list = tabsLoad();
+      var list = tabsLoad().filter(function (t) { return t && t.k !== 'teacher'; });
       var cur = curTabKey();
+      var isStudent = /[?&]mode=student/.test(String(global.location ? global.location.search : ''));
       tabsBar.innerHTML = '';
-      if (!list.length || /[?&]mode=student/.test(String(global.location ? global.location.search : ''))) {
-        tabsBar.classList.add('hide');
-        return;
-      }
+      /* 학생 자가 입력 화면에서는 선생님용 탭바를 띄우지 않는다 */
+      if (isStudent) { tabsBar.classList.add('hide'); return; }
+      /* 선생님 화면에서는 열어 둔 탭이 있을 때만, 채점·답안지·오답지 화면에서는 언제나 보인다 */
+      if (cur === 'teacher' && !list.length) { tabsBar.classList.add('hide'); return; }
       tabsBar.classList.remove('hide');
       tabsBar.appendChild(el('span', 'lb', '열린 탭'));
-      list.forEach(function (t) {
+      [HOME_TAB].concat(list).forEach(function (t) {
         var a = document.createElement('a');
         a.className = 'wb-tabb' + (t.k === cur ? ' cur' : '');
         a.href = t.href || 'math-wrong.html';
         a.title = t.label;
         a.appendChild(el('span', '', t.label));
-        var x = el('i', '', '×');
-        x.title = '탭 목록에서 빼기';
-        x.onclick = function (ev) {
-          if (ev) { ev.preventDefault(); ev.stopPropagation(); }
-          tabDel(t.k);
-        };
-        a.appendChild(x);
+        if (t.k !== 'teacher') {
+          var x = el('i', '', '×');
+          x.title = '탭 목록에서 빼기';
+          x.onclick = function (ev) {
+            if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+            tabDel(t.k);
+          };
+          a.appendChild(x);
+        }
         a.onclick = function (ev) {
           if (ev) { ev.preventDefault(); }
           if (t.k === cur) return;
@@ -2799,10 +2805,11 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       if (openNamed(href, k)) wSay(s.name + ' 학생을 새 탭에서 열었습니다. (탭 이름 = ' + s.name + ' · 위 「열린 탭」으로 언제든 전환)');
     }
     function openAnswersTab() {
-      var q = 'mode=answers' + (W.book ? '&bid=' + encodeURIComponent(W.book.bookId) : '');
-      var href = 'math-wrong.html?' + q;
-      var k = 'ans:' + (W.book ? W.book.bookId : '');
-      tabAdd(k, '📖 ' + (W.book ? W.book.title : '답안지'), href);
+      var id = W.book ? W.book.bookId : '';
+      var href = ansHrefOf(id);
+      var k = 'ans:' + id;
+      /* 교재를 아직 안 골랐으면 빈 답안지 화면만 연다 — 교재를 고를 때 그 교재 탭이 생긴다 */
+      if (id) tabAdd(k, '📖 ' + W.book.title, href);
       if (openNamed(href, k)) wSay('답안지를 새 탭에서 열었습니다. (탭 이름 = 교재명 · 위 「열린 탭」으로 복귀)');
     }
     function openPaperTab(it, s) {
@@ -2828,9 +2835,20 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
     }
 
     /* ═══════════════ 교사용 답안지 탭 (?mode=answers) ═══════════════ */
+    function bookTitleOf(id) {
+      var b = (S.books || []).filter(function (x) { return String(x.bookId) === String(id); })[0];
+      return (b && b.title) ? b.title : '답안지';
+    }
+    function ansHrefOf(id) {
+      return 'math-wrong.html?mode=answers' + (id ? '&bid=' + encodeURIComponent(id) : '');
+    }
     function openAnswersPage(bid) {
       loginWrap.classList.add('hide'); app.classList.add('hide'); stuWrap.classList.add('hide');
       root.innerHTML = '';
+      /* 3차(2026-11-28): 답안지 화면에서도 맨 위 「열린 탭」 바가 사라지지 않도록 먼저 되붙인다.
+         (예전에는 root.innerHTML='' 로 탭바가 같이 지워져 돌아갈 길이 없었다) */
+      if (bid) tabAdd('ans:' + bid, '📖 ' + bookTitleOf(bid), ansHrefOf(bid));
+      paintTabs();
       var head = el('div', 'wb-bar');
       head.appendChild(el('div', 'wb-date', '📖 교재 답안지'));
       var back = btn('wb-mini', '← 선생님 화면');
@@ -2852,11 +2870,29 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
       var lastEl = el('span', 'wb-last hide', '');
       bar2.appendChild(lastEl);
       root.appendChild(bar2);
-      var st = el('div', 'wb-status', '교재를 고르면 답안지가 나옵니다. (O/X 체크 없이 답만 보는 화면입니다)');
+      var st = el('div', 'wb-status', '교재를 고르면 답안지가 나옵니다. 교재마다 새 탭으로 열리니 위 「열린 탭」에서 오가세요. (O/X 체크 없이 답만 보는 화면입니다)');
       root.appendChild(st);
       var host = el('div', 'wb-mx');
       root.appendChild(host);
       var D = { pages: [], quick: {}, book: null };
+
+      /* 3차(2026-11-28): 답안지 화면에서 다른 교재를 고르면 그 교재 전용 새 탭(wb_ans_<bid>)으로 연다.
+         새 창이 막히는 인앱 브라우저에서는 같은 창으로 넘어가고, 위 「열린 탭」 바에서 교재끼리 오간다. */
+      function openBookAnswers(id) {
+        if (!id) return;
+        var k = 'ans:' + id, href = ansHrefOf(id), label = '📖 ' + bookTitleOf(id);
+        tabAdd(k, label, href);
+        if (!openNamed(href, k)) {
+          sel.value = (D.book && D.book.bookId) || '';
+          st.className = 'wb-status err';
+          st.textContent = '새 탭을 열지 못했습니다. 위 「열린 탭」에서 다시 눌러 주세요.';
+          return;
+        }
+        /* 이 창은 지금 보던 교재를 그대로 두고, 고른 교재는 새 탭에서 본다 */
+        sel.value = (D.book && D.book.bookId) || '';
+        st.className = 'wb-status';
+        st.textContent = bookTitleOf(id) + ' 답안지를 새 탭으로 열었습니다. 위 「열린 탭」에서 오가세요.';
+      }
 
       function render() {
         host.innerHTML = '';
@@ -2907,7 +2943,11 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
           D.book = (r.book || {});
           document.title = (D.book.title || '답안지');
           tabAdd('ans:' + (D.book.bookId || id), '📖 ' + (D.book.title || '답안지'),
-                 'math-wrong.html?mode=answers&bid=' + encodeURIComponent(id));
+                 ansHrefOf(D.book.bookId || id));
+          /* 빈 답안지 화면에서 교재를 골랐으면 주소에도 교재를 적어 둔다(새로고쳐도 그 교재, 탭 표시도 맞음) */
+          try { global.history.replaceState(null, '', ansHrefOf(D.book.bookId || id)); } catch (e) { }
+          paintTabs();
+          if (!sel.value) sel.value = D.book.bookId || id;
           var nums = D.pages.map(function (p) { return parseInt(p.page, 10); }).filter(function (n) { return !isNaN(n); });
           if (nums.length) {
             lastEl.textContent = '마지막 ' + Math.max.apply(null, nums) + '쪽';
@@ -2930,7 +2970,13 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
         setTimeout(function () { row.classList.remove('flash'); }, 1400);
       };
       inp.onkeydown = function (e) { if (e.key === 'Enter') go.onclick(); };
-      sel.onchange = function () { loadBook(sel.value); };
+      sel.onchange = function () {
+        var id = sel.value;
+        if (!id) return;
+        if (D.book && String(D.book.bookId) === String(id)) return;  /* 지금 보는 교재면 그대로 */
+        if (!D.book) { loadBook(id); return; }   /* 빈 답안지 화면에서 처음 고른 교재는 이 탭에 그대로 */
+        openBookAnswers(id);
+      };
 
       ensureRoster().then(function (ok) {
         if (!ok) {
@@ -2956,6 +3002,8 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
     function openPaperPage(sid, prid, bid) {
       loginWrap.classList.add('hide'); app.classList.add('hide'); stuWrap.classList.add('hide');
       root.innerHTML = '';
+      /* 3차(2026-11-28): 오답지 화면에서도 맨 위 「열린 탭」 바를 유지한다 */
+      paintTabs();
       var P = { student: null, bookId: bid || '', paper: null, pages: [], quick: {}, saved: {}, marks: {}, busy: false };
       var head = el('div', 'wb-bar');
       head.appendChild(el('div', 'wb-date', '오답지 답안입력'));
