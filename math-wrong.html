@@ -317,6 +317,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .wb-hwq.x.on{background:#b23a32;border-color:#b23a32;color:#fff}
 .wb-hwq.t.on{background:#b7791f;border-color:#b7791f;color:#fff}
 .wb-hwq.o.on{background:#1f7a4d;border-color:#1f7a4d;color:#fff}
+.wb-hwq.fp.on{background:#6d28d9;border-color:#6d28d9;color:#fff}
 .wb-ansbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 10px}
 .wb-ansbar select{min-height:38px;border:1px solid #d3e0ec;border-radius:10px;padding:4px 8px;font-size:13.5px}
 .wb-anspg{display:grid;grid-template-columns:66px 1fr;gap:8px;align-items:start;
@@ -1006,6 +1007,16 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
               };
               row.appendChild(q);
             });
+            /* 2차: 풀이 프리패스 토글 — 켜면 '풀이과정없음' 감점·재풀이 대상에서 빠진다 */
+            var fpB = btn('wb-hwq fp' + (FP_TODAY[s.id] ? ' on' : ''), '✍');
+            fpB.title = FP_TODAY[s.id]
+              ? s.name + ' — 풀이 프리패스 켜짐 (다시 누르면 해제)'
+              : s.name + ' — 풀이 프리패스: 풀이를 안 써도 인정(감점·재풀이 제외)';
+            fpB.onclick = function (ev) {
+              if (ev && ev.stopPropagation) ev.stopPropagation();
+              setFp(s, !FP_TODAY[s.id]);
+            };
+            row.appendChild(fpB);
           }
           sc.appendChild(row);
         });
@@ -1061,6 +1072,22 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
        → 오늘 저장했나(✓) · 확인필요 · 단골 오답 TOP3 · 또답 기록까지 한 번에 얻는다. */
     var STAT = { bySid: {}, loading: {}, allAt: 0 };
     var HW_TODAY = {};        /* 오늘 원클릭 숙제 체크 {학생ID: {mark, und}} */
+    var FP_TODAY = {};        /* 풀이 프리패스 {학생ID: 1} — 2026-11-28 2차 */
+    /* 풀이 프리패스 — 풀이과정을 쓰기 어려운 학생은 '풀이없음' 감점·재풀이에서 뺀다. */
+    function setFp(s, on) {
+      if (!s) return;
+      var was = !!FP_TODAY[s.id];
+      if (on) FP_TODAY[s.id] = 1; else delete FP_TODAY[s.id];
+      wPick.paintStudents();
+      srv('w62FpSet', { pin: pinArg(), admin: S.admin, sid: s.id, use: on ? 'Y' : 'N' })
+        .then(function (r) {
+          wSay((r && r.message) ? r.message : (s.name + ' 풀이 프리패스 ' + (on ? '켬' : '끔')));
+        }).catch(function (e) {
+          if (was) FP_TODAY[s.id] = 1; else delete FP_TODAY[s.id];
+          wPick.paintStudents();
+          wSay('풀이 프리패스를 저장하지 못했습니다: ' + ((e && e.message) || '연결 오류'), true);
+        });
+    }
     /* 원클릭 숙제 체크 — ×는 수행력 0으로 서버가 저장한다(2026-11-28). */
     function markHw(s, mark) {
       var prev = (HW_TODAY[s.id] || {}).mark || '';
@@ -2754,6 +2781,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
         S.books = r.books || [];
         if (r.today) S.today = r.today;
         HW_TODAY = r.hw || {};
+        FP_TODAY = r.fp || {};
         return true;
       }).catch(function () { return false; });
     }
@@ -3510,6 +3538,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
         S.books = r.books || [];
         S.scope = r.scope || '';
         HW_TODAY = r.hw || {};
+        FP_TODAY = r.fp || {};
         if (r.today) { S.today = r.today; barDate.textContent = dayText(S.today); }
         if (S.scope && S.scope !== '전체' && !S.teacher.admin) {
           barWho.textContent = S.teacher.name + ' 선생님 · ' + S.scope;
